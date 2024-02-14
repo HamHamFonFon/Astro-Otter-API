@@ -55,6 +55,40 @@ services:
         published: ${HTTP3_PORT:-443}
         protocol: udp
 
+  elasticsearch:
+    image: elasticsearch:7.17.18
+    container_name: elasticsearch_dso
+    ports:
+      - "9200:9200"
+    environment:
+      - cluster.name=demo
+      - bootstrap.memory_lock=true
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - http.cors.allow-headers=X-Requested-With,Content-Type,Content-Length,Authorization
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+  
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.14
+    container_name: dso_kibana
+    links:
+      - elasticsearch
+    ports:
+      - "5601:5601"
+        
+  redis:
+    image: "redis:latest"
+    hostname: redis
+    container_name: dso_redis
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    restart: always
+    ports:
+      - '6379:6379'
 ###> doctrine/doctrine-bundle ###
   database:
     image: postgres:${POSTGRES_VERSION:-15}-alpine
@@ -77,6 +111,7 @@ volumes:
   php_socket:
   caddy_data:
   caddy_config:
+  es_data:
 ###> doctrine/doctrine-bundle ###
   db_data:
 ###< doctrine/doctrine-bundle ###
