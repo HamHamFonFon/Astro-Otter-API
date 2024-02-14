@@ -9,7 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 #[ApiResource(
     operations: [
-        new Post()
+        new Post(
+            status: 301
+        )
     ]
 )]
 class Contact
