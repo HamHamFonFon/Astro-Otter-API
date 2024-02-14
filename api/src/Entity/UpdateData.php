@@ -7,7 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 class UpdateData
 {
-    #[ORM\Id, ORM\Column, ORM\GeneratedValue]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
     private ?int $id = null;
 
     private \DateTimeInterface $date;
