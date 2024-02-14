@@ -9,6 +9,7 @@
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.12",
+        "elasticsearch/elasticsearch": "^7.17",
         "hamhamfonfon/astrobin-ws": "^2.6",
         "lexik/jwt-authentication-bundle": "^2.20",
         "nelmio/cors-bundle": "^2.2",
