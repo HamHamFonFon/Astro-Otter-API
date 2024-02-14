@@ -2,7 +2,22 @@
 
 namespace App\State;
 
-class DsoRepresentationProvider
-{
+use ApiPlatform\Metadata\Operation;
+use ApiPlatform\State\ProviderInterface;
+use App\Dto\DsoRepresentation;
 
+class DsoRepresentationProvider implements ProviderInterface
+{
+    public function provide(
+        Operation $operation,
+        array $uriVariables = [],
+        array $context = []
+    ): DsoRepresentation
+    {
+        // Get DsoRepresentaiton from cache
+
+        // If not in cache
+        $dsoRepresentation = new DsoRepresentation();
+        return $dsoRepresentation;
+    }
 }
