@@ -4,6 +4,8 @@ api_platform:
     # Mercure integration, remove if unwanted
     mercure: ~
     # Good defaults for REST APIs
+    formats:
+        json: ['application/json']
     defaults:
         stateless: true
         cache_headers:
@@ -16,6 +18,8 @@ api_platform:
                 name: Authorization
                 type: header
     mapping:
-        paths: [ '%kernel.project_dir%/src/Model' ]
+        paths: 
+            - '%kernel.project_dir%/src/Model'
+            - '%kernel.project_dir%/src/Entity'
     elasticsearch:
         hosts: ['%env(ELASTICSEARCH_HOST)%']

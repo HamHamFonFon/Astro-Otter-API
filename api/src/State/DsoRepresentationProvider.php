@@ -14,6 +14,7 @@ class DsoRepresentationProvider implements ProviderInterface
         array $context = []
     ): DsoRepresentation
     {
+        dump($operation, $uriVariables, $context);
         // Get DsoRepresentaiton from cache
 
         // If not in cache

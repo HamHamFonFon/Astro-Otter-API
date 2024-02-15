@@ -13,8 +13,7 @@ use App\State\DsoRepresentationProvider;
 #[ApiResource(
     operations: [
         new Get(
-            output: DsoRepresentation::class,
-            provider: DsoRepresentationProvider::class,
+            uriTemplate: '/dso/{id}',
             stateOptions: new Options(index: 'deepspaceobjects')
         )
     ]

@@ -2,30 +2,50 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Post;
 use App\Repository\ApiUserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ApiUserRepository::class)]
+#[UniqueEntity('email')]
+#[ApiResource(
+    operations: [
+        new Post(
+            validationContext: ['groups' => ['user:create']],
+            processor: UserPasswordHasher::class
+        )
+    ],
+    denormalizationContext: ['groups' => ['user:create']]
+)]
 class ApiUser implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
+    #[Assert\Email]
+    #[Assert\NotBlank()]
+    #[Groups(['user:create'])]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'json')]
     private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[Assert\NotBlank(groups: ['user:create'])]
+    #[Groups(['user:create'])]
+    private ?string $plainPassword = null;
 
     public function getId(): ?int
     {
@@ -85,6 +105,17 @@ class ApiUser implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->password = $password;
 
+        return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): ApiUser
+    {
+        $this->plainPassword = $plainPassword;
         return $this;
     }
 
