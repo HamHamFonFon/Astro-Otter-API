@@ -40,6 +40,14 @@ class ApiUserRepository extends ServiceEntityRepository implements PasswordUpgra
         $this->getEntityManager()->flush();
     }
 
+    public function save(ApiUser $entity, bool $flush = true): void
+    {
+        $this->getEntityManager()->persist($entity);
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
 //    /**
 //     * @return ApiUser[] Returns an array of ApiUser objects
 //     */

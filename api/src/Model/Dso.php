@@ -14,6 +14,7 @@ use App\State\DsoRepresentationProvider;
     operations: [
         new Get(
             uriTemplate: '/dso/{id}',
+            processor: DsoRepresentationProvider::class,
             stateOptions: new Options(index: 'deepspaceobjects')
         )
     ]

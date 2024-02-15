@@ -54,7 +54,8 @@ final class Astrobin
     }
 
     /**
-     * @throws \JsonException
+     * @param string $username
+     * @return AstrobinResponse|null
      */
     public function getAstrobinUser(string $username): ?AstrobinResponse
     {

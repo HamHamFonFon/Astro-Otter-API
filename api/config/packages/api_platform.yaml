@@ -5,7 +5,8 @@ api_platform:
     mercure: ~
     # Good defaults for REST APIs
     formats:
-        json: ['application/json']
+        jsonld: [ 'application/ld+json' ]
+    error_formats:        
     defaults:
         stateless: true
         cache_headers:
