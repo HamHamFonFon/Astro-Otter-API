@@ -12,12 +12,7 @@
   "mappings": {
     "properties": {
       "id": {
-        "type": "text",
-        "fields": {
-          "raw": {
-            "type": "keyword"
-          }
-        },
+        "type": "keyword",
         "copy_to": "suggest"
       },
       "catalog": {
@@ -117,6 +112,7 @@
       },
       "type": {
         "type": "text",
+        "fielddata": true,
         "fields": {
           "keyword": {
             "type": "keyword"
