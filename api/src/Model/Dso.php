@@ -8,10 +8,13 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Dto\DsoRepresentation;
+use App\State\DsoStateProvider;
 
 #[ApiResource(
     operations: [
         new Get(
+            output: DsoRepresentation::class,
+            provider: DsoStateProvider::class,
             stateOptions: new Options(index: 'deepspaceobjects')
         ),
         new GetCollection(
