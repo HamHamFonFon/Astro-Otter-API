@@ -41,6 +41,14 @@ RUN set -eux; \
 		zip \
     ;
 
+RUN apk --no-cache add \
+    autoconf \
+    g++ \
+    make \
+    && pecl install -o -f redis \
+    && rm -rf /tmp/pear \
+    && docker-php-ext-enable redis
+
 ###> recipes ###
 ###> doctrine/doctrine-bundle ###
 RUN set -eux; \
