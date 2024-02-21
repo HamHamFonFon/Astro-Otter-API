@@ -1,12 +1,16 @@
 api_platform:
-    title: Hello API Platform
-    version: 1.0.0
+    title: Astro-Otter API Platform
+    version: 2.0.0
+    # Mercure integration, remove if unwanted
+    mercure: ~
     formats:
         jsonld: ['application/ld+json']
-    docs_formats:
-        jsonld: ['application/ld+json']
-        jsonopenapi: ['application/vnd.openapi+json']
-        html: ['text/html']
+        json: [ 'application/json' ]
+        html: [ 'text/html' ]
+#    docs_formats:
+#        jsonld: ['application/ld+json']
+#        jsonopenapi: ['application/vnd.openapi+json']
+#        html: ['text/html']
     defaults:
         stateless: true
         cache_headers:
@@ -14,5 +18,16 @@ api_platform:
         extra_properties:
             standard_put: true
             rfc_7807_compliant_errors: true
+    swagger:
+        api_keys:
+            JWT:
+                name: Authorization
+                type: header
+    mapping:
+        paths:
+            - '%kernel.project_dir%/src/Model'
+            - '%kernel.project_dir%/src/Entity'
+    elasticsearch:
+        hosts: [ '%env(ELASTICSEARCH_HOST)%' ]
     event_listeners_backward_compatibility_layer: false
     keep_legacy_inflector: false

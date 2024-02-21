@@ -8,17 +8,20 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Dto\DsoRepresentation;
+use App\Repository\ElasticsearchRepository\DsoRepository;
 use App\State\DsoStateProvider;
 
 #[ApiResource(
     operations: [
         new Get(
+            formats: ['json'],
             output: DsoRepresentation::class,
             provider: DsoStateProvider::class,
-            stateOptions: new Options(index: 'deepspaceobjects')
+            stateOptions: new Options(index: DsoRepository::INDEX)
         ),
         new GetCollection(
-            stateOptions: new Options(index: 'deepspaceobjects')
+            formats: ['json'],
+            stateOptions: new Options(index: DsoRepository::INDEX)
         )
     ]
 )]

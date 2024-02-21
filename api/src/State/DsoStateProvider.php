@@ -5,28 +5,32 @@ namespace App\State;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
 use App\Dto\DsoRepresentation;
-use App\Services\Cache\Redis;
+use App\Dto\DTOInterface;
+use App\Repository\ElasticsearchRepository\DsoRepository;
+use App\Services\Factory\DsoFactory;
 
 readonly class DsoStateProvider implements ProviderInterface
 {
+
     public function __construct(
-        private Redis $redisAdapter
-    )
-    { }
+        private DsoRepository $dsoRepository,
+        private DsoFactory $dsoFactory
+    ) { }
 
     public function provide(
         Operation $operation,
         array $uriVariables = [],
         array $context = []
-    ): DsoRepresentation
+    ): DTOInterface
     {
         ['id' => $dsoId] = $uriVariables;
         // Retrieve the state from somewhere
-        dump($operation, $dsoId, $context);
-        dump($this->redisAdapter->getItem('m42'));
-        die();
+        $document = $this->dsoRepository->findById(md5($dsoId));
+        $dsoRepresentation = function () use($document) {
+            yield from $this->dsoFactory->buildDto($document);
+        };
 
-        $dsoRepresentation = new DsoRepresentation();
-        return $dsoRepresentation;
+        return $dsoRepresentation()->current();
+
     }
 }
