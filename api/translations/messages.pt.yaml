@@ -1,0 +1,381 @@
+# Layout
+dso: Astro Otter
+dso_tr: Objetos do céu profundo
+menu.homepage: Página incial
+selectLang: Línguas
+astrobin.message: Esse produto utilisa o API AstroBin mas não é apoiado ou certificado por AstroBin
+astrobin.credit: &copy; Astrobin credit
+error.message: Erro %error%, talvez você caiu num buraco negro
+more: Mais informações
+hem.all: All
+hem.zo: Zodíaco
+hem.no: Hemisfério Norte
+hem.su: Hemisfério sul
+about.us:
+skymap: SkyMap
+titleObservation: Observations
+listObservations: List
+locationObservation: Observations location
+openMenu: Open menu
+switchLang: Switch language
+nightMode: Night mode ON
+dayMode: Night mode OFF
+#Catalog
+catalog: Catálogo
+catalogs: Catálogos
+allCatalog: Todos os catálogos
+catalog.unassigned: Não atribuído
+catalog.messier: Messier Catalog
+catalog.ngc: New General Catalog
+catalog.ic: Index Catalog
+catalog.sh: Sharpless
+catalog.agc: Abell catalog of galaxies clusters
+catalog.abl: Abell Catalog of Planetary Nebulae
+catalog.ldn: Lynds of Dark Nebulae
+catalog.lbn: Lynds of Bright Nebulae
+catalog.3c: Third Cambridge Catalogue of Radio Sources
+catalog.arp: Arp
+catalog.am: Arp-Madore
+catalog.ant: Antalova
+catalog.b: B
+catalog.bar: Barkhatova
+catalog.bsl: Basel
+catalog.ber: Berkeley
+catalog.biu: Biurakan
+catalog.boc: Bochum
+catalog.cr: Collinder
+catalog.cld: Caldwell
+catalog.ced: Cederblad
+catalog.cz: Czernick
+catalog.ddo: David Dunlap Observatory
+catalog.doc: Do
+catalog.dodz: Dolidze-Dzimselejvil
+catalog.eso: ESO
+catalog.fle: Fleming
+catalog.gum: Gum
+catalog.haf: Haffner
+catalog.har: Haro
+catalog.hb: Hubble
+catalog.hf: Hoffleit
+catalog.hen: Henize
+catalog.hvd: Harvard
+catalog.hic: Hickson
+catalog.hod: Hodge
+catalog.hog: Hogg
+catalog.hol: Holmberg
+catalog.huc: Humason
+catalog.k: K
+catalog.kin: King
+catalog.lat: Latysev
+catalog.lod: Loden
+catalog.lon: Longmore
+catalog.lyn: Lynga
+catalog.may: Mayer
+catalog.mel: Melotte
+catalog.mcg: Morphological Catalogue of Galaxies
+catalog.mkw: Minkowski
+catalog.mwp: Motch-Werner-Pakull
+catalog.mzl: Menzel
+catalog.mrk: Markarian
+catalog.ocl: OCL
+catalog.pal: Pal - Palomar
+catalog.pmb: Peimbert
+catalog.per: Perek catalog
+catalog.pgc: Catalogue of Principal Galaxies
+catalog.pis: Pismis
+catalog.rcw: RCW
+catalog.rsl: Roslung
+catalog.ru: Ruprecht
+catalog.sast: Sanduleak-Stephenson
+catalog.sha: Shapley
+catalog.sl: Sandqvist-Lindroos
+catalog.stdr: Strottner-Drechsler
+catalog.sto: Stock open clusters
+catalog.ter: Terzan
+catalog.ton: Tonantzintla
+catalog.tr: Trumpler
+catalog.ugc: Uppsala General Catalog
+catalog.vdb: Van den Bergh
+catalog.vv: Vorontsov-Vel’yaminov
+catalog.vy: Vyssotsky
+description.messier: Les objets de Messier sont une liste d'objets astronomiques catalogués par l'astronome français Charles Messier dans son Catalogue des Nébuleuses et des Amas d'Étoiles, publiée en 1771.
+description.ngc:
+description.ic:
+description.ldn:
+description.lbn:
+description.sh:
+description.cr:
+description.sto:
+description.rcw:
+description.agc: The Abell catalog of rich clusters of galaxies is an all-sky catalog of 4,073 rich galaxy clusters.
+description.abl: he Abell Catalog of Planetary Nebulae was created in 1966 by George O. Abell and was composed of 86 entries thought to be planetary nebulae.
+description.ugc:
+description.cld:
+description.dodz:
+description.lyn: Catalog of Open Cluster
+description.pis: New southern star clusters catalog
+magnitude.low: From 0 to 5
+magnitude.average: From 5 to 10
+magnitude.high: From 10 to 15
+magnitude.hard: 15 and more
+# Lang:
+fr: Francês
+en: Inglês (UK)
+pt: Português
+pt_BR: Português (BR)
+es: Espanhol
+de: Alemão
+# Homepage
+homepage.message: Descobre belezas e mistérios do universo
+homepage.desc: "%sitename% is a celestial atlas containing more than 9500 deep sky objects, grouped by different catalog or type of object. Search, discover and marvel : universe is amazing."
+home.search.placeholder: Procurar no catálogo
+dayImage: Imagem do dia
+# View full
+info: Informações
+desigs: Outras designações
+magnitude: Magnitude aparente
+constellation: Constelação|Constelações
+const_id: Constelação|Constelações
+constId: Constelação|Constelações
+dim: Tamanha
+dimExp: Dimensão angular em arcominutos
+distAl: Distância (ano-luz)
+distPc: Distância (parsec)
+imagesGall: Galeria de imagens
+constImgGall: Na mesma constelação
+typeImgGall: Objetos do tipo "%type%"
+mag: Magnitude
+ra: Ascencão reta
+dec: Declinação
+discover: Discover
+discoverYear: Year
+galery: Gallery
+# Vue list
+filteringList: Filtrar lista de itens por constelação, tipo e magnitude... e descobrir os mais lindos objetos celestes.
+listOrderAsc: Ordem crescente
+listOrderDesc: Ordem decrescente
+listMagnitudeAsc: Magnitude miníma
+listMagnitudeDesc: Magnitude maxíma
+type: Tipo de objeto|Tipo de objeto
+filters: filtros
+range.inf: Less than %to%
+range.between: Between %from% to %to%
+range.sup: More than %from%
+filterBy: Filtering by
+nbResults: "%count% result found|%count% results found"
+# Type DSO
+type.gg: Aglomerado de galáxias
+type.g: Galáxia genérica
+type.s: Galáxia espiral
+type.s0: Galáxia lenticular
+type.sd: Galáxia anã
+type.e: Galáxia elíptica
+type.i: Galáxia irregular
+type.oc: Aglomerado aberto
+type.gc: Aglomerado globular
+type.en: Nebulosa de emissão
+type.bn: Nebulosa brilhante genérica
+type.bpn: Nebulosa bipolar
+type.sfr: Nebulosa difusa
+type.rn: Nebulosa de reflexão
+type.pn: Nebulosa planetária
+type.snr: Remanescente de supernova
+type.dn: Nebulosa escura
+type.pos: Asterismo
+type.sc: Aglomerado estelar
+type.vn:
+type.ga: Galaxie à anneau
+type.q: Quasar
+# Constellations
+const.unassigned: unassigned
+constellation.and: Andrômeda
+constellation.ant:
+constellation.aps:
+constellation.aql: Aquila
+constellation.aqr: Aquário
+constellation.ara: Altar
+constellation.ari: Carneiro
+constellation.aur: Auriga
+constellation.boo: Boieiro
+constellation.cae: Cinzel
+constellation.cam: Camelopardalis
+constellation.cap: Capricórnio
+constellation.car:
+constellation.cas: Cassiopeia
+constellation.cen: Centaurus
+constellation.cep: Cepheus
+constellation.cet: Baleia
+constellation.cha:
+constellation.cir: Compasso
+constellation.cma: Cão Maior
+constellation.cmi:
+constellation.col:
+constellation.com: Coma Berenice
+constellation.cnc: Câncer
+constellation.cra:
+constellation.crb:
+constellation.crt:
+constellation.cru: Cruzeiro do Sul
+constellation.crv:
+constellation.cvn: Canes Venatici
+constellation.cyg: Cygnus
+constellation.del:
+constellation.dor: Doradus
+constellation.dra: Draco
+constellation.equ:
+constellation.eri:
+constellation.for:
+constellation.gem: Gêmeos
+constellation.gru:
+constellation.her: Hércules
+constellation.hor:
+constellation.hya: Hydra
+constellation.hyi:
+constellation.ind:
+constellation.lac:
+constellation.leo: Leo
+constellation.lep: Lebre
+constellation.lib:
+constellation.lmi:
+constellation.lup:
+constellation.lyn:
+constellation.lyr: Lyra
+constellation.men:
+constellation.mic:
+constellation.mon: Unicórnio
+constellation.mus:
+constellation.nor:
+constellation.oct:
+constellation.oph: Serpentário
+constellation.ori: Orion
+constellation.pav:
+constellation.peg: Pegasus
+constellation.per: Perseu
+constellation.phe:
+constellation.pic:
+constellation.psa:
+constellation.psc: Peixes
+constellation.pup: Cão Menor
+constellation.pyx:
+constellation.ret:
+constellation.scl:
+constellation.sco: Escorpião
+constellation.sct: Scutum
+constellation.ser: Serpente
+constellation.sex:
+constellation.sge: Flecha
+constellation.sgr: Sagitário
+constellation.tau: Touro
+constellation.tel:
+constellation.tra:
+constellation.tri: Triângulo
+constellation.tuc:
+constellation.uma: Ursa Maior
+constellation.umi: Ursa Minor
+constellation.vel:
+constellation.vir: Virgem
+constellation.vol:
+constellation.vul: Raposa
+# Observation : setup page
+instrument: Instrument
+diameter: Diameter (mm)
+focal: Focal (mm)
+report: Report (f/D)
+mount: Equatorial mount
+ocular: Ocular|Oculars
+user: User
+location: Location
+observation.search.placeholder: Search by place, user, name...
+# Form
+select:
+  order:
+    label: Ordenar por
+    placeholder: Escolha sua opção
+# Form contact
+contact.title: "Contact us"
+form.error.sending: "A problem has occurred, please try later"
+form.ok.sending: "Message sended. We will answer you as soon as possible."
+form.error.message: "Please fix errors below"
+form.api.success: "Registration OK. You will receive in your mailbox a bearer token for API."
+contact.form.firstname: "Firstname (*)"
+contact.placeholder.firstname: "Please enter your firstname"
+contact.form.lastname: "Lastname (*)"
+contact.placeholder.lastname: "Please enter your lastname"
+contact.form.email: "Email (*)"
+contact.form.confirm_email: "Email confirmation (*)"
+contact.placeholder.email: "Please enter your email (e.g: email@email.com)"
+contact.form.country: "Country (*)"
+contact.placeholder.country: "Select a country"
+contact.form.topic: "Topic (*)"
+contact.option.contact: "Contact webmaster"
+contact.option.astrobin: "Propose an astrobin Image"
+contact.option.data: "Propose new data / edit data"
+contact.option.language: "Propose new language / edit a language"
+contact.option.api: "Question about API"
+contact.option.other: "Other"
+contact.form.message: "Message (*)"
+contact.form.submit: "Submit"
+contact.mandatory: "(*) All fields are mandatory"
+# desc
+constellationListDesc: List of celestial constellations
+dsoListDesc: Celestial catalogs of deep sky objects. Filter list items by constellation, type and magnitude...and discover most beautiful celestial objects.
+listObservationsDesc:
+dsoDesc:
+contactDesc:
+skymapDesc:
+# Form add observation
+addObservation: DSO observation
+addObservationDesc: Sauvegardez vos observations en ajoutant les objets que vous avez observé.
+scheduleObs: Schedule an observation
+scheduleObsDesc: Organisez une soirée d'observation astronomique et faites découvrir les merveilles du ciel
+form.ok.addDoc: Observation added, retrieve it <a href="%url%">here</a>.
+form.error.addDoc: Error adding document. Try again or contact admin.
+observation:
+  add:
+    information: Information
+    setup: Setup
+    list: List
+    location: Location
+  name:
+    label: Title
+    placeholder: Add a title
+  username:
+    label: Username
+    placeholder: Add your name, alias...
+  description:
+    label: Description
+    placeholder: Describe your observation...
+  observationDate:
+    label: Date
+    placeholder:
+  instrument:
+    label: Instrument
+    placeholder: Precise your intrument
+  diameter:
+    label: Diameter of the mirror
+    placeholder: Enter a number
+  focal:
+    label: Focal length of the telescope
+    placeholder: Enter a number
+  mount:
+    label: Mount
+    placeholder: "Equatorial, azimuthal...(ex.: NEQ-6 Goto)"
+  ocular:
+    label: Occulars
+    placeholder: "Separate with commas (ex: Plossel 21mm, Kellner 10mm...)"
+  locationLabel:
+    label: Location of observation
+    placeholder: "Ex: London, UK"
+# Legal notice
+legal_notice.title: Legal notice
+legal_notice.line_first: "\"%dso%\" est un site d'information à visée personnelle et non-commerciale."
+legal_notice.line_sec: "Conformément aux dispositions des articles 6-III et 19 de la Loi n° 2004-575 du 21 juin 2004 pour la Confiance dans l'économie numérique, dite L.C.E.N., mes informations ont été fournies à l'hébergeur :"
+legal_notice:
+  host:
+    name: OVH
+    adress: 2 rue Kellermann
+    cp: 59 100
+    city: Roubaix
+    country: France
+legal_notice.contact: "Vous pouvez me contacter via la page Contact du site à l'adresse suivante : <a href=\"%url_contact%\">%label_contact%</a>"
+allRights: Todos os direitos reservados

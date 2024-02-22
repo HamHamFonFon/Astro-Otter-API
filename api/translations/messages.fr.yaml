@@ -1,0 +1,236 @@
+hem.all: Tous
+hem.zo: Zodiaque
+hem.no: Hémisphère nord
+hem.su: Hémisphère sud
+catalog.unassigned: Non assigné
+catalog.messier: Catalogue de Messier
+catalog.ngc: New General Catalog
+catalog.ic: Index Catalog
+catalog.sh: Catalogue de Sharpless
+catalog.agc: Catalogue Abell
+catalog.abl: Catalogue Abell des nébuleuses planétaires
+catalog.ldn: Catalogue de Lynd des nébuleuses sombres
+catalog.lbn: Catalogue de Lynd des nébuleuses brillantes
+catalog.3c: Troisième catalogue de Cambridge de sources radio
+catalog.arp: Arp
+catalog.am: Arp-Madore
+catalog.ant: Antalova
+catalog.b: B
+catalog.bar: Barkhatova
+catalog.bsl: Basel
+catalog.ber: Berkeley
+catalog.biu: Biurakan
+catalog.boc: Bochum
+catalog.cr: Collinder
+catalog.cld: Caldwell
+catalog.ced: Cederblad
+catalog.cz: Czernick
+catalog.ddo: David Dunlap Observatory
+catalog.doc: Do
+catalog.dodz: Dolidze-Dzimselejvil
+catalog.eso: ESO
+catalog.fle: Fleming
+catalog.gum: Gum
+catalog.haf: Haffner
+catalog.har: Haro
+catalog.hb: Hubble
+catalog.hf: Hoffleit
+catalog.hen: Henize
+catalog.hvd: Harvard
+catalog.hic: Hickson
+catalog.hcg: Hickson compact group
+catalog.hod: Hodge
+catalog.hog: Hogg
+catalog.hol: Holmberg
+catalog.huc: Humason
+catalog.k: K
+catalog.kin: King
+catalog.lat: Latysev
+catalog.lod: Loden
+catalog.lon: Longmore
+catalog.lyn: Lynga
+catalog.may: Mayer
+catalog.mel: Melotte
+catalog.mcg: Morphological Catalogue of Galaxies
+catalog.mkw: Minkowski
+catalog.mwp: Motch-Werner-Pakull
+catalog.mzl: Menzel
+catalog.mrk: Markarian
+catalog.ocl: OCL
+catalog.pal: Pal - Palomar
+catalog.pmb: Peimbert
+catalog.per: Perek catalog
+catalog.pgc: Catalogue of Principal Galaxies
+catalog.pis: Pismis
+catalog.rcw: RCW
+catalog.rsl: Roslung
+catalog.ru: Ruprecht
+catalog.sast: Sanduleak-Stephenson
+catalog.sha: Shapley
+catalog.sl: Sandqvist-Lindroos
+catalog.stdr: Strottner-Drechsler
+catalog.sto: Stock open clusters
+catalog.ter: Terzan
+catalog.ton: Tonantzintla
+catalog.tr: Trumpler
+catalog.ugc: Uppsala General Catalog
+catalog.vdb: Van den Bergh
+catalog.vv: Vorontsov-Vel’yaminov
+catalog.vy: Vyssotsky
+description.messier: Les objets de Messier sont une liste d'objets astronomiques catalogués par l'astronome français Charles Messier dans son Catalogue des Nébuleuses et des Amas d'Étoiles, publiée en 1771.
+description.ngc: Compilation de 7840 objets découverts par divers observateurs. Pour les astronomes amateurs il s'agit d'une base de données de référence car elle englobe tout les plus beaux objets visibles dans le ciel, y compris ceux du catalogue Messier.
+description.ic: Catalogues IC1 et 2 complémentaires du NGC. Il englobe 5387 objets compilés par Jean-Louis Dreyer entre 1888 et 1907.
+description.ldn: Catalogue de nébuleuses lumineuses publié par l'astronome américain Beverly T. Lynds en 1962. Il s'agit d'un astronome de l'Observatoire Stewart affilié à l'Université d'Arizona.
+description.lbn: ""
+description.sh: Catalogue répertoriant 313 nébuleuses diffuses (régions HII) publié par l'astronome américain Stewart Sharpless en 1953 et finalisé dans une seconde version en 1959.
+description.cr: Catalogue répertoriant 471 amas d'étoiles édité par l'astronome suédois Per Collinder en 1931.
+description.sto:
+description.rcw: Catalogue réalisé depuis le Mont Stromlo en Australie par les astronomes Alex Rodgers, Colin Campbell, and John Whiteoak. Il fut publié en 1960 et contient 182 objets.
+description.agc: Catalogue rassemblant 4073 riches amas galactiques découverts par l'astronome américain Georges Abell.
+description.abl: Catalogue rassemblant 86 nébuleuses planétaires découvertes par l'astronome américain Georges Abell en étudiant les plaques du POSS entre 1955 et 1966.
+description.ugc: Edité par l'astronome suédois Peter Nilson en 1973, il englobe 12921 objets situés dans le ciel boréal.
+description.cld: ""
+description.dodz: Catalogue des astronomes de Georgie Madona V. Dolidze et G. Dzinselejvili comportant 11 objets. Il fut publié en 1966.
+description.lyn: Catalogue d'amas ouvert
+description.pis: New southern star clusters catalog
+description.arp: L'Atlas Of Pelcukiar Galaxies (ARP) est un catalogue produit par Halton Arp recensant 338 galaxies particulières
+magnitude.low: De 0 à 5
+magnitude.average: De 5 à 10
+magnitude.high: De 10 à 15
+magnitude.hard: Plus de 15
+# Lang:
+fr: Français
+en: Anglais (UK)
+pt: Portugais
+pt_BR: Portugais (Brésil)
+es: Espagnol
+de: Allemand
+constId: Constellation|Constellations
+dim: Dimension
+dimExp: Dimension angulaire en minutes d'arcs
+distAl: Distance (années-lumière)
+distPc: Distance (parsec)
+mag: Magnitude
+ra: Ascension droite
+dec: Déclinaison
+discover: Découvreur
+discoverYear: Année découverte
+
+range.inf: Moins de %to%
+range.between: Entre %from% et %to%
+range.sup: Plus de %from%
+filterBy: Filtrer par
+nbResults: "%count% résultat trouvé|%count% résultats trouvés"
+# Type DSO
+type.gg: Amas de galaxies
+type.g: Galaxie générique
+type.s: Galaxie en spirale
+type.s0: Galaxie lenticulaire
+type.sd: Galaxie naine
+type.e: Galaxie elliptique
+type.i: Galaxie irrégulière
+type.oc: Amas ouvert
+type.gc: Amas globulaire
+type.en: Nébuleuse en émission
+type.bn: Nébuleuse brillante générique
+type.bpn: Nébuleuse bipolaire
+type.sfr: Nébuleuse diffuse
+type.rn: Nébuleuse par réflexion
+type.pn: Nébuleuse planétaire
+type.snr: Rémanant de supernova
+type.dn: Nébuleuse sombre
+type.pos: Asterism
+type.sc: Amas stellaires
+type.vn: Nébuleuse variable
+type.ga: Galaxie à anneau
+type.q: Quasar
+# Constellations
+constellation.unassigned: Non attribué
+constellation.and: Andromède
+constellation.ant: Machine pneumatique
+constellation.aps: Oiseau de paradis
+constellation.aql: L'aigle
+constellation.aqr: Verseau
+constellation.ara: Autel
+constellation.ari: Bélier
+constellation.aur: Le Cocher
+constellation.boo: Bouvier
+constellation.cae: Burin
+constellation.cam: Giraffe
+constellation.cap: Le Capricorne
+constellation.car: Carène
+constellation.cas: Cassiopée
+constellation.cen: Centaure
+constellation.cep: Céphée
+constellation.cet: La Baleine
+constellation.cha: Caméléon
+constellation.cir: Compas
+constellation.cma: Le Grand Chien
+constellation.cmi: Le Petit Chien
+constellation.col: Colombe
+constellation.com: Chevelure de Bérénice
+constellation.cnc: Cancer
+constellation.cra: Couronne australe
+constellation.crb: Couronne boréale
+constellation.crt: Coupe
+constellation.cru: Croix du Sud
+constellation.crv: Corbeau
+constellation.cvn: Chiens de chasse
+constellation.cyg: Cygne
+constellation.del: Dauphin
+constellation.dor: Dorade
+constellation.dra: Dragon
+constellation.equ: Petit Cheval
+constellation.eri: Éridan
+constellation.for: Fourneau
+constellation.gem: Les Gemeaux
+constellation.gru: Grue
+constellation.her: Hercule
+constellation.hor: Horloge
+constellation.hya: L'Hydre
+constellation.hyi: Hydre mâle
+constellation.ind: Indien
+constellation.lac: Lézard
+constellation.leo: Le Lion
+constellation.lep: Le Lièvre
+constellation.lib: Balance
+constellation.lmi: Petit Lion
+constellation.lup: Loup
+constellation.lyn: Lynx
+constellation.lyr: Lyre
+constellation.men: Table
+constellation.mic: Microscope
+constellation.mon: La Licorne
+constellation.mus: Mouche
+constellation.nor: Règle
+constellation.oct: Octant
+constellation.oph: Ophiuchus
+constellation.ori: Orion
+constellation.pav: Paon
+constellation.peg: Pégase
+constellation.per: Persée
+constellation.phe: Phénix
+constellation.pic: Peintre
+constellation.psa: Poisson austral
+constellation.psc: Les Poissons
+constellation.pup: Petit Chien
+constellation.pyx: Boussole
+constellation.ret: Réticule
+constellation.scl: Sculpteur
+constellation.sco: Scorpion
+constellation.sct: Écu de Sobieski
+constellation.ser: Le Serpent
+constellation.sex: Sextant
+constellation.sge: La Flèche
+constellation.sgr: Sagittaire
+constellation.tau: Taureau
+constellation.tel: Téléscope
+constellation.tra: Triangle australe
+constellation.tri: Le Triangle
+constellation.tuc: Toucan
+constellation.uma: Grande Ourse
+constellation.umi: Petite Ourse
+constellation.vel: Voiles
+constellation.vir: Vièrge
+constellation.vol: Poisson volant
+constellation.vul: Le Petit Renard

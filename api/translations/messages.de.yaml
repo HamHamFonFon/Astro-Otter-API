@@ -1,0 +1,382 @@
+# Layout
+dso: Astro Otter
+dso_tr: Deep-sky objects
+menu.homepage: Startseite
+selectLang: Sprachen
+astrobin.message: This product uses the AstroBin API but is not endorsed or certified by AstroBin.
+astrobin.credit: &copy; Astrobin credit
+error.message: Error %error%, maybe you fall in a black hole :) ?
+more: Weitere Informationen
+hem.all: Alle
+hem.zo: Zodiac
+hem.no: Nordhalbkugel
+hem.su: Südhalbkugel
+about.us: Über uns
+skymap: Himmelskarte
+titleObservation: Observations
+listObservations: List
+locationObservation: Observations location
+openMenu: Öffnen Menü
+switchLang: Sprache wechseln
+nightMode: Night mode ON
+dayMode: Night mode OFF
+#Catalog
+catalog: Katalog
+catalogs: Kataloge
+allCatalog: Alle kataloge
+catalog.unassigned: Nicht zugewiesen
+catalog.messier: Messierobjekte
+catalog.ngc: New General Catalog
+catalog.ic: Index
+catalog.sh: Sharpless
+catalog.ldn: Lynds' Catalogue of Dark Nebulae
+catalog.lbn: Lynds' Catalogue of Bright Nebulae
+catalog.3c: Third Cambridge Catalogue of Radio Sources
+catalog.agc: Abell catalog of galaxies clusters
+catalog.abl: Abell Catalog of Planetary Nebulae
+catalog.arp: Arp
+catalog.am: Arp-Madore
+catalog.ant: Antalova
+catalog.b: B
+catalog.bar: Barkhatova
+catalog.bsl: Basel
+catalog.ber: Berkeley
+catalog.biu: Biurakan
+catalog.boc: Bochum
+catalog.cr: Collinder
+catalog.cld: Caldwell
+catalog.ced: Cederblad
+catalog.cz: Czernick
+catalog.ddo: David Dunlap Observatory
+catalog.doc: Do
+catalog.dodz: Dolidze-Dzimselejvil
+catalog.eso: ESO
+catalog.fle: Fleming
+catalog.gum: Gum
+catalog.haf: Haffner
+catalog.har: Haro
+catalog.hb: Hubble
+catalog.hf: Hoffleit
+catalog.hen: Henize
+catalog.hvd: Harvard
+catalog.hic: Hickson
+catalog.hod: Hodge
+catalog.hog: Hogg
+catalog.hol: Holmberg
+catalog.huc: Humason
+catalog.k: K
+catalog.kin: King
+catalog.lat: Latysev
+catalog.lod: Loden
+catalog.lon: Longmore
+catalog.lyn: Lynga
+catalog.may: Mayer
+catalog.mel: Melotte
+catalog.mcg: Morphological Catalogue of Galaxies
+catalog.mkw: Minkowski
+catalog.mzl: Menzel
+catalog.mrk: Markarian
+catalog.mwp: Motch-Werner-Pakull
+catalog.ocl: OCL
+catalog.pal: Pal - Palomar
+catalog.pmb: Peimbert
+catalog.per: Perek catalog
+catalog.pgc: Catalogue of Principal Galaxies
+catalog.pis: Pismis
+catalog.rcw: RCW
+catalog.rsl: Roslung
+catalog.ru: Ruprecht
+catalog.sast: Sanduleak-Stephenson
+catalog.sha: Shapley
+catalog.sl: Sandqvist-Lindroos
+catalog.stdr: Strottner-Drechsler
+catalog.sto: Stock open clusters
+catalog.ter: Terzan
+catalog.ton: Tonantzintla
+catalog.tr: Trumpler
+catalog.ugc: Uppsala General Catalog
+catalog.vdb: Van den Bergh
+catalog.vv: Vorontsov-Vel’yaminov
+catalog.vy: Vyssotsky
+description.messier: The Messier objects are a set of 110 astronomical objects catalogued by the French astronomer Charles Messier in his "Catalogue des Nébuleuses et des Amas d'Étoiles" ("Catalogue of Nebulae and Star Clusters").
+description.ngc:
+description.ic:
+description.ldn:
+description.lbn:
+description.sh:
+description.cr:
+description.sto:
+description.rcw:
+description.agc: Der Abell-Katalog ist ein Katalog von 4073 Galaxienhaufen.
+description.abl: Der Abell Catalog of Planetary Nebulae wurde 1966 von George Ogden Abell erstellt und enthielt neu entdeckte 86 Objekte, von denen man annahm, dass es sich um Planetarische Nebel handelte.
+description.ugc:
+description.cld:
+description.dodz:
+description.lyn: Catalog of Open Cluster
+description.pis: New southern star clusters catalog
+magnitude.low: Von 0 bis 5
+magnitude.average: Von 5 bis 10
+magnitude.high: Von 10 bis 15
+magnitude.hard: 15 und mehr
+# Lang:
+fr: Französisch
+en: Englisch (UK)
+pt: Portugiesisch
+pt_BR: Portugiesisch (Brazil)
+es: Spanisch
+de: Deutsch
+# Homepage
+homepage.message: Discover beauties and mysteries of the universe
+homepage.desc: "%sitename% is a celestial atlas containing more than 9600 deep sky objects, grouped by different catalog or type of object. Search, discover and marvel."
+home.search.placeholder: Suche in Katalogen...
+dayImage: Bild des Tages
+# View full
+info: Nachrichten
+desigs: Katalogbezeichnungen
+magnitude: Scheinbare Helligkeit
+constellation: Sternbild|Sternbilder
+const_id: Sternbild|Sternbilder
+constId: Sternbild|Sternbilder
+dim: Size
+dimExp: Angular dimensions in arcminutes
+distAl: Entfernung (lichtjahr)
+distPc: Entfernung (parsec)
+imagesGall: Images gallery
+constImgGall: In the same constellation
+typeImgGall: Objects of type "%type%"
+mag: Helligkeit
+ra: Rektaszension
+dec: Deklination
+discover: Entdeckung
+discoverYear: Datum der Entdeckung
+galery: Galerie
+# Vue list
+filteringList: Filter list items by constellation, type and magnitude...and discover most beautiful celestial objects.
+filters: Filters
+listOrderAsc: Sort ascendant
+listOrderDesc: Sort descendant
+listMagnitudeAsc: Lowest magnitude
+listMagnitudeDesc: Highest magnitude
+type: Type of object|Objects type
+range.inf: Weniger als %to%
+range.between: Between %from% to %to%
+range.sup: More than %from%
+filterBy: Filtern nach
+nbResults: "%count% ergebnis gefunden|%count% ergebnisse gefunden"
+# Type DSO
+type.gg: Galaxienhaufen
+type.g:  Galaxie
+type.s:  Spiralgalaxie
+type.s0: Linsenförmige Galaxie
+type.sd: Zwerggalaxie
+type.e:  Elliptische Galaxie
+type.i:  Irreguläre Galaxie
+type.oc: Offener Sternhaufen
+type.gc: Kugelsternhaufen
+type.en: Emissionsnebel
+type.bn: Generic bright nebula
+type.bpn: Bipolar nebula
+type.sfr: Diffuser Nebel
+type.rn: Reflexionsnebel
+type.pn: Planetarischer Nebel
+type.snr: Supernovaüberrest
+type.dn: Dunkelwolke
+type.pos: Asterismus
+type.sc: Star clusters
+type.vn: Reflexionsnebel
+type.ga: Galaxie à anneau
+type.q: Quasar
+# Constellations
+constellation.unassigned: Nicht zugewiesen
+constellation.and: Andromeda
+constellation.ant: Luftpumpe
+constellation.aps: Paradiesvogel
+constellation.aql: Adler
+constellation.aqr: Wassermann
+constellation.ara: Altar
+constellation.ari: Widder
+constellation.aur: Fuhrmann
+constellation.boo: Bärenhüter
+constellation.cae: Grabstichel
+constellation.cam: Giraffe
+constellation.cap: Steinbock
+constellation.car: Kiel
+constellation.cas: Kassiopeia
+constellation.cen: Zentaur
+constellation.cep: Kepheus
+constellation.cet: Wal
+constellation.cha: Chamäleon
+constellation.cir: Zirkel
+constellation.cma: Großer Hund
+constellation.cmi: Kleiner Hund
+constellation.col: Taube
+constellation.com: Haar der Berenike
+constellation.cnc: Krebs
+constellation.cra: Südliche Krone
+constellation.crb: Nördliche Krone
+constellation.crt: Becher
+constellation.cru: Kreuz des Südensx
+constellation.crv: Rabe
+constellation.cvn: Jagdhunde
+constellation.cyg: Schwan
+constellation.del: Delphin
+constellation.dor: Schwertfisch
+constellation.dra: Drache
+constellation.equ: Füllen
+constellation.eri: Eridanus
+constellation.for: Chem. Ofen
+constellation.gem: Zwillinge
+constellation.gru: Kranich
+constellation.her: Herkules
+constellation.hor: Pendeluhr
+constellation.hya: Wasserschlange
+constellation.hyi: Kl. Wasserschlange
+constellation.ind: Inder
+constellation.lac: Eidechse
+constellation.leo: Löwe
+constellation.lep: Hase
+constellation.lib: Waage
+constellation.lmi: Kleiner Löwe
+constellation.lup: Wolf
+constellation.lyn: Luchs
+constellation.lyr: Leier
+constellation.men: Tafelberg
+constellation.mic: Mikroskop
+constellation.mon: Einhorn
+constellation.mus: Fliege
+constellation.nor: Winkelmaß
+constellation.oct: Oktant
+constellation.oph: Schlangenträger
+constellation.ori: Orion
+constellation.pav: Pfau
+constellation.peg: Pegasus
+constellation.per: Perseus
+constellation.phe: Phönix
+constellation.pic: Maler
+constellation.psa: Südlicher Fisch
+constellation.psc: Fische
+constellation.pup: Achterdeck
+constellation.pyx: Schiffskompass
+constellation.ret: Netz
+constellation.scl: Bildhauer
+constellation.sco: Skorpion
+constellation.sct: Schild
+constellation.ser: Schlange
+constellation.sex: Sextant
+constellation.sge: Pfeil
+constellation.sgr: Schütze
+constellation.tau: Stier
+constellation.tel: Teleskop
+constellation.tra: Südliches Dreieck
+constellation.tri: Dreieck
+constellation.tuc: Tukan
+constellation.uma: Großer Bär
+constellation.umi: Kleiner Bär
+constellation.vel: Segel
+constellation.vir: Jungfrau
+constellation.vol: Fliegender Fisch
+constellation.vul: Fuchs
+# Observation : setup page
+instrument: Instrument
+diameter: Durchmesser (mm)
+focal: Brennweite (mm)
+report: Report (f/D)
+mount: Montierung
+ocular: Okular|Okulare
+user: Benutzer
+location: Platz
+observation.search.placeholder: Search by place, user, name...
+# Form
+select:
+  order:
+    label: Ordering by
+    placeholder: Choose your option
+# Form contact
+contact.title: "Kontaktieren Sie uns"
+form.error.sending: "A problem has occurred, please try later"
+form.ok.sending: "Message sended. We will answer you as soon as possible."
+form.error.message: "Please fix errors below"
+form.api.success: "Registration OK. You will receive in your mailbox a bearer token for API."
+contact.form.firstname: "Firstname (*)"
+contact.placeholder.firstname: "Please enter your firstname"
+contact.form.lastname: "Lastname (*)"
+contact.placeholder.lastname: "Please enter your lastname"
+contact.form.email: "Email (*)"
+contact.form.confirm_email: "Email confirmation (*)"
+contact.placeholder.email: "Please enter your email (e.g: email@email.com)"
+contact.form.country: "Country (*)"
+contact.placeholder.country: "Select a country"
+contact.form.topic: "Topic (*)"
+contact.option.contact: "Contact webmaster"
+contact.option.astrobin: "Propose an astrobin Image"
+contact.option.data: "Propose new data / edit data"
+contact.option.language: "Propose new language / edit a language"
+contact.option.api: "Question about API"
+contact.option.other: "Other"
+contact.form.message: "Message (*)"
+contact.form.submit: "Submit"
+contact.mandatory: "(*) All fields are mandatory"
+# desc
+constellationListDesc: List of celestial constellations
+dsoListDesc: Celestial catalogs of deep sky objects. Filter list items by constellation, type and magnitude...and discover most beautiful celestial objects.
+listObservationsDesc:
+dsoDesc:
+constellationDesc:
+contactDesc:
+skymapDesc:
+# Form add observation
+addObservation: Fügen Sie eine Beobachtung hinzu
+addObservationDesc: Sauvegardez vos observations en ajoutant les objets que vous avez observé.
+scheduleObs: Schedule an observation
+scheduleObsDesc: Organisez une soirée d'observation astronomique et faites découvrir les merveilles du ciel
+form.ok.addDoc: Observation added, retrieve it <a href="%url%">here</a>.
+form.error.addDoc: Error adding document. Try again or contact admin.
+observation:
+  add:
+    information: Information
+    setup: Setup
+    list: List
+    location: Location
+  name:
+    label: Title
+    placeholder: Add a title
+  username:
+    label: Username
+    placeholder: Add your name, alias...
+  description:
+    label: Description
+    placeholder: Describe your observation...
+  observationDate:
+    label: Date
+    placeholder:
+  instrument:
+    label: Instrument
+    placeholder: Precise your intrument
+  diameter:
+    label: Diameter of the mirror
+    placeholder: Enter a number
+  focal:
+    label: Focal length of the telescope
+    placeholder: Enter a number
+  mount:
+    label: Mount
+    placeholder: "Equatorial, azimuthal...(ex.: NEQ-6 Goto)"
+  ocular:
+    label: Occulars
+    placeholder: "Separate with commas (ex: Plossel 21mm, Kellner 10mm...)"
+  locationLabel:
+    label: Location of observation
+    placeholder: "Ex: London, UK"
+# Legal notice
+legal_notice.title: Legal notice
+legal_notice.line_first: "\"%dso%\" est un site d'information à visée personnelle et non-commerciale."
+legal_notice.line_sec: "Conformément aux dispositions des articles 6-III et 19 de la Loi n° 2004-575 du 21 juin 2004 pour la Confiance dans l'économie numérique, dite L.C.E.N., mes informations ont été fournies à l'hébergeur :"
+legal_notice:
+  host:
+    name: OVH
+    adress: 2 rue Kellermann
+    cp: 59 100
+    city: Roubaix
+    country: France
+legal_notice.contact: "Vous pouvez me contacter via la page Contact du site à l'adresse suivante : <a href=\"%url_contact%\">%label_contact%</a>"
+allRights: Alle Rechte vorbehalten
