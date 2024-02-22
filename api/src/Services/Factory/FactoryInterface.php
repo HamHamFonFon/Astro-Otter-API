@@ -8,5 +8,5 @@ interface FactoryInterface
 {
     public function buildDto(array $document);
 
-    public function buildListDto(array $listDocumentsId);
+    public function buildListDto(array $listDocuments);
 }

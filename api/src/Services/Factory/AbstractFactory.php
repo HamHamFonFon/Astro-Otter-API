@@ -33,7 +33,6 @@ abstract class AbstractFactory
      * Transform ES document (array) into DTO
      * @param array $document
      * @return DTOInterface
-     * @throws \JsonException
      */
     protected function buildDtoFromDocument(array $document): DTOInterface
     {

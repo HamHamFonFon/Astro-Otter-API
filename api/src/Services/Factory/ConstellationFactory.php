@@ -2,8 +2,10 @@
 
 namespace App\Services\Factory;
 
-use App\Dto\DTOInterface;
-use App\Services\Factory\FactoryInterface;
+use App\Dto\ConstellationRepresentation;
+use App\Model\Constellation;
+use Generator;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ConstellationFactory extends AbstractFactory implements FactoryInterface
 {
@@ -12,7 +14,7 @@ class ConstellationFactory extends AbstractFactory implements FactoryInterface
      */
     protected function getEsModel(): string
     {
-        // TODO: Implement getEsModel() method.
+        return Constellation::class;
     }
 
     /**
@@ -20,26 +22,34 @@ class ConstellationFactory extends AbstractFactory implements FactoryInterface
      */
     protected function getDto(): string
     {
-        // TODO: Implement getDto() method.
+        return ConstellationRepresentation::class;
     }
 
     /**
      * @param array $document
-     * @return mixed
+     * @return Generator
      */
-    public function buildDto(array $document)
+    public function buildDto(array $document): Generator
     {
-        // TODO: Implement buildDto() method.
+        $locale = (new Session())->get('_locale') ?? 'en';
+        $idMd5 = md5(sprintf('%s_%s', $document['id'], $locale));
+        $constellation = $this->getDtoFromCache($idMd5);
+        if (is_null($constellation)) {
+            $constellation = $this->buildDtoFromDocument($document);
+            $this->saveDtoInCache($constellation);
+        }
+
+        yield $constellation;
     }
 
     /**
-     * @param array $listDocumentsId
-     * @return mixed
+     * @param array $listDocuments
+     * @return Generator
      */
-    public function buildListDto(array $listDocumentsId)
+    public function buildListDto(array $listDocuments): Generator
     {
-        // TODO: Implement buildListDto() method.
+        foreach ($listDocuments as $document) {
+            yield from $this->buildDto($document);
+        }
     }
-
-
 }
