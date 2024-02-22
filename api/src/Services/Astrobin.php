@@ -29,7 +29,7 @@ final class Astrobin
         $this->userWs = new GetUser($this->astrobinApiKey, $this->astrobinApiSecret);
     }
 
-    public function getAstrobinImage(?string $astrobinId): AstrobinResponse
+    public function getAstrobinImage(?string $astrobinId): Image|AstrobinResponse
     {
         $defautImage = new Image();
         $defautImage->url_hd = self::IMG_LARGE_DEFAULT;
