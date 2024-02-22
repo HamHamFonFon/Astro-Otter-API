@@ -2,12 +2,7 @@
   "mappings": {
     "properties": {
       "id": {
-        "type": "text",
-        "fields": {
-          "raw": {
-            "type": "keyword"
-          }
-        }
+        "type": "keyword"
       },
       "gen": { "type": "text" },
       "alt": {
