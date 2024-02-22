@@ -6,6 +6,7 @@ use App\Dto\ConstellationRepresentation;
 use App\Dto\DsoRepresentation;
 use App\Dto\DTOInterface;
 use App\Model\Dso;
+use App\Services\Astrobin;
 use App\Services\Cache\Redis;
 use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\Item\Image;
@@ -24,7 +25,8 @@ abstract class AbstractFactory
 
     public function __construct(
         private Redis $redisAdapter,
-        protected TranslatorInterface $translator
+        protected TranslatorInterface $translator,
+        protected Astrobin $astrobin
     ) {}
 
     /**
@@ -49,8 +51,13 @@ abstract class AbstractFactory
 
     protected function getDtoFromCache(string $idMd5): ?DTOInterface
     {
+        if ($this->redisAdapter->hasItem($idMd5)) {
+            return null;
+        }
+
         $serializedDto = $this->redisAdapter->getItem($idMd5);
         if (is_null($serializedDto)) {
+            $this->redisAdapter->deleteItem($idMd5);
             return null;
         }
 

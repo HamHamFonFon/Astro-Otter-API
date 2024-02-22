@@ -39,7 +39,6 @@ final class Astrobin
 
         try {
             $astrobinImage = (!is_null($astrobinId)) ? $this->imageWs->getById($astrobinId) : basename(self::IMG_LARGE_DEFAULT);
-
             if ($astrobinImage instanceof AstrobinError) {
                 return $defautImage;
             }

@@ -26,18 +26,22 @@ class DsoFactory extends AbstractFactory implements FactoryInterface
     {
         $locale = (new Session())->get('_locale') ?? 'en';
         $idMd5 = md5(sprintf('%s_%s', $document['id'], $locale));
-        if ($dso = $this->getDtoFromCache($idMd5)) {
-            dump($dso);
-        } else {
+        $dso = $this->getDtoFromCache($idMd5);
+
+        if (is_null($dso)) {
             $dso = $this->buildDtoFromDocument($document);
             $dso->setTypeLabel($this->translator->trans(sprintf('type.%s', $dso->getType())));
 
-            $this->saveDtoInCache($dso);
-            dump($dso); die();
+            try {
+                $astrobinImg = $this->astrobin->getAstrobinImage($dso->getAstrobinId());
+                $astrobinUser = $this->astrobin->getAstrobinUser($astrobinImg->user);
 
-
+                $dso->setAstrobin($astrobinImg)->setAstrobinUser($astrobinUser);
+            } catch (\Exception $e) {
+                dump($e->getMessage());
+            }
+//            $this->saveDtoInCache($dso);
         }
-
 
         yield $dso;
     }

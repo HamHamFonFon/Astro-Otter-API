@@ -44,8 +44,6 @@ class DsoRepresentation implements DTOInterface
     private mixed $magnitude;
     private ?string $discover = null;
     private ?int $discoverYear = null;
-    private ?Image $astrobin = null;
-    private ?User  $astrobinUser = null;
     private ?array $geometry = null;
     private ?string $declinaison = null;
     private ?string $rightAscencion = null;
@@ -53,8 +51,11 @@ class DsoRepresentation implements DTOInterface
     private int|float|null $distanceParsec = null;
 
     // Add constellation
-    #[Groups(['search'])]
-    private ?DTOInterface $constellation;
+//    #[Groups(['search'])]
+//    private ?DTOInterface $constellation;
+    private ?string $astrobinId = null;
+    private ?Image $astrobin = null;
+    private ?User  $astrobinUser = null;
 
     public function __construct(
         Dso $dso,
@@ -94,6 +95,7 @@ class DsoRepresentation implements DTOInterface
             ->setDiscover($dso->getDiscover())->setDiscoverYear($dso->getDiscoverYear())
             ->setDescription($description)
             ->setGeometry($dso->getGeometry())
+            ->setAstrobinId($dso->getAstrobinId())
         ;
     }
 
@@ -350,6 +352,40 @@ class DsoRepresentation implements DTOInterface
         $this->distanceParsec = $distanceParsec;
         return $this;
     }
+
+    public function getAstrobinId(): string
+    {
+        return $this->astrobinId;
+    }
+
+    public function setAstrobinId(string $astrobinId): DsoRepresentation
+    {
+        $this->astrobinId = $astrobinId;
+        return $this;
+    }
+
+    public function getAstrobin(): ?Image
+    {
+        return $this->astrobin;
+    }
+
+    public function setAstrobin(?Image $astrobin): DsoRepresentation
+    {
+        $this->astrobin = $astrobin;
+        return $this;
+    }
+
+    public function getAstrobinUser(): ?User
+    {
+        return $this->astrobinUser;
+    }
+
+    public function setAstrobinUser(?User $astrobinUser): DsoRepresentation
+    {
+        $this->astrobinUser = $astrobinUser;
+        return $this;
+    }
+
 
 
 }
