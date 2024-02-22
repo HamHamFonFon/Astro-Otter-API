@@ -51,8 +51,9 @@ class DsoRepresentation implements DTOInterface
     private int|float|null $distanceParsec = null;
 
     // Add constellation
-//    #[Groups(['search'])]
-//    private ?DTOInterface $constellation;
+    private ?string $constId = null;
+    #[Groups(['search'])]
+    private ?DTOInterface $constellation;
     private ?string $astrobinId = null;
     private ?Image $astrobin = null;
     private ?User  $astrobinUser = null;
@@ -96,6 +97,7 @@ class DsoRepresentation implements DTOInterface
             ->setDescription($description)
             ->setGeometry($dso->getGeometry())
             ->setAstrobinId($dso->getAstrobinId())
+            ->setConstId($dso->getConstId())
         ;
     }
 
@@ -386,6 +388,25 @@ class DsoRepresentation implements DTOInterface
         return $this;
     }
 
+    public function getConstId(): ?string
+    {
+        return $this->constId;
+    }
 
+    public function setConstId(?string $constId): DsoRepresentation
+    {
+        $this->constId = $constId;
+        return $this;
+    }
 
+    public function getConstellation(): ?DTOInterface
+    {
+        return $this->constellation;
+    }
+
+    public function setConstellation(?DTOInterface $constellation): DsoRepresentation
+    {
+        $this->constellation = $constellation;
+        return $this;
+    }
 }

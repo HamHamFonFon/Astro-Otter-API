@@ -3,7 +3,6 @@
 namespace App\Services\Factory;
 
 use App\Dto\DsoRepresentation;
-use App\Dto\DTOInterface;
 use App\Model\Dso;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -30,23 +29,32 @@ class DsoFactory extends AbstractFactory implements FactoryInterface
 
         if (is_null($dso)) {
             $dso = $this->buildDtoFromDocument($document);
-            $dso->setTypeLabel($this->translator->trans(sprintf('type.%s', $dso->getType())));
+            $dso
+                ->setTypeLabel($this->translator->trans(sprintf('type.%s', $dso->getType())));
 
             try {
                 $astrobinImg = $this->astrobin->getAstrobinImage($dso->getAstrobinId());
                 $astrobinUser = $this->astrobin->getAstrobinUser($astrobinImg->user);
 
-                $dso->setAstrobin($astrobinImg)->setAstrobinUser($astrobinUser);
+                $dso
+                    ->setAstrobin($astrobinImg)
+                    ->setAstrobinUser($astrobinUser);
             } catch (\Exception $e) {
                 dump($e->getMessage());
             }
+
+            try {
+                $constellation = null;
+                $dso
+                    ->setConstellation($constellation);
+            } catch (\Exception $e) { }
 //            $this->saveDtoInCache($dso);
         }
 
         yield $dso;
     }
 
-    public function buildListDto(array $listDocumentsId)
+    public function buildListDto(array $listDocuments)
     {
         // TODO: Implement buildListDto() method.
     }

@@ -14,13 +14,13 @@ use App\State\DsoStateProvider;
 #[ApiResource(
     operations: [
         new Get(
-            formats: ['json'],
             output: DsoRepresentation::class,
             provider: DsoStateProvider::class,
             stateOptions: new Options(index: DsoRepository::INDEX)
         ),
         new GetCollection(
-            formats: ['json'],
+            output: DsoRepresentation::class,
+            provider: DsoStateProvider::class,
             stateOptions: new Options(index: DsoRepository::INDEX)
         )
     ]

@@ -2,6 +2,7 @@
 
 namespace App\State;
 
+use ApiPlatform\Metadata\CollectionOperationInterface;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
 use App\Repository\ElasticsearchRepository\DsoRepository;
@@ -19,11 +20,17 @@ readonly class DsoStateProvider implements ProviderInterface
         Operation $operation,
         array $uriVariables = [],
         array $context = []
-    ): object|array|null
+    ): \Generator
     {
+        if ($operation instanceof CollectionOperationInterface) {
+            dump('Collection'); die();
+            return null;
+        }
+
         ['id' => $dsoId] = $uriVariables;
         // Retrieve the state from somewhere
         $document = $this->dsoRepository->findById(md5($dsoId));
+
         /**
          * @throws \JsonException
          */
@@ -31,6 +38,6 @@ readonly class DsoStateProvider implements ProviderInterface
             yield from $this->dsoFactory->buildDto($document);
         });
 
-        return $dsoRepresentation()->current();
+        yield $dsoRepresentation()->current();
     }
 }
