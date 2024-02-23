@@ -18,6 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     operations: [
         new Post(
+            security: "is_granted('ROLE_ADMIN')",
             validationContext: ['groups' => ['user:create']],
             processor: UserPasswordHasher::class
         )

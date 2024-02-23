@@ -14,13 +14,88 @@ use App\State\DsoStateProvider;
 #[ApiResource(
     operations: [
         new Get(
+            uriTemplate: '/dso/item/{id}',
             output: DsoRepresentation::class,
             provider: DsoStateProvider::class,
             stateOptions: new Options(index: DsoRepository::INDEX)
         ),
         new GetCollection(
+            openapiContext: [
+                'parameters' => [
+                    [
+                        'name' => 'constellation',
+                        'in' => 'query',
+                        'schema' => [
+                            'type' => 'string',
+                        ],
+                        'required'    => false,
+                        'description' => 'Filtering by constellation',
+                    ],
+                    [
+                        'name' => 'catalog',
+                        'in' => 'query',
+                        'schema' => [
+                            'type' => 'string',
+                        ],
+                        'required'    => false,
+                        'description' => 'Filtering by catalog',
+                    ],
+                    [
+                        'name' => 'type',
+                        'in' => 'query',
+                        'schema' => [
+                            'type' => 'string',
+                        ],
+                        'required'    => false,
+                        'description' => 'Filtering by type',
+                    ],
+                    [
+                        'name' => 'magnitude',
+                        'in' => 'query',
+                        'schema' => [
+                            'type' => 'string',
+                        ],
+                        'required'    => false,
+                        'description' => 'Filtering by magnitude',
+                    ],
+                    [
+                        'name' => 'offset',
+                        'in' => 'query',
+                        'schema' => [
+                            'type' => 'integer',
+                        ],
+                        'required'    => true,
+                        'description' => 'Offset',
+                        'default' => 0
+                    ],
+                    [
+                        'name' => 'limit',
+                        'in' => 'query',
+                        'schema' => [
+                            'type' => 'integer',
+                        ],
+                        'required'    => true,
+                        'description' => 'Limit items',
+                        'default' => 21
+                    ]
+
+                ]
+            ],
+            filters: [
+                'dsos.constellation',
+                'dsos.catalog',
+                'dsos.type',
+                'dsos.mag'
+            ],
             output: DsoRepresentation::class,
             provider: DsoStateProvider::class,
+            stateOptions: new Options(index: DsoRepository::INDEX)
+        ),
+        new GetCollection(
+            uriTemplate: '/dsos/random',
+            paginationItemsPerPage: 3,
+            paginationMaximumItemsPerPage: 3,
+            description: 'Retrieve the collection of random Dso resources',
             stateOptions: new Options(index: DsoRepository::INDEX)
         )
     ]

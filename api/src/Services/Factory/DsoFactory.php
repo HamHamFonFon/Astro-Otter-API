@@ -54,9 +54,14 @@ class DsoFactory extends AbstractFactory implements FactoryInterface
         yield $dso;
     }
 
-    public function buildListDto(array $listDocuments)
+    /**
+     * @throws \JsonException
+     */
+    public function buildListDto(array $listDocuments): \Generator
     {
-        // TODO: Implement buildListDto() method.
+        foreach ($listDocuments as $document) {
+            yield from $this->buildDto($document);
+        }
     }
 
 

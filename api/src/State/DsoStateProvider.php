@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
 use App\Repository\ElasticsearchRepository\DsoRepository;
 use App\Services\Factory\DsoFactory;
+use Symfony\Component\HttpFoundation\InputBag;
 
 readonly class DsoStateProvider implements ProviderInterface
 {
@@ -23,7 +24,12 @@ readonly class DsoStateProvider implements ProviderInterface
     ): \Generator
     {
         if ($operation instanceof CollectionOperationInterface) {
-            dump('Collection'); die();
+            $filters = $context['request']->query->all();
+            $offset = $filters['offset'] ?: 0;
+            $limit = $filters['limit'] ?: 21;
+            $results = $this->dsoRepository->getDsosFiltersBy($filters, $offset, $limit);
+            dump($results);
+            die();
             return null;
         }
 
