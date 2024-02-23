@@ -74,9 +74,9 @@ abstract class AbstractFactory
         return ($unserializedDto instanceof DTOInterface) ? $unserializedDto : null;
     }
 
-    protected function saveDtoInCache(DTOInterface $dto): void
+    protected function saveDtoInCache(?string $key, DTOInterface $dto): bool
     {
-        $key = md5(sprintf('%s_%s', $dto->getId(), $dto->getLocale()));
-        $this->redisAdapter->saveItem($key, serialize($dto));
+        $key = $key ?? md5(sprintf('%s_%s', $dto->getId(), $dto->getLocale()));
+        return $this->redisAdapter->saveItem($key, serialize($dto));
     }
 }

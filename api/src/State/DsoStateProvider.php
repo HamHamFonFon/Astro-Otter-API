@@ -25,25 +25,38 @@ readonly class DsoStateProvider implements ProviderInterface
     {
         if ($operation instanceof CollectionOperationInterface) {
             $filters = $context['request']->query->all();
-            $offset = $filters['offset'] ?: 0;
-            $limit = $filters['limit'] ?: 21;
-            $results = $this->dsoRepository->getDsosFiltersBy($filters, $offset, $limit);
-            dump($results);
+            $offset = $filters['offset'] ?? 0;
+            $limit = $filters['limit'] ?? 21;
+
+            unset($filters['offset'], $filters['limit']);
+
+            [
+                'total' => $total,
+                'documents' => $documents,
+                'aggregations' => $aggregations
+            ] = $this->dsoRepository->getDsosFiltersBy($filters, $offset, $limit);
+
+            $listDso = function () use ($documents) {
+                yield from $this->dsoFactory->buildListDto($documents);
+            };
+
+            foreach ($listDso() as $dso) {
+                dump($dso);
+            }
             die();
-            return null;
+        } else {
+            ['id' => $dsoId] = $uriVariables;
+            // Retrieve the state from somewhere
+            $document = $this->dsoRepository->findById(md5($dsoId));
+
+            /**
+             * @throws \JsonException
+             */
+            $dsoRepresentation = (function () use($document) {
+                yield from $this->dsoFactory->buildDto($document);
+            });
+
+            yield $dsoRepresentation()->current();
         }
-
-        ['id' => $dsoId] = $uriVariables;
-        // Retrieve the state from somewhere
-        $document = $this->dsoRepository->findById(md5($dsoId));
-
-        /**
-         * @throws \JsonException
-         */
-        $dsoRepresentation = (function () use($document) {
-            yield from $this->dsoFactory->buildDto($document);
-        });
-
-        yield $dsoRepresentation()->current();
     }
 }

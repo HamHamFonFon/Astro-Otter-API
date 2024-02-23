@@ -56,7 +56,7 @@ class DsoRepresentation implements DTOInterface
     private ?DTOInterface $constellation;
     private ?string $astrobinId = null;
     private ?Image $astrobin = null;
-    private ?User  $astrobinUser = null;
+    private ?User $astrobinUser = null;
 
     public function __construct(
         Dso $dso,
@@ -355,12 +355,12 @@ class DsoRepresentation implements DTOInterface
         return $this;
     }
 
-    public function getAstrobinId(): string
+    public function getAstrobinId(): ?string
     {
         return $this->astrobinId;
     }
 
-    public function setAstrobinId(string $astrobinId): DsoRepresentation
+    public function setAstrobinId(?string $astrobinId): DsoRepresentation
     {
         $this->astrobinId = $astrobinId;
         return $this;
@@ -404,7 +404,7 @@ class DsoRepresentation implements DTOInterface
         return $this->constellation;
     }
 
-    public function setConstellation(?DTOInterface $constellation): DsoRepresentation
+    public function setConstellation(?DTOInterface $constellation): self
     {
         $this->constellation = $constellation;
         return $this;
