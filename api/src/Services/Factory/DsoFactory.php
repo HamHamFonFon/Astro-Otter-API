@@ -2,12 +2,10 @@
 
 namespace App\Services\Factory;
 
-use App\Dto\ConstellationRepresentation;
 use App\Dto\DsoRepresentation;
-use App\Model\Constellation;
 use App\Model\Dso;
 use AstrobinWs\Response\DTO\AstrobinResponse;
-use Nette\Utils\Image;
+use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class DsoFactory extends AbstractFactory implements FactoryInterface
@@ -24,12 +22,14 @@ class DsoFactory extends AbstractFactory implements FactoryInterface
 
     /**
      * @throws \JsonException
+     * @throws InvalidArgumentException
      */
-    public function buildDto(array $document)
+    public function buildDto(array $document): \Generator
     {
         $locale = (new Session())->get('_locale') ?? 'en';
 
         $idMd5 = md5(sprintf('%s_%s', $document['id'], $locale));
+
         $dso = $this->getDtoFromCache($idMd5);
 
         if (is_null($dso)) {
@@ -50,7 +50,9 @@ class DsoFactory extends AbstractFactory implements FactoryInterface
                 dump($e->getMessage());
             }
 
-            $this->saveDtoInCache($idMd5, $dso);
+            try {
+                $this->saveDtoInCache($idMd5, $dso);
+            } catch (InvalidArgumentException $e) {}
         }
 
         yield $dso;
@@ -58,13 +60,12 @@ class DsoFactory extends AbstractFactory implements FactoryInterface
 
     /**
      * @throws \JsonException
+     * @throws InvalidArgumentException
      */
     public function buildListDto(array $listDocuments): \Generator
     {
         foreach ($listDocuments as $document) {
-//            $dso = $this->buildDto($document);
             yield from $this->buildDto($document);
         }
-
     }
 }

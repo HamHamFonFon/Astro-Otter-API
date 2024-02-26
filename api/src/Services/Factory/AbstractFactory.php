@@ -11,6 +11,7 @@ use App\Services\Cache\Redis;
 use AstrobinWs\Response\DTO\AstrobinError;
 use AstrobinWs\Response\DTO\Item\Image;
 use AstrobinWs\Response\DTO\Item\User;
+use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
@@ -48,6 +49,9 @@ abstract class AbstractFactory
         return new $dto($hydratedEntity, $locale);
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     protected function getDtoFromCache(string $idMd5): ?DTOInterface
     {
         if ($this->redisAdapter->hasItem($idMd5)) {
@@ -74,9 +78,13 @@ abstract class AbstractFactory
         return ($unserializedDto instanceof DTOInterface) ? $unserializedDto : null;
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     protected function saveDtoInCache(?string $key, DTOInterface $dto): bool
     {
         $key = $key ?? md5(sprintf('%s_%s', $dto->getId(), $dto->getLocale()));
+        $this->redisAdapter->deleteItem($key);
         return $this->redisAdapter->saveItem($key, serialize($dto));
     }
 }

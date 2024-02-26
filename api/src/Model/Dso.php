@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Dto\DsoRepresentation;
 use App\Repository\ElasticsearchRepository\DsoRepository;
+use App\State\DsoRandomStateProvider;
 use App\State\DsoStateProvider;
 
 #[ApiResource(
@@ -96,6 +97,7 @@ use App\State\DsoStateProvider;
             paginationItemsPerPage: 3,
             paginationMaximumItemsPerPage: 3,
             description: 'Retrieve the collection of random Dso resources',
+            provider: DsoRandomStateProvider::class,
             stateOptions: new Options(index: DsoRepository::INDEX)
         )
     ]

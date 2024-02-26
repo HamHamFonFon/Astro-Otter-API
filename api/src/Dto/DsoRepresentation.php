@@ -72,7 +72,9 @@ class DsoRepresentation implements DTOInterface
         $description = $dso->getDescription()[$fieldDescription] ?? null;
 
         $strSanitization = new StringSanitization;
-        $othersDsoDesigs = array_filter($dso->getDesigs(), static fn(string $desig) => $desig !== $name);
+
+        $desigs = is_array($dso->getDesigs()) ? $dso->getDesigs() : [$dso->getDesigs()];
+        $othersDsoDesigs = array_filter($desigs, static fn(string $desig) => $desig !== $name);
 
         $catalogs = (!is_array($dso->getCatalog())) ? [$dso->getCatalog()] : $dso->getCatalog();
 

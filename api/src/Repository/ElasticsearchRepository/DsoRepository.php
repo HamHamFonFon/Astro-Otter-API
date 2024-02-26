@@ -48,6 +48,36 @@ final class DsoRepository extends AbstractRepository
      */
 
     // GetRandomDso
+    public function getRandomDso(int $offset, int $limit): array
+    {
+        $seed = (new \DateTime())->getTimestamp();
+        $param = [
+            'index' => $this->getIndex(),
+            'body' => [
+                'query' => [
+                    'function_score' => [
+                        'query' => [
+                            'exists' => ['field' => 'astrobin_id']
+                        ],
+                        'boost' => 5,
+                        'random_score' => [
+                            'seed' => $seed
+                        ],
+                        'boost_mode' => 'multiply'
+                    ]
+                ],
+                'from' => $offset,
+                'size' => $limit
+            ]
+        ];
+
+        $results = $this->client->search($param);
+        return array_map(
+            fn(array $hit) => $hit['_source'],
+            $results['hits']['hits']
+        );
+    }
+
 
     // GetDsoCatalogs
     public function getDsosFiltersBy(array $filters, int $offset, int $limit): array
@@ -107,6 +137,16 @@ final class DsoRepository extends AbstractRepository
         $results = $this->client->search($param);
         ['total' => $total, 'hits' => $hits] = $results['hits'];
         ['aggregations' => $aggregations] = $results;
+
+        foreach ($aggregations as $type => $aggs) {
+            $aggregations[$type] = array_map(function($bucket) use($type) {
+                return [
+                    'name' => $bucket['key'],
+                    'count' => $bucket['doc_count'],
+                    'label' => sprintf('%s.%s', $type, strtolower($bucket['key']))
+                ];
+            }, $aggs['buckets']);
+        }
 
         return [
             'total' => $total['value'],

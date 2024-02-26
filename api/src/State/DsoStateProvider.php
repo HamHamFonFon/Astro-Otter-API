@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
 use App\Repository\ElasticsearchRepository\DsoRepository;
 use App\Services\Factory\DsoFactory;
+use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\InputBag;
 
 readonly class DsoStateProvider implements ProviderInterface
@@ -17,18 +18,26 @@ readonly class DsoStateProvider implements ProviderInterface
         private DsoFactory $dsoFactory
     ) { }
 
+    /**
+     * @throws \JsonException
+     * @throws InvalidArgumentException
+     */
     public function provide(
         Operation $operation,
         array $uriVariables = [],
         array $context = []
-    ): \Generator
+    ): array|object|null
     {
         if ($operation instanceof CollectionOperationInterface) {
             $filters = $context['request']->query->all();
             $offset = $filters['offset'] ?? 0;
             $limit = $filters['limit'] ?? 21;
-
             unset($filters['offset'], $filters['limit']);
+            $authorizedQueryParams = array_map(fn($param) => $param['name'], $context['operation']->getOpenapiContext()['parameters']);
+
+            $filters = array_filter($filters, function(string $paramKey) use ($authorizedQueryParams) {
+                return in_array($paramKey, $authorizedQueryParams);
+            }, ARRAY_FILTER_USE_KEY);
 
             [
                 'total' => $total,
@@ -37,18 +46,22 @@ readonly class DsoStateProvider implements ProviderInterface
             ] = $this->dsoRepository->getDsosFiltersBy($filters, $offset, $limit);
 
             $listDso = function () use ($documents) {
-                yield from $this->dsoFactory->buildListDto($documents);
+                try {
+                    yield from $this->dsoFactory->buildListDto($documents);
+                } catch (\JsonException $e) {
+                }
             };
 
-            foreach ($listDso() as $dso) {
-                dump($dso);
-            }
-            die();
+
+            return [
+                'total' => $total,
+                'items' => iterator_to_array($listDso()),
+                'aggregates' => $aggregations
+            ];
         } else {
             ['id' => $dsoId] = $uriVariables;
             // Retrieve the state from somewhere
             $document = $this->dsoRepository->findById(md5($dsoId));
-
             /**
              * @throws \JsonException
              */
@@ -56,7 +69,7 @@ readonly class DsoStateProvider implements ProviderInterface
                 yield from $this->dsoFactory->buildDto($document);
             });
 
-            yield $dsoRepresentation()->current();
+            return $dsoRepresentation()->current();
         }
     }
 }
