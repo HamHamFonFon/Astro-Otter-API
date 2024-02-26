@@ -2,40 +2,58 @@
 
 namespace App\Services\Cache;
 
-use Symfony\Contracts\Cache\CacheInterface as AbstractAdapter;
+use Psr\Cache\InvalidArgumentException;
+use \Psr\Cache\CacheItemPoolInterface;
 
-readonly class Redis implements CacheInterface
+final readonly class Redis implements CacheInterface
 {
 
     public function __construct(
-        private AbstractAdapter $cachePoolAdaper
+        private CacheItemPoolInterface $redisCachePool
     ) { }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function getItem(string $key): ?string
     {
-        $cacheItem = $this->cachePoolAdaper->getItem($key);
+        $cacheItem = $this->redisCachePool->getItem($key);
         return $cacheItem->isHit() ? $cacheItem->get() : null;
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function saveItem(string $key, $value): bool
     {
-        $cacheItem = $this->cachePoolAdaper->getItem($key);
+        $cacheItem = $this->redisCachePool->getItem($key);
         $cacheItem->set($value);
-        return $this->cachePoolAdaper->save($cacheItem);
+        return $this->redisCachePool->save($cacheItem);
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function hasItem(string $key): bool
     {
-        return $this->cachePoolAdaper->hasItem($key);
+        return $this->redisCachePool->hasItem($key);
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function deleteItem(string $key): bool
     {
-        return $this->cachePoolAdaper->deleteItem($key);
+        return $this->redisCachePool->deleteItem($key);
     }
 
     public function deleteAll(): bool
     {
-        return $this->cachePoolAdaper->clear();
+        return $this->redisCachePool->clear();
+    }
+
+    public function test(): void
+    {
+        dump($this->redisCachePool);
     }
 }
