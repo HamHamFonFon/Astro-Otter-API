@@ -7,3 +7,6 @@ controllers:
 auth:
     path: /auth
     methods: ['POST']
+
+refresh_token:
+    path: /token/refresh

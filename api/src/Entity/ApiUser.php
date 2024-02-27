@@ -7,14 +7,14 @@ use ApiPlatform\Metadata\Post;
 use App\Repository\DoctrineRepository\ApiUserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
+use App\State\UserPasswordHasher;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ApiUserRepository::class)]
-#[UniqueEntity('email')]
+#[UniqueEntity('`email`')]
 #[ApiResource(
     operations: [
         new Post(
@@ -23,6 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             processor: UserPasswordHasher::class
         )
     ],
+    normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:create']]
 )]
 class ApiUser implements UserInterface, PasswordAuthenticatedUserInterface
@@ -34,7 +35,7 @@ class ApiUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[Assert\Email]
     #[Assert\NotBlank()]
-    #[Groups(['user:create'])]
+    #[Groups(['user:read', 'user:create'])]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
@@ -81,7 +82,7 @@ class ApiUser implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
+        // guarantee every user at least has ROLE_API_USER
         $roles[] = 'ROLE_API_USER';
 
         return array_unique($roles);
