@@ -16,6 +16,7 @@ use App\State\DsoStateProvider;
     operations: [
         new Get(
             uriTemplate: '/dso/item/{id}',
+            security: "is_granted('ROLE_API_USER')",
             output: DsoRepresentation::class,
             provider: DsoStateProvider::class,
             stateOptions: new Options(index: DsoRepository::INDEX)
@@ -82,6 +83,7 @@ use App\State\DsoStateProvider;
 
                 ]
             ],
+            security: "is_granted('ROLE_API_USER')",
             filters: [
                 'dsos.constellation',
                 'dsos.catalog',
@@ -97,6 +99,7 @@ use App\State\DsoStateProvider;
             paginationItemsPerPage: 3,
             paginationMaximumItemsPerPage: 3,
             description: 'Retrieve the collection of random Dso resources',
+            security: "is_granted('ROLE_API_USER')",
             provider: DsoRandomStateProvider::class,
             stateOptions: new Options(index: DsoRepository::INDEX)
         )

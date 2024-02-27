@@ -14,13 +14,15 @@ use App\State\ConstellationsStateProvider;
 #[ApiResource(
     operations: [
         new Get(
+            security: "is_granted('ROLE_USER')",
             output: ConstellationRepresentation::class,
             provider: ConstellationsStateProvider::class,
-            stateOptions: new Options(index: ConstellationRepository::INDEX)
+            stateOptions: new Options(index: ConstellationRepository::INDEX),
         ),
         new GetCollection(
+            security: "is_granted('ROLE_USER')",
             provider: ConstellationsStateProvider::class,
-            stateOptions: new Options(index: ConstellationRepository::INDEX)
+            stateOptions: new Options(index: ConstellationRepository::INDEX),
         )
     ]
 )]
