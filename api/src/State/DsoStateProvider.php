@@ -5,6 +5,7 @@ namespace App\State;
 use ApiPlatform\Metadata\CollectionOperationInterface;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
+use App\Repository\ElasticsearchRepository\ConstellationRepository;
 use App\Repository\ElasticsearchRepository\DsoRepository;
 use App\Services\Factory\DsoFactory;
 use Psr\Cache\InvalidArgumentException;
@@ -15,6 +16,7 @@ readonly class DsoStateProvider implements ProviderInterface
 
     public function __construct(
         private DsoRepository $dsoRepository,
+        private ConstellationRepository $constellationRepository,
         private DsoFactory $dsoFactory
     ) { }
 
@@ -45,30 +47,33 @@ readonly class DsoStateProvider implements ProviderInterface
                 'aggregations' => $aggregations
             ] = $this->dsoRepository->getDsosFiltersBy($filters, $offset, $limit);
 
+            array_walk($documents, function(&$doc) {
+                if ($doc['const_id']) {
+                    $doc['constellation'] = $this->constellationRepository->findById(md5($doc['const_id']));
+                }
+            });
+
             $listDso = function () use ($documents) {
-                try {
-                    yield from $this->dsoFactory->buildListDto($documents);
-                } catch (\JsonException $e) {
+                foreach ($documents as $document) {
+                    $dsoRepresentation = fn() => yield from $this->dsoFactory->buildDto($document);
+                    yield $dsoRepresentation()->current();
                 }
             };
 
-
             return [
                 'total' => $total,
-                'items' => iterator_to_array($listDso()),
+                'items' =>  $listDso(),
                 'aggregates' => $aggregations
             ];
         } else {
             ['id' => $dsoId] = $uriVariables;
             // Retrieve the state from somewhere
             $document = $this->dsoRepository->findById(md5($dsoId));
-            /**
-             * @throws \JsonException
-             */
-            $dsoRepresentation = (function () use($document) {
-                yield from $this->dsoFactory->buildDto($document);
-            });
+            if ($document['const_id']) {
+                $document['constellation'] = $this->constellationRepository->findById(md5($document['const_id']));
+            }
 
+            $dsoRepresentation = fn() => yield from $this->dsoFactory->buildDto($document);
             return $dsoRepresentation()->current();
         }
     }

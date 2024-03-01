@@ -3,6 +3,7 @@
 namespace App\Dto;
 
 use AllowDynamicProperties;
+use App\Model\Constellation;
 use App\Model\Dso;
 use App\Services\StringSanitization;
 use App\Services\Translator;
@@ -53,7 +54,7 @@ class DsoRepresentation implements DTOInterface
     // Add constellation
     private ?string $constId = null;
     #[Groups(['search'])]
-    private ?DTOInterface $constellation;
+    private DTOInterface|ConstellationRepresentation|null $constellation;
     private ?string $astrobinId = null;
     private ?Image $astrobin = null;
     private ?User $astrobinUser = null;
@@ -406,7 +407,7 @@ class DsoRepresentation implements DTOInterface
         return $this->constellation;
     }
 
-    public function setConstellation(?DTOInterface $constellation): self
+    public function setConstellation(DTOInterface|ConstellationRepresentation|null $constellation): self
     {
         $this->constellation = $constellation;
         return $this;

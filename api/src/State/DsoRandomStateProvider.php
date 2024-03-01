@@ -31,7 +31,8 @@ readonly class DsoRandomStateProvider implements ProviderInterface
         $limit = $filters['limit'] ?? 3;
 
         $documents = $this->dsoRepository->getRandomDso($offset, $limit);
-
-        yield from $this->dsoFactory->buildListDto($documents);
+        foreach ($documents as $document) {
+            yield from $this->dsoFactory->buildDto($document);
+        }
     }
 }

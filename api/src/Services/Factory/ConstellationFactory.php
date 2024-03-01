@@ -5,6 +5,7 @@ namespace App\Services\Factory;
 use App\Dto\ConstellationRepresentation;
 use App\Model\Constellation;
 use Generator;
+use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class ConstellationFactory extends AbstractFactory implements FactoryInterface
@@ -28,6 +29,7 @@ class ConstellationFactory extends AbstractFactory implements FactoryInterface
     /**
      * @param array $document
      * @return Generator
+     * @throws InvalidArgumentException
      */
     public function buildDto(array $document): Generator
     {
@@ -36,20 +38,9 @@ class ConstellationFactory extends AbstractFactory implements FactoryInterface
         $constellation = $this->getDtoFromCache($idMd5);
         if (is_null($constellation)) {
             $constellation = $this->buildDtoFromDocument($document);
-            $this->saveDtoInCache($constellation);
+            $this->saveDtoInCache($idMd5, $constellation);
         }
 
         yield $constellation;
-    }
-
-    /**
-     * @param array $listDocuments
-     * @return Generator
-     */
-    public function buildListDto(array $listDocuments): Generator
-    {
-        foreach ($listDocuments as $document) {
-            yield from $this->buildDto($document);
-        }
     }
 }

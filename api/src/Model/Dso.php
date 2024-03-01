@@ -22,6 +22,7 @@ use App\State\DsoStateProvider;
             stateOptions: new Options(index: DsoRepository::INDEX)
         ),
         new GetCollection(
+            uriTemplate: '/dso/list',
             openapiContext: [
                 'parameters' => [
                     [
@@ -95,7 +96,7 @@ use App\State\DsoStateProvider;
             stateOptions: new Options(index: DsoRepository::INDEX)
         ),
         new GetCollection(
-            uriTemplate: '/dsos/random',
+            uriTemplate: '/dso/random',
             paginationItemsPerPage: 3,
             paginationMaximumItemsPerPage: 3,
             description: 'Retrieve the collection of random Dso resources',

@@ -21,7 +21,12 @@ readonly class ConstellationsStateProvider implements ProviderInterface
         if ($operation instanceof CollectionOperationInterface) {
             $allDocsConstellations = $this->constellationRepository->getAllConstellations();
             $allConstellations = function() use ($allDocsConstellations) {
-                yield from $this->constellationFactory->buildListDto($allDocsConstellations);
+                foreach ($allDocsConstellations as $document) {
+                    $constellationRepresentation = fn() => yield from $this->constellationFactory->buildDto($document);
+                    yield $constellationRepresentation()->current();
+                }
+
+//                yield from $this->constellationFactory->buildListDto($allDocsConstellations);
             };
 
             foreach ($allConstellations() as $constellation) {

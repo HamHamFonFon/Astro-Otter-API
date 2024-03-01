@@ -5,6 +5,7 @@ namespace App\Services\Factory;
 use App\Dto\ConstellationRepresentation;
 use App\Dto\DsoRepresentation;
 use App\Dto\DTOInterface;
+use App\Model\Constellation;
 use App\Model\Dso;
 use App\Services\Astrobin;
 use App\Services\Cache\Redis;
@@ -25,20 +26,26 @@ abstract class AbstractFactory
     abstract protected function getDto(): string;
 
     public function __construct(
-        private Redis $redisAdapter,
+        private readonly Redis        $redisAdapter,
         protected TranslatorInterface $translator,
-        protected Astrobin $astrobin
+        protected Astrobin            $astrobin
     ) {}
 
     /**
      * Transform ES document (array) into DTO
      * @param array $document
+     * @param string|null $nestedEsModel
+     * @param string|null $nestedDto
      * @return DTOInterface
      */
-    protected function buildDtoFromDocument(array $document): DTOInterface
+    protected function buildDtoFromDocument(
+        array $document,
+        ?string $nestedEsModel = null,
+        ?string $nestedDto = null
+    ): DTOInterface
     {
-        $model = $this->getEsModel();
-        $dto = $this->getDto();
+        $model = $nestedEsModel ?? $this->getEsModel();
+        $dto = $nestedDto ?? $this->getDto();
 
         $normalizer = [new ObjectNormalizer(null, new CamelCaseToSnakeCaseNameConverter())];
         $encoder = [new JsonEncode()];
