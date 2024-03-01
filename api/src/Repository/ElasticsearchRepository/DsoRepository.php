@@ -3,9 +3,11 @@
 namespace App\Repository\ElasticsearchRepository;
 
 use App\Dto\DsoRepresentation;
+use App\Enums\DsoSearchFields;
 use App\Model\Dso;
 use rdfHelpers\RdfNamespace;
 use rdfInterface\BlankNodeInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 final class DsoRepository extends AbstractRepository
 {
@@ -15,6 +17,19 @@ final class DsoRepository extends AbstractRepository
     {
         return self::INDEX;
     }
+
+    /**
+     * @return array
+     */
+    protected function getFields(): array
+    {
+        $locale = (new Session())->get('_locale') ?: 'en';
+        return array_merge(
+            array_map(fn (DsoSearchFields $case) => $case->value, DsoSearchFields::cases()),
+            [sprintf('alt.alt_%s', $locale)]
+        );
+    }
+
 
     private static array $listAggregates = [
         'constellation' => [

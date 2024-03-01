@@ -23,6 +23,7 @@ abstract class AbstractRepository
      * Build ES document into DTO
      */
     abstract protected function getIndex(): string;
+    abstract protected function getFields(): array;
 
     /**
      * Main requests
@@ -53,8 +54,25 @@ abstract class AbstractRepository
         return $this->client->search($param);
     }
 
-    protected function findBySearchTerms(string $searchTerm)
-    {}
+    public function findBySearchTerms(string $searchTerm): array
+    {
+        $param = [
+            'index' => $this->getIndex(),
+            'body' => [
+                'query' => [
+                    'multi_match' => [
+                        'query' => $searchTerm,
+                        'fields' => $this->getFields(),
+                        'type' => 'phrase_prefix'
+                    ]
+                ]
+            ],
+            'size' => 10
+        ];
+
+        $results = $this->client->search($param);
+        return array_map(fn ($hit) => $hit['_source'],$results['hits']['hits']);
+    }
 
     protected function addNewDocument()
     {

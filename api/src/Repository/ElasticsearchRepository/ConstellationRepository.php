@@ -2,7 +2,8 @@
 
 namespace App\Repository\ElasticsearchRepository;
 
-use App\Repository\ElasticsearchRepository\AbstractRepository;
+use App\Enums\ConstellationSearchFields;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ConstellationRepository extends AbstractRepository
 {
@@ -14,6 +15,19 @@ class ConstellationRepository extends AbstractRepository
     {
         return self::INDEX;
     }
+
+    /**
+     * @return array
+     */
+    protected function getFields(): array
+    {
+        $locale = (new Session())->get('_locale') ?: 'en';
+        return array_merge(
+            array_map(fn (ConstellationSearchFields $case) => $case->value, ConstellationSearchFields::cases()),
+            [sprintf('alt_%s', $locale), sprintf('alt_%s.keyword', $locale)]
+        );
+    }
+
 
     public function getAllConstellations(): callable|array
     {

@@ -6,7 +6,7 @@ use ApiPlatform\Metadata\Post;
 use App\State\ContactStateProcessor;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[Post(security: "is_granted('ROLE_USER')", processor: ContactStateProcessor::class,)]
+#[Post(security: "is_granted('ROLE_API_USER')", processor: ContactStateProcessor::class,)]
 class Contact
 {
     #[Assert\NotBlank(message: 'contact.constraint.not_blank')]
