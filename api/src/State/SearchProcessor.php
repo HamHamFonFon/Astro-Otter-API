@@ -39,6 +39,10 @@ readonly class SearchProcessor implements ProcessorInterface
      */
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): \Generator
     {
+        if (!$data instanceof Search) {
+            throw new \Error();
+        }
+
         $classMetadataFactory = new ClassMetadataFactory(new AttributeLoader(/*new AnnotationReader()*/));
         $normalizers = [new ObjectNormalizer($classMetadataFactory)];
         $encoders = [new JsonEncoder()];

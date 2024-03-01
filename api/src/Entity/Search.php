@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\Post;
+use App\State\SearchByAiProcessor;
 use App\State\SearchProcessor;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -10,13 +11,20 @@ use Symfony\Component\Validator\Constraints as Assert;
     uriTemplate: '/search',
     security: "is_granted('ROLE_API_USER')",
     processor: SearchProcessor::class
-
 )]
-class Search
+#[Post(
+    uriTemplate: '/search-by-ai',
+    security: "is_granted('ROLE_AI_USER')",
+    processor: SearchByAiProcessor::class
+)]
+final class Search
 {
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(message: '')]
     #[Assert\NoSuspiciousCharacters()]
-    #[Assert\NotNull()]
+    #[Assert\NotNull(message: '')]
+    #[Assert\Regex(
+        pattern: '/[a-zA-Z0-9-_.%\s]+/i'
+    )]
     private string $terms;
 
     public function getTerms(): string
