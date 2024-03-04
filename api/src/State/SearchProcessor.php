@@ -55,6 +55,11 @@ readonly class SearchProcessor implements ProcessorInterface
             yield $serializer->normalize($dso, null, ['groups' => 'search']);
         }
 
-//        $constDocuments = $this->constellationRepository->findBySearchTerms($data->getTerms());
+        $constDocuments = $this->constellationRepository->findBySearchTerms($data->getTerms());
+        foreach ($constDocuments as $document) {
+            $constFunc = fn () => yield from $this->constellationFactory->buildDto($document);
+            $constellation = $constFunc()->current();
+            yield $serializer->normalize($constellation, null, ['groups' => 'search']);
+        }
     }
 }
