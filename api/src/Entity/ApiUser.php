@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Repository\DoctrineRepository\ApiUserRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,6 +22,12 @@ use Symfony\Component\Validator\Constraints as Assert;
             security: "is_granted('ROLE_ADMIN')",
             validationContext: ['groups' => ['user:create']],
             processor: UserPasswordHasher::class
+        ),
+        new Patch(
+            description: 'Enable or disable user',
+            denormalizationContext: ['groups' => ['user:patch']],
+            security: "is_granted('ROLE_ADMIN')",
+            validationContext: ['groups' => ['user:patch']]
         )
     ],
     normalizationContext: ['groups' => ['user:read']],
@@ -48,6 +55,10 @@ class ApiUser implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(groups: ['user:create'])]
     #[Groups(['user:create'])]
     private ?string $plainPassword = null;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    #[Groups(['user:patch'])]
+    private ?bool $isActive = false;
 
     public function getId(): ?int
     {
@@ -118,6 +129,17 @@ class ApiUser implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPlainPassword(?string $plainPassword): ApiUser
     {
         $this->plainPassword = $plainPassword;
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(?bool $isActive): ApiUser
+    {
+        $this->isActive = $isActive;
         return $this;
     }
 

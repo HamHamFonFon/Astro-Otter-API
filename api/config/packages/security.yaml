@@ -18,8 +18,10 @@ security:
             pattern: ^/v2/
             stateless: true
             provider: api_users
+            user_checker: App\Security\ApiUserChecker
             jwt: ~
         main:
+            user_checker: App\Security\ApiUserChecker
             json_login:
                 check_path: auth
                 username_path: email

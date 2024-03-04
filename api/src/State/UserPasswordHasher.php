@@ -7,6 +7,9 @@ use ApiPlatform\State\ProcessorInterface;
 use App\Entity\ApiUser;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+/**
+ * State-processor for posting new user
+ */
 readonly class UserPasswordHasher implements ProcessorInterface
 {
     public function __construct(
@@ -20,11 +23,16 @@ readonly class UserPasswordHasher implements ProcessorInterface
             return $this->processor->process($data, $operation, $uriVariables, $context);
         }
 
+        if (!$data instanceof ApiUser) {
+            return null;
+        }
+
         $hashedPassword = $this->passwordHasher->hashPassword(
             $data,
             $data->getPlainPassword()
         );
         $data->setPassword($hashedPassword);
+        $data->setIsActive(false);
         $data->setRoles(['ROLE_API_USER']);
         $data->eraseCredentials();
 
