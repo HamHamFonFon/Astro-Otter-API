@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Repository\DoctrineRepository\ApiUserRepository;
@@ -20,9 +20,9 @@ use Symfony\Component\Uid\UuidV6 as Uuid;
 #[UniqueEntity('`email`')]
 #[ApiResource(
     operations: [
-//        new Get(
+        new GetCollection(
 //            security: "is_granted('ROLE_ADMIN')"
-//        ),
+        ),
         new Post(
 //            security: "is_granted('ROLE_ADMIN')",
             validationContext: ['groups' => ['user:create']],
@@ -63,7 +63,7 @@ class ApiUser implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $plainPassword = null;
 
     #[ORM\Column(type: 'boolean', nullable: true)]
-    #[Groups(['user:patch'])]
+    #[Groups(['user:patch', 'user:read'])]
     private ?bool $isActive = false;
 
     public function getId(): ?Uuid
