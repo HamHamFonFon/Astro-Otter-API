@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Repository\DoctrineRepository\ApiUserRepository;
@@ -19,6 +20,9 @@ use Symfony\Component\Uid\UuidV6 as Uuid;
 #[UniqueEntity('`email`')]
 #[ApiResource(
     operations: [
+        new Get(
+            security: "is_granted('ROLE_ADMIN')"
+        ),
         new Post(
             security: "is_granted('ROLE_ADMIN')",
             validationContext: ['groups' => ['user:create']],
