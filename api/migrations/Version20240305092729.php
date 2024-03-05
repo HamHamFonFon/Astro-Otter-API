@@ -21,7 +21,7 @@ final class Version20240305092729 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('DROP SEQUENCE api_user_id_seq CASCADE');
-        $this->addSql('ALTER TABLE api_user ALTER id TYPE UUID');
+        $this->addSql('ALTER TABLE api_user ALTER COLUMN id TYPE UUID USING id::UUID ');
         $this->addSql('COMMENT ON COLUMN api_user.id IS \'(DC2Type:uuid)\'');
     }
 
