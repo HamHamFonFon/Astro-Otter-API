@@ -20,11 +20,11 @@ use Symfony\Component\Uid\UuidV6 as Uuid;
 #[UniqueEntity('`email`')]
 #[ApiResource(
     operations: [
-        new Get(
-            security: "is_granted('ROLE_ADMIN')"
-        ),
+//        new Get(
+//            security: "is_granted('ROLE_ADMIN')"
+//        ),
         new Post(
-            security: "is_granted('ROLE_ADMIN')",
+//            security: "is_granted('ROLE_ADMIN')",
             validationContext: ['groups' => ['user:create']],
             processor: UserPasswordHasher::class
         ),
