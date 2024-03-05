@@ -25,8 +25,8 @@ final class Version20240226151716 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE update_data_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE TABLE api_user (id INT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_AC64A0BAE7927C74 ON api_user (email)');
-        $this->addSql('CREATE TABLE update_data (id INT NOT NULL, date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, list_dso JSON NOT NULL, PRIMARY KEY(id))');
-        $this->addSql('DROP TABLE greeting');
+        $this->addSql('CREATE TABLE IF NOT EXISTS update_data (id INT NOT NULL, date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, list_dso JSON NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('DROP TABLE IF EXISTS greeting');
     }
 
     public function down(Schema $schema): void
