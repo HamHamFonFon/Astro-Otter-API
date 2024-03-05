@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
@@ -21,10 +22,10 @@ use Symfony\Component\Uid\UuidV7 as Uuid;
 #[ApiResource(
     operations: [
         new GetCollection(
-//            security: "is_granted('ROLE_ADMIN')"
+            security: "is_granted('ROLE_ADMIN')"
         ),
         new Post(
-//            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN')",
             validationContext: ['groups' => ['user:create']],
             processor: UserPasswordHasher::class
         ),
@@ -33,6 +34,9 @@ use Symfony\Component\Uid\UuidV7 as Uuid;
             denormalizationContext: ['groups' => ['user:patch']],
             security: "is_granted('ROLE_ADMIN')",
             validationContext: ['groups' => ['user:patch']]
+        ),
+        new Delete(
+            security: "is_granted('ROLE_ADMIN')"
         )
     ],
     normalizationContext: ['groups' => ['user:read']],

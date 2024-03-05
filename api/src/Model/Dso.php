@@ -16,7 +16,7 @@ use App\State\DsoStateProvider;
     operations: [
         new Get(
             uriTemplate: '/dso/item/{id}',
-            security: "is_granted('ROLE_API_USER')",
+//            security: "is_granted('ROLE_API_USER')",
             output: DsoRepresentation::class,
             provider: DsoStateProvider::class,
             stateOptions: new Options(index: DsoRepository::INDEX)
