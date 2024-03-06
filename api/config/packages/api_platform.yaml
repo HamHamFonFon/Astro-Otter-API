@@ -18,7 +18,7 @@ api_platform:
             vary: ['Content-Type', 'Authorization', 'Origin']
         extra_properties:
             standard_put: true
-#            rfc_7807_compliant_errors: true
+            rfc_7807_compliant_errors: true
     swagger:
         api_keys:
             JWT:
