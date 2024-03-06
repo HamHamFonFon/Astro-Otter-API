@@ -53,8 +53,8 @@ class ApiUser implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private ?Uuid $id = null;
 
-    #[Assert\Email]
-    #[Assert\NotBlank()]
+    #[Assert\Email(message: 'api_users.email.email', groups: ['user:create'])]
+    #[Assert\NotBlank(message: 'api_users.email.not_blank', groups: ['user:create'])]
     #[Groups(['user:read', 'user:create'])]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
@@ -65,7 +65,8 @@ class ApiUser implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[Assert\NotBlank(groups: ['user:create'])]
+    #[Assert\NotBlank(message: 'api_users.plain_password.not_blank', groups: ['user:create'])]
+    #[Assert\NotCompromisedPassword(message: 'api_users.plain_password.not_compromised', groups: ['user:create'])]
     #[Groups(['user:create'])]
     private ?string $plainPassword = null;
 

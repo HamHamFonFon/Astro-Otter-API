@@ -1,0 +1,7 @@
+api_users:
+    email:
+        email: Please pick a valid email
+        not_blank: Email is mandatory
+    plain_password:
+        not_blank: Password is mandatory
+        not_compromised: Password too weak, please make it stronger
