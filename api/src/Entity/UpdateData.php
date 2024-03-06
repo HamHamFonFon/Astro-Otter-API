@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -15,9 +16,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity(fields: 'id')]
 #[ORM\HasLifecycleCallbacks]
 #[ApiResource(
-    new Post(
-        denormalizationContext: ['groups' => ['data:create']]
-    )
+    operations: [
+        new GetCollection(
+            normalizationContext: ['groups' => ['data:read']]
+        ),
+        new Post(
+            denormalizationContext: ['groups' => ['data:create']]
+        )
+    ]
 )]
 class UpdateData
 {
@@ -27,12 +33,13 @@ class UpdateData
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private ?Uuid $id = null;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     #[Assert\DateTime(message: 'update_data.constraint.datetime')]
+    #[Groups(['data:read'])]
     private ?\DateTimeImmutable $date = null;
 
     #[ORM\Column(type: 'json')]
-    #[Groups(['data:create'])]
+    #[Groups(['data:create', 'data:read'])]
     #[Assert\NotBlank(groups: ['data:create'])]
     #[Assert\NotNull(groups: ['data:create'])]
     private string $listDso;
@@ -53,9 +60,10 @@ class UpdateData
         return $this->date;
     }
 
-    public function setDate(?\DateTimeImmutable $date): UpdateData
+    #[ORM\PrePersist]
+    public function setDateValue(): UpdateData
     {
-        $this->date = $date;
+        $this->date = new \DateTimeImmutable();
         return $this;
     }
 
