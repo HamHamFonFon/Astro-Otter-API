@@ -24,6 +24,7 @@ class ErrorProvider implements ProviderInterface
         $request = $context['request'];
         $format = $request->getRequestFormat();
         $exception = $request->attributes->get('exception');
+        echo '<pre>'; print_r($exception); die();
         $status = $operation->getStatus() ?? 500;
 
         $error = Error::createFromException($exception, $status);
