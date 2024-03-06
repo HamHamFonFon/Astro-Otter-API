@@ -35,7 +35,7 @@ api_platform:
 
 when@prod:
     api_platform:
-        enable_docs: true
-        enable_entrypoint: true
+        enable_docs: false
+        enable_entrypoint: false
         enable_swagger: false
-        enable_swagger_ui: true
+        enable_swagger_ui: false
