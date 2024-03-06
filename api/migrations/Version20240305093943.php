@@ -26,7 +26,6 @@ final class Version20240305093943 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN api_user.id IS \'(DC2Type:uuid)\'');
         $this->addSql('CREATE TABLE refresh_tokens (id INT NOT NULL, refresh_token VARCHAR(128) NOT NULL, username VARCHAR(255) NOT NULL, valid TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_9BACE7E1C74F2195 ON refresh_tokens (refresh_token)');
-        $this->addSql('CREATE TABLE update_data (id INT NOT NULL, date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, list_dso JSON NOT NULL, PRIMARY KEY(id))');
     }
 
     public function down(Schema $schema): void
