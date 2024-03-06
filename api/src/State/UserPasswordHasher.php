@@ -23,7 +23,7 @@ readonly class UserPasswordHasher implements ProcessorInterface
             return null;
         }
 
-        var_dump($data); die();
+
         if (!$data->getPlainPassword()) {
             return $this->processor->process($data, $operation, $uriVariables, $context);
         }
@@ -36,7 +36,7 @@ readonly class UserPasswordHasher implements ProcessorInterface
         $data->setIsActive(false);
         $data->setRoles(['ROLE_API_USER']);
         $data->eraseCredentials();
-
+        var_dump($data); die();
         return $this->processor->process($data, $operation, $uriVariables, $context);
     }
 }
