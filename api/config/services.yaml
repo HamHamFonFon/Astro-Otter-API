@@ -38,5 +38,5 @@ services:
             $processor: '@api_platform.doctrine.orm.state.persist_processor'
     
     App\Services\Cache\Redis:
-        arguments:
+        bind:
             $redisCachePool: '@cache.dso_redis'

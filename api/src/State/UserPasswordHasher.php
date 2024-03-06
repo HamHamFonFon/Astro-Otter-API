@@ -10,7 +10,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 /**
  * State-processor for posting new user
  */
-readonly class UserPasswordHasher implements ProcessorInterface
+final readonly class UserPasswordHasher implements ProcessorInterface
 {
     public function __construct(
         private ProcessorInterface          $processor,
@@ -19,11 +19,6 @@ readonly class UserPasswordHasher implements ProcessorInterface
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): ApiUser|null
     {
-        if (!$data instanceof ApiUser) {
-            return null;
-        }
-
-
         if (!$data->getPlainPassword()) {
             return $this->processor->process($data, $operation, $uriVariables, $context);
         }
@@ -36,7 +31,6 @@ readonly class UserPasswordHasher implements ProcessorInterface
         $data->setIsActive(false);
         $data->setRoles(['ROLE_API_USER']);
         $data->eraseCredentials();
-        var_dump($data); die();
         return $this->processor->process($data, $operation, $uriVariables, $context);
     }
 }
