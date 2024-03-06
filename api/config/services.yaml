@@ -40,3 +40,9 @@ services:
     App\Services\Cache\Redis:
         bind:
             $redisCachePool: '@cache.dso_redis'
+
+    api_platform.state.error_provider:
+        class: 'App\State\ErrorProvider'
+        tags:
+            - key: 'api_platform.state.error_provider'
+              name: 'api_platform.state_provider'
