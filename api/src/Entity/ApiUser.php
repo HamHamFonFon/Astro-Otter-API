@@ -22,9 +22,11 @@ use Symfony\Component\Uid\UuidV7 as Uuid;
 #[ApiResource(
     operations: [
         new GetCollection(
+            description: "List of users",
             security: "is_granted('ROLE_ADMIN')"
         ),
         new Post(
+            description: "Create new user",
             security: "is_granted('ROLE_ADMIN')",
             validationContext: ['groups' => ['user:create']],
             processor: UserPasswordHasher::class
@@ -36,6 +38,7 @@ use Symfony\Component\Uid\UuidV7 as Uuid;
             validationContext: ['groups' => ['user:patch']]
         ),
         new Delete(
+            description: "Delete an user",
             security: "is_granted('ROLE_ADMIN')"
         )
     ],
