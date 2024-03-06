@@ -19,11 +19,11 @@ readonly class UserPasswordHasher implements ProcessorInterface
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): ApiUser|null
     {
-        echo __CLASS__; die();
         if (!$data instanceof ApiUser) {
             return null;
         }
 
+        var_dump($data); die();
         if (!$data->getPlainPassword()) {
             return $this->processor->process($data, $operation, $uriVariables, $context);
         }
