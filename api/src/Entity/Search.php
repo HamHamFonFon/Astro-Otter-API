@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Metadata\Post;
 use App\State\SearchByAiProcessor;
 use App\State\SearchProcessor;
+use http\Message;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[Post(
@@ -19,11 +20,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 final class Search
 {
-    #[Assert\NotBlank(message: '')]
+    #[Assert\NotBlank(message: 'search.terms.not_blank')]
     #[Assert\NoSuspiciousCharacters()]
-    #[Assert\NotNull(message: '')]
+    #[Assert\NotNull(message: 'search.terms.not_null')]
     #[Assert\Regex(
-        pattern: '/[a-zA-Z0-9-_.%\s]+/i'
+        pattern: '/[a-zA-Z0-9-_.%\s]+/i',
+        message: 'search.terms.regex'
     )]
     private string $terms;
 
