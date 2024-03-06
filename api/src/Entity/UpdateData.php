@@ -2,35 +2,47 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Post;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Uid\UuidV7 as Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'update_data')]
 #[UniqueEntity(fields: 'id')]
+#[ORM\HasLifecycleCallbacks]
+#[ApiResource(
+    new Post(
+        denormalizationContext: ['groups' => ['data:create']]
+    )
+)]
 class UpdateData
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    private ?Uuid $id = null;
 
     #[ORM\Column(type: 'datetime')]
     #[Assert\DateTime(message: 'update_data.constraint.datetime')]
     private ?\DateTimeImmutable $date = null;
 
     #[ORM\Column(type: 'json')]
-    #[Assert\NotBlank()]
-    #[Assert\NotNull]
+    #[Groups(['data:create'])]
+    #[Assert\NotBlank(groups: ['data:create'])]
+    #[Assert\NotNull(groups: ['data:create'])]
     private string $listDso;
 
-    public function getId(): ?int
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
 
-    public function setId(?int $id): UpdateData
+    public function setId(?Uuid $id): UpdateData
     {
         $this->id = $id;
         return $this;
