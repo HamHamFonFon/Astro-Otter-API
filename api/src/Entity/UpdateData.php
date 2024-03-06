@@ -47,10 +47,10 @@ class UpdateData
     #[Assert\NotNull(groups: ['data:create'])]
     private string $listDso;
 
-    public function __construct()
-    {
-        $this->id = Uuid::v7();
-    }
+//    public function __construct()
+//    {
+//        $this->id = Uuid::v7();
+//    }
 
     public function getId(): ?Uuid
     {
