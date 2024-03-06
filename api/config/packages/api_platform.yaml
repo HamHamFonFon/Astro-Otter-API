@@ -5,6 +5,7 @@ api_platform:
     mercure: ~
     formats:
         jsonld: [ 'application/ld+json' ]
+        json: [ 'application/json' ]
     patch_formats:
         json: [ 'application/merge-patch+json' ]
     docs_formats:
@@ -17,7 +18,7 @@ api_platform:
             vary: ['Content-Type', 'Authorization', 'Origin']
         extra_properties:
             standard_put: true
-            rfc_7807_compliant_errors: true
+#            rfc_7807_compliant_errors: true
     swagger:
         api_keys:
             JWT:
@@ -36,4 +37,5 @@ when@prod:
     api_platform:
         enable_docs: true
         enable_entrypoint: true
+        enable_swagger: false
         enable_swagger_ui: true
