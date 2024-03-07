@@ -61,9 +61,9 @@ readonly class DsoStateProvider implements ProviderInterface
             };
 
             return [
-                'total' => $total,
-                'items' =>  $listDso(),
-                'aggregates' => $aggregations
+                'data' =>  $listDso(),
+                'filters' => $aggregations,
+                'total' => $total
             ];
         } else {
             ['id' => $dsoId] = $uriVariables;
