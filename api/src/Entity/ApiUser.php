@@ -29,7 +29,7 @@ use Symfony\Component\Uid\UuidV7 as Uuid;
         ),
         new Post(
             description: "Create new user",
-//            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN')",
             validationContext: ['groups' => ['user:create']],
             processor: UserPasswordHasher::class
         ),
