@@ -91,7 +91,7 @@ class DsoRepresentation implements DTOInterface
                     ? $this->getName() ?? $this->getId()
                     : implode(' - ', [$this->getName(), $this->getAlt()])
             )
-            ->setDesigs($dso->getDesigs())->setOtherDesigs($othersDsoDesigs)
+            ->setDesigs($desigs)->setOtherDesigs($othersDsoDesigs)
             ->setCatalogs($catalogs)
             ->setType($dso->getType())
             ->setMagnitude($dso->getMag())->setDistanceLightYear($dso->getDistAl())->setDistanceParsec(self::PARSEC*$dso->getDistAl())
