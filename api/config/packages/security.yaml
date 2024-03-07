@@ -20,7 +20,7 @@ security:
             provider: api_users
             user_checker: App\Security\ApiUserChecker
             jwt: ~
-        main:
+        api_login:
             user_checker: App\Security\ApiUserChecker
             json_login:
                 check_path: auth
@@ -30,6 +30,7 @@ security:
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
             refresh_jwt:
                 check_path: refresh_token
+
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
@@ -41,10 +42,9 @@ security:
     access_control:
         - { path: ^/$, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI
         - { path: ^/docs, roles: ROLE_ADMIN } # Allows accessing the Swagger UI docs
-        - { path: ^/(auth|token/refresh), roles: PUBLIC_ACCESS }
         - { path: ^/v2/(auth|token/refresh), roles: PUBLIC_ACCESS }
         - { path: ^/api_users, roles: ROLE_ADMIN }
-#        - { path: ^/, roles: IS_AUTHENTICATED_FULLY}
+        - { path: ^/v2, roles: IS_AUTHENTICATED_FULLY}
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
     role_hierarchy:
