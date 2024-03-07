@@ -40,6 +40,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        - { path: ^/(auth|token/refresh), roles: PUBLIC_ACCESS }
         - { path: ^/v2/(auth|token/refresh), roles: PUBLIC_ACCESS }
         - { path: ^/$, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI
         - { path: ^/v2/docs, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI docs
