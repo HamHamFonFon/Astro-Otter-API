@@ -36,6 +36,10 @@ class DsoFactory extends AbstractFactory implements FactoryInterface
         if (is_null($dso)) {
             $dso = $this->buildDtoFromDocument($document);
             $dso->setTypeLabel($this->translator->trans(sprintf('type.%s', $dso->getType())));
+
+            $catalogsLabel = array_map(fn (string $catalog) => $this->translator->trans(sprintf('catalog.%s', $catalog)), $dso->getCatalogs());
+            $dso->setCatalogsLabel($catalogsLabel);
+
             // Astrobin
             try {
                 if (!is_null($dso->getAstrobinId())) {

@@ -30,7 +30,7 @@ class DsoRepresentation implements DTOInterface
     #[Groups(['search'])]
     private string $fullNameAlt;
     private ?array $catalogs = null;
-
+    private ?array $catalogsLabel = [];
     #[Groups(['search'])]
     private array|string $desigs;
     #[Groups(['search'])]
@@ -234,6 +234,17 @@ class DsoRepresentation implements DTOInterface
     public function setCatalogs(?array $catalogs): DsoRepresentation
     {
         $this->catalogs = $catalogs;
+        return $this;
+    }
+
+    public function getCatalogsLabel(): ?array
+    {
+        return $this->catalogsLabel;
+    }
+
+    public function setCatalogsLabel(?array $catalogsLabel): DsoRepresentation
+    {
+        $this->catalogsLabel = $catalogsLabel;
         return $this;
     }
 
