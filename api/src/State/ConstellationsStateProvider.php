@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
 use App\Repository\ElasticsearchRepository\ConstellationRepository;
 use App\Services\Factory\ConstellationFactory;
+use Psr\Cache\InvalidArgumentException;
 
 readonly class ConstellationsStateProvider implements ProviderInterface
 {
@@ -16,6 +17,9 @@ readonly class ConstellationsStateProvider implements ProviderInterface
         private ConstellationFactory    $constellationFactory
     ) { }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): \Generator//: object|array|null
     {
         if ($operation instanceof CollectionOperationInterface) {
@@ -33,8 +37,11 @@ readonly class ConstellationsStateProvider implements ProviderInterface
                 yield $constellation;
             }
         } else {
+            /**
+             * Constellation Id must have first letter uppercase => fix that one day...
+             */
             ['id' => $idConst] = $uriVariables;
-            $constellationDoc = $this->constellationRepository->findById(md5($idConst));
+            $constellationDoc = $this->constellationRepository->findById(md5(ucfirst($idConst)));
             yield $this->constellationFactory->buildDto($constellationDoc)->current();
         }
     }
