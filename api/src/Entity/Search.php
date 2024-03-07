@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[Post(
     uriTemplate: '/search',
-//    security: "is_granted('ROLE_API_USER')",
+    security: "is_granted('ROLE_API_USER')",
     processor: SearchProcessor::class
 )]
 #[Post(
