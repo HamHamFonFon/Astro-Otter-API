@@ -5,6 +5,7 @@ namespace App\Dto;
 use AllowDynamicProperties;
 use App\Model\Constellation;
 use App\Model\Dso;
+use App\Services\DateSanitization;
 use App\Services\StringSanitization;
 use App\Services\Translator;
 use AstrobinWs\Response\DTO\Item\Image;
@@ -73,7 +74,7 @@ class DsoRepresentation implements DTOInterface
         $description = $dso->getDescription()[$fieldDescription] ?? null;
 
         $strSanitization = new StringSanitization;
-
+        $dateSanitization = new DateSanitization;
         $desigs = is_array($dso->getDesigs()) ? $dso->getDesigs() : [$dso->getDesigs()];
         $othersDsoDesigs = array_filter($desigs, static fn(string $desig) => $desig !== $name);
 
@@ -83,6 +84,7 @@ class DsoRepresentation implements DTOInterface
             ->setLocale($locale)
             ->setId(strtolower($dso->getId()))
             ->setElasticSearchId(md5($dso->getId()))
+            ->setUpdatedAt($dateSanitization($dso->getUpdatedAt()))
             ->setName($name)
             ->setAlt($alt)
             ->setUrlName($strSanitization($alt))
