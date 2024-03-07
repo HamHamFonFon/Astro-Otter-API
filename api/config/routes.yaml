@@ -3,10 +3,18 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
-
-auth:
+    
+auth_redirection:
     path: /v2/auth
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: 'auth'
+        permanent: true
+        keepRequestMethod: true
+        
+auth:
+    path: /auth
     methods: ['POST']
 
 refresh_token:
-    path: /v2/token/refresh
+    path: /token/refresh
