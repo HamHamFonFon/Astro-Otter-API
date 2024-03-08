@@ -2,7 +2,6 @@
 
 namespace App\Dto;
 
-use App\Dto\DTOInterface;
 use App\Model\Constellation;
 use App\Services\StringSanitization;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -33,6 +32,9 @@ class ConstellationRepresentation implements DTOInterface
 
     #[Groups(['search'])]
     private ?string $cover;
+
+    #[Groups(['search'])]
+    private string $context = Constellation::class;
 
     public function __construct(
         Constellation $constellation,
@@ -115,6 +117,11 @@ class ConstellationRepresentation implements DTOInterface
     {
         $this->updatedAt = $updatedAt;
         return $this;
+    }
+
+    public function getContext(): string
+    {
+        return $this->context;
     }
 
     public function getAlt(): string

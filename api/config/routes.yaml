@@ -4,13 +4,13 @@ controllers:
         namespace: App\Controller
     type: attribute
     
-auth_redirection:
-    path: /v2/auth
-    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
-    defaults:
-        route: 'auth'
-        permanent: true
-        keepRequestMethod: true
+#auth_redirection:
+#    path: /v2/auth
+#    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+#    defaults:
+#        route: 'auth'
+#        permanent: true
+#        keepRequestMethod: true
         
 auth:
     path: /auth

@@ -60,6 +60,9 @@ class DsoRepresentation implements DTOInterface
     private ?Image $astrobin = null;
     private ?User $astrobinUser = null;
 
+    #[Groups(['search'])]
+    private string $context = Dso::class;
+
     public function __construct(
         Dso $dso,
         string $locale
@@ -103,6 +106,7 @@ class DsoRepresentation implements DTOInterface
             ->setGeometry($dso->getGeometry())
             ->setAstrobinId($dso->getAstrobinId())
             ->setConstId($dso->getConstId())
+            ->s
         ;
     }
 
@@ -154,6 +158,11 @@ class DsoRepresentation implements DTOInterface
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
+    }
+
+    public function getContext(): string
+    {
+        return $this->context;
     }
 
     private function setUpdatedAt(?\DateTimeInterface $updatedAt): self
