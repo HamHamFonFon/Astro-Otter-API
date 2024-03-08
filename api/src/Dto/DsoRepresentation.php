@@ -106,7 +106,6 @@ class DsoRepresentation implements DTOInterface
             ->setGeometry($dso->getGeometry())
             ->setAstrobinId($dso->getAstrobinId())
             ->setConstId($dso->getConstId())
-            ->s
         ;
     }
 
