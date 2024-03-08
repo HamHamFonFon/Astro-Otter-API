@@ -101,7 +101,7 @@ final class DsoRepository extends AbstractRepository
             'query' => [
                 'bool' => [
                     'must' =>
-                        array_map(function( $field, $value) {
+                        array_map(function(string $field, string $value): array {
                             return [
                                 'term' => [$field => $value]
                             ];
@@ -154,7 +154,7 @@ final class DsoRepository extends AbstractRepository
         ['aggregations' => $aggregations] = $results;
 
         foreach ($aggregations as $type => $aggs) {
-            $aggregations[$type] = array_map(function($bucket) use($type) {
+            $aggregations[$type] = array_map(function(array $bucket) use($type) {
                 return [
                     'name' => $bucket['key'],
                     'count' => $bucket['doc_count'],
