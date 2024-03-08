@@ -52,7 +52,6 @@ readonly class SearchProcessor implements ProcessorInterface
         foreach ($dsoDocuments as $document) {
             $dsoFunc = fn () => yield from $this->dsoFactory->buildDto($document);
             $dso = $dsoFunc()->current();
-            $dso->type = 'dso';
             yield $serializer->normalize($dso, null, ['groups' => 'search']);
         }
 
@@ -60,7 +59,6 @@ readonly class SearchProcessor implements ProcessorInterface
         foreach ($constDocuments as $document) {
             $constFunc = fn () => yield from $this->constellationFactory->buildDto($document);
             $constellation = $constFunc()->current();
-            $constellation->type = 'constellation';
             yield $serializer->normalize($constellation, null, ['groups' => 'search']);
         }
     }
