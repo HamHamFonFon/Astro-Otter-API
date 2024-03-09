@@ -53,11 +53,12 @@ final class Astrobin
     }
 
     /**
-     * @param string $username
+     * @param string|null $username
      * @return AstrobinResponse|null
      */
-    public function getAstrobinUser(string $username): ?AstrobinResponse
+    public function getAstrobinUser(?string $username): ?AstrobinResponse
     {
+        if (is_null($username)) return null;
         try {
             return $this->userWs->getByUsername($username, 1);
         } catch (WsResponseException|JsonException|WsException|\ReflectionException $e) {
