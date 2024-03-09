@@ -46,7 +46,8 @@ class DsoFactory extends AbstractFactory implements FactoryInterface
                     $astrobinImg = $this->astrobin->getAstrobinImage((string)$dso->getAstrobinId());
                     if ($astrobinImg instanceof AstrobinResponse) {
                         $dso->setAstrobin($astrobinImg);
-                        //$astrobinUser = $this->astrobin->getAstrobinUser($astrobinImg->user);
+                        $astrobinUser = $this->astrobin->getAstrobinUser($astrobinImg->user);
+                        $dso->setAstrobinUser($astrobinUser);
                     }
                 }
             } catch (\Exception $e) { }
