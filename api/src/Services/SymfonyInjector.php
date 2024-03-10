@@ -7,8 +7,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 trait SymfonyInjector
 {
-    protected TranslatorInterface $translator;
+    protected ?TranslatorInterface $translator = null;
 
     #[Required]
-    public function injectTranslator(TranslatorInterface $translator) {}
+    public function injectTranslator(TranslatorInterface $translator): void
+    {
+        $this->translator = $this->translator ?: $translator;
+    }
 }
