@@ -26,7 +26,7 @@ readonly class DsoRandomStateProvider implements ProviderInterface
      * @throws InvalidArgumentException
      * @throws \JsonException
      */
-    public function provide(Operation $operation, array $uriVariables = [], array $context = []): Generator
+    public function provide(Operation $operation, array $uriVariables = [], array $context = []): array
     {
         $filters = $context['request']->query->all();
         $offset = $filters['offset'] ?? 0;
