@@ -33,11 +33,13 @@ readonly class DsoRandomStateProvider implements ProviderInterface
         $limit = $filters['limit'] ?? 3;
 
         $documents = $this->dsoRepository->getRandomDso($offset, $limit);
-        foreach ($documents as $document) {
+        return array_map(function(array $document) {
             if ($document['const_id']) {
                 $document['constellation'] = $this->constellationRepository->findById(md5($document['const_id']));
             }
-            yield from $this->dsoFactory->buildDto($document);
-        }
+
+            $dso = fn () => yield from $this->dsoFactory->buildDto($document);
+            return $dso()->current();
+        }, $documents);
     }
 }
