@@ -4,6 +4,7 @@ namespace App\State;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
+use App\Repository\ElasticsearchRepository\ConstellationRepository;
 use App\Repository\ElasticsearchRepository\DsoRepository;
 use App\Services\Factory\DsoFactory;
 use Generator;
@@ -13,6 +14,7 @@ readonly class DsoRandomStateProvider implements ProviderInterface
 {
     public function __construct(
         private DsoRepository $dsoRepository,
+        private ConstellationRepository $constellationRepository,
         private DsoFactory $dsoFactory
     ) { }
 
@@ -32,6 +34,9 @@ readonly class DsoRandomStateProvider implements ProviderInterface
 
         $documents = $this->dsoRepository->getRandomDso($offset, $limit);
         foreach ($documents as $document) {
+            if ($document['const_id']) {
+                $document['constellation'] = $this->constellationRepository->findById(md5($document['const_id']));
+            }
             yield from $this->dsoFactory->buildDto($document);
         }
     }
