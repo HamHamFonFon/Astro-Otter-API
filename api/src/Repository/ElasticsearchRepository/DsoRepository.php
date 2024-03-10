@@ -5,12 +5,15 @@ namespace App\Repository\ElasticsearchRepository;
 use App\Dto\DsoRepresentation;
 use App\Enums\DsoSearchFields;
 use App\Model\Dso;
+use App\Services\SymfonyInjector;
 use rdfHelpers\RdfNamespace;
 use rdfInterface\BlankNodeInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 final class DsoRepository extends AbstractRepository
 {
+    use SymfonyInjector;
+
     public const INDEX = 'deepspaceobjects';
 
     protected function getIndex(): string
@@ -158,7 +161,7 @@ final class DsoRepository extends AbstractRepository
                 return [
                     'name' => $bucket['key'],
                     'count' => $bucket['doc_count'],
-                    'label' => sprintf('%s.%s', $type, strtolower($bucket['key']))
+                    'label' => $this->translator->trans(sprintf('%s.%s', $type, strtolower($bucket['key'])))
                 ];
             }, $aggs['buckets']);
         }
