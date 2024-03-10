@@ -22,7 +22,7 @@ readonly class DsoRandomStateProvider implements ProviderInterface
      * @param Operation $operation
      * @param array $uriVariables
      * @param array $context
-     * @return Generator
+     * @return array
      * @throws InvalidArgumentException
      * @throws \JsonException
      */

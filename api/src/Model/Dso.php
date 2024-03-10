@@ -101,6 +101,7 @@ use App\State\DsoStateProvider;
             paginationMaximumItemsPerPage: 3,
             description: 'Retrieve the collection of random Dso resources',
             security: "is_granted('ROLE_API_USER')",
+            output: DsoRepresentation::class,
             provider: DsoRandomStateProvider::class,
             stateOptions: new Options(index: DsoRepository::INDEX)
         )
