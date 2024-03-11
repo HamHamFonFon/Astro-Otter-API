@@ -2,13 +2,10 @@
   <!-- Add bar -->
   <HeaderBar :allRoutes="allRoutes" />
 
-  <!-- Breadcrumbs -->
-<!--  <BreadCrumb />-->
-
   <!-- -->
   <v-main class="main-container main-background">
     <div class="flex-fill">
-      <slot></slot>
+      <slot />
       <SocialSharing />
       <BackToTop />
     </div>
