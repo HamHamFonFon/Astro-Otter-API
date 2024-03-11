@@ -13,7 +13,7 @@ abstract class AbstractRepository
     public function __construct
     (
         private readonly string $esHost,
-        private Notification $notification
+        private readonly Notification $notification
     )
     {
         $this->client = Elasticsearch::getInstance($this->esHost);
