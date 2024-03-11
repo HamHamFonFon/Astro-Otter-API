@@ -1,18 +1,16 @@
-import { createStore, createLogger } from 'vuex'
-import { defineNuxtPlugin } from 'nuxt/app';
+import {createLogger} from 'vuex'
+import {defineNuxtPlugin, createStore} from 'nuxt/app';
 
-import auth from '@/store/modules/Auth'
-import message from "@/store/modules/Message";
+import {authStore} from "~/store/auth";
+import {messageStore} from "~/store/message";
 
 export default defineNuxtPlugin(() => {
-  const store = createStore({
+  nuxtApp.$store = createStore({
     modules: {
-      auth,
-      message
+      auth: authStore,
+      message: messageStore
     },
     strict: debug,
     plugins: debug ? [createLogger()] : []
-  })
-
-  return { provide: { store } };
+  });
 });

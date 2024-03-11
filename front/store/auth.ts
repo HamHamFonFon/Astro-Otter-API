@@ -1,24 +1,27 @@
 import { AuthWs } from '@/repositories/api/auth';
-import { jwtParser } from '@/composables/jwtParser';
+import { jwtParser } from '~/composables/jwtParser';
 
-const state = () => {
-  return {
-    accessToken: null,
-    refreshToken: null,
-  }
+export interface AuthState {
+  accessToken: string | null,
+  refreshToken: string | null
+}
+
+const state: AuthState = {
+  accessToken: null,
+  refreshToken: null
 }
 
 const mutations = {
-  setAccessToken(state, accessToken) {
+  setAccessToken(state: AuthState, accessToken: string): void {
     state.accessToken = accessToken
   },
-  setRefreshToken(state, refreshToken) {
+  setRefreshToken(state: AuthState, refreshToken: string): void {
     state.refreshToken = refreshToken
   }
 }
 
 const actions = {
-  async fetchLogin({ commit }) {
+  async fetchLogin({ commit }: any) {
     try {
       const wsResponse = await AuthWs.GET_LOGIN();
       const { jwtToken, refreshToken } = wsResponse;
@@ -39,7 +42,7 @@ const actions = {
    * @param getters
    * @returns {Promise<boolean>}
    */
-  async fetchRefreshToken({ commit }) {
+  async fetchRefreshToken({ commit }: any) {
     try {
       const wsResponse = await AuthWs.GET_REFRESH(state.refreshToken)
       const { jwtToken } = wsResponse.data;
@@ -53,14 +56,13 @@ const actions = {
 }
 
 const getters = {
-  isLoggedIn: (state) => !!state.accessToken,
-  getJwtExp: (state) => jwtParser(state.accessToken)
+  isLoggedIn: (state: AuthState) => !!state.accessToken,
+  getJwtExp: (state: AuthState) => jwtParser(state.accessToken)
 };
 
-export default {
-  namespaced: true,
+export const authStore = defineStore({
   state,
   mutations,
   actions,
-  getters
-};
+  getters,
+}).with({ namespaced: true });

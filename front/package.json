@@ -19,10 +19,14 @@
     "vue": "^3.4.19",
     "vue-router": "^4.2.5",
     "vuetify": "^3.5.8",
-    "vuex": "^4.1.0"
+    "vuex": "^4.1.0",
+    "i18n-iso-countries": "^7.10.1",
+    "vue-country-flag-next": "^2.3.2"
   },
   "devDependencies": {
     "@nuxt/eslint-config": "^0.2.0",
+    "@mdi/font": "^7.4.47",
+    "@nuxtjs/i18n": "^8.1.1",
     "eslint": "^8.57.0",
     "sass": "^1.71.1",
     "typescript": "^5.4.2",

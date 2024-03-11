@@ -15,5 +15,4 @@
     "isolatedModules": true
   },
   "extends": "./.nuxt/tsconfig.json",
-  "include": ["**/*.{ts,vue}"]
 }

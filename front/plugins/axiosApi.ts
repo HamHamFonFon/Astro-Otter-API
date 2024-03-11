@@ -3,7 +3,7 @@ import { defineNuxtPlugin } from 'nuxt/app';
 
 export default defineNuxtPlugin(nuxtApp => {
   const instance = axios.create({
-    baseURL: '' //config.API_URL, // Set your API base URL
+    baseURL: `${apiPublicHost}/${apiVersion}`
   });
 
   instance.interceptors.request.use(
@@ -18,5 +18,5 @@ export default defineNuxtPlugin(nuxtApp => {
     }
   )
 
-  nuxtApp.provide('axiosApi', axiosInstance);
+  nuxtApp.provide('axiosApi', instance);
 });

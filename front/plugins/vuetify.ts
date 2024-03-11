@@ -1,11 +1,16 @@
 import {defineNuxtPlugin} from 'nuxt/app';
-
-import 'vuetify/dist/vuetify.min.css';
-import {createVuetify} from 'vuetify/lib';
+import { aliases, mdi } from "vuetify/lib/iconsets/mdi";
+import { createVuetify } from 'vuetify/lib';
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import * as labs from "vuetify/labs/components";
+
+import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
+
+import {createVueI18nAdapter} from "vuetify/locale/adapters/vue-i18n";
+import { useI18n } from 'vue-i18n'
+import i18n from "@/i18n/i18n";
 
 export default defineNuxtPlugin(nuxtApp => {
   const AstroOtterLightThemes = {
@@ -25,7 +30,8 @@ export default defineNuxtPlugin(nuxtApp => {
     }
   };
 
-  nuxtApp.vuetify = createVuetify({
+  const vuetify = createVuetify({
+    ssr: true,
     components: {
       ...components,
       ...labs,
@@ -50,6 +56,11 @@ export default defineNuxtPlugin(nuxtApp => {
     },
     options: {
       customProperties: true
+    },
+    locale: {
+      adapter: createVueI18nAdapter({ i18n, useI18n})
     }
   });
+
+  nuxtApp.vueApp.use(vuetify);
 });

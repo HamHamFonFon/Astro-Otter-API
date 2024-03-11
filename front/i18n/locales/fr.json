@@ -1,0 +1,139 @@
+{
+  "error404": {
+    "code": "Erreur 404",
+    "message": "Il semblerait que vous soyez tombé dans un trou noir"
+  },
+  "layout": {
+    "logo": "Logo du site Astro-Otter",
+    "homeAccess": "Accès à la page d'accueil",
+    "btnClose": "Fermer",
+    "btnMore": "Montrer plus",
+    "copy": "Copier lien",
+    "copied": "Lien copié",
+    "submit": "Valider",
+    "submit-label": "Bouton de soumission du formulaire",
+    "btnExplore": "Explore",
+    "languageSwitcher": "Changer de langue",
+    "btnConstellationTo": "Accès à la page de la constellation {constellation}",
+    "notifications": "Notifications",
+    "delete_notifications": "Tout supprimer"
+  },
+  "languages": {
+    "en": "Anglais",
+    "fr": "Français"
+  },
+  "share": {
+    "open": "Partager sur les réseaux sociaux",
+    "instagram": "Partager sur Instagram",
+    "twitter": "Partager sur X (ex-Twitter)",
+    "facebook": "Partager sur Facebook",
+    "messenger": "Partager sur Messenger",
+    "whatsapp": "Partager sur WhatsApp",
+    "linkedin": "Partager sur LinkedIn",
+    "twitch": "",
+    "email": "Envoyer par email"
+  },
+  "header": {
+
+  },
+  "footer": {
+    "all_rights": "© Tous Droits Réservés"
+  },
+  "search": {
+    "label": "Recherche",
+    "seek": "Chercher et trouver des objets du ciel profond",
+    "placeholder": "Chercher une galaxie, nébuleuse ou constellation…",
+    "open": "Ouverture barre de recherche",
+    "close": "Fermeture barre de recherche"
+  },
+  "home": {
+    "title": "Accueil",
+    "description": "Astro Otter est un atlas céleste contenant plus de 9600 objets du ciel profond en base de données, regroupés en différents catalogues ou par type d'objets. Cherchez, découvrez et émerveillez-vous.",
+    "explore": "Explorez les merveilles et mystères de l'univers",
+    "search": "Recherche d'objets",
+    "searchArialabel": "Accès à la recherche d'objets",
+    "browse": "Parcourir les catalogues",
+    "browseArialabel": "Accès à la page Catalogues"
+  },
+  "contact": {
+    "title": "Nous contacter",
+    "description": "",
+    "header": "Laissez-nous un message, nous reviendrons vers vous dès que possible.",
+    "send_message": "Envoie du message en cours",
+    "received_message": "Votre message a bien été reçu. Nous vous répondrons aussi vite que possible.",
+    "topics": {
+      "contact": "Contacter l'équipe Astro-otter",
+      "data": "Proposer un ajout ou une correction de donnée",
+      "astrobin": "Proposer une autre image Astrobin pour un objet",
+      "language": "Proposer l'ajout ou la correction d'une traduction",
+      "api": "Question sur l'API",
+      "other": "Autre sujet"
+    },
+    "form": {
+      "firstname": "Prénom",
+      "lastname": "Nom",
+      "email": "Email",
+      "confirmEmail": "Confirmez l'email",
+      "topic": "Selectionnez une option",
+      "country": "Selectionnez un pays",
+      "message": "Message"
+    }
+  },
+  "catalogs": {
+    "title": "Catalogues",
+    "description": "Parcourez tous les catalogues, seek amazing deep space objects and explore wonders of the universe",
+    "count": "Résultats: {nbItems} / {total}"
+  },
+  "dso": {
+    "load": "Veuillez patienter pendant le chargement des données de {uid}…",
+    "load_list": "Chargement des données data…",
+    "link": "Accès à la page de {dso}",
+    "image": "Image Astrobin de l'objet {dso}",
+    "data": {
+      "catalogsLabel": "Catalogues",
+      "otherDesigs": "Autres désignations",
+      "typeLabel": "Type",
+      "constellation": "Constellation",
+      "magnitude": "Magnitude",
+      "distanceLightYear": "Distance (année-lumière)",
+      "rightAscencion": "Ascension droite",
+      "declinaison": "Déclinaison",
+      "discover": "Découvreur",
+      "discoverYear": "Année",
+      "updatedAt": "Mise à jour"
+    },
+    "title": {
+      "card_information": "Informations"
+    },
+    "carousel": "“{title}” © {user}",
+    "astrobin": {
+      "user": "Membre Astrobin",
+      "data": "Données Astrobin",
+      "page": "Visiter page Astrobin"
+    }
+  },
+  "constellations": {
+    "title": "Constellations",
+    "description": "Explorer les 88 constellations et découvrer leurs différents objets"
+  },
+  "constellation": {
+    "filter": {
+      "label": "Filtrer les constellations",
+      "placeholder": "Filtrer par nom (e.g. 'Orion', 'Andromeda')…"
+    },
+    "load": {
+      "list": "Veuillez patienter durant le chargement de la liste des constellations.",
+      "loaded": "Les constellations sont chargées.",
+      "data": "Veuillez patienter durant le chargement des données de la constellation"
+    }
+  },
+  "astrobin": {
+    "filters": {
+      "title__icontains": "Titre contient…",
+      "user": "Images du membre…",
+      "description__icontains":  "Description contient…",
+      "subjects": "Sujets"
+    },
+    "disclaimer": "This product uses the AstroBin API but is not endorsed or certified by AstroBin."
+  }
+}
