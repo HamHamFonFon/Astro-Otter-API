@@ -30,19 +30,35 @@
     transition="slide-y-transition"
   >
     <template v-slot:activator="{ props }">
-      <v-btn icon v-bind="props" :color="btnColor">
-        <v-icon :color="iconColor" icon="mdi-menu"></v-icon>
+      <v-btn
+        icon
+        v-bind="props"
+        :color="btnColor"
+      >
+        <v-icon
+          :color="iconColor"
+          icon="mdi-menu"
+        />
       </v-btn>
     </template>
     <v-card max-width="400">
-      <v-list nav v-for="item in itemsMenu" v-bind:key="item" :bg-color="bgColor">
-        <v-list-item link :to="item.path">
-          <v-list-item-title class="mt-2">{{ item.text }}</v-list-item-title>
+      <v-list
+        v-for="item in itemsMenu"
+        :key="item"
+        nav
+        :bg-color="bgColor"
+      >
+        <v-list-item
+          link
+          :to="item.path"
+        >
+          <v-list-item-title class="mt-2">
+            {{ item.text }}
+          </v-list-item-title>
         </v-list-item>
       </v-list>
     </v-card>
   </v-menu>
-
 </template>
 
 <style scoped>

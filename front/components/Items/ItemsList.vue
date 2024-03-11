@@ -1,10 +1,12 @@
 <template>
-  <v-row class="grid" :style="{ gridTemplateColumns: getColumnStyle(), gridGap: getGapStyle() }">
+  <v-row
+    class="grid"
+    :style="{ gridTemplateColumns: getColumnStyle(), gridGap: getGapStyle() }"
+  >
     <slot
-        v-for="item in itemsList"
-        :item="item"
-    >
-    </slot>
+      v-for="item in itemsList"
+      :item="item"
+    />
   </v-row>
 </template>
 

@@ -5,20 +5,21 @@
     rounded
     color="transparent"
   >
-    <div id="celestial-map"></div>
+    <div id="celestial-map" />
     <v-container>
-      <v-row>
-
-      </v-row>
-
-      <v-row align="center" justify="center">
+      <v-row />
+      <v-row
+        align="center"
+        justify="center"
+      >
         <v-btn
-            @click="centerToConstellation"
-            size="x-large"
-            variant="outlined"
-            class="text-white mr-5"
-            color="grey"
-        > Center
+          size="x-large"
+          variant="outlined"
+          class="text-white mr-5"
+          color="grey"
+          @click="centerToConstellation"
+        >
+          Center
         </v-btn>
       </v-row>
     </v-container>
@@ -52,13 +53,13 @@ const props = defineProps({
   }
 });
 
-let Celestial = celestial.Celestial();
+const Celestial = celestial.Celestial();
 const zoom = ref(5);
 const starsConstellation = ref(null);
 
 onBeforeMount(() => loadStars())
 onMounted(() => {
-  let backgroundConfig = {
+  const backgroundConfig = {
     background: {
       fill: "#404040",   // Area fill
       opacity: 1,
@@ -67,7 +68,7 @@ onMounted(() => {
     }
   };
 
-  let horizonConfig = {
+  const horizonConfig = {
     horizon: {
       show: false,
       stroke: "#000099", // Line
@@ -77,7 +78,7 @@ onMounted(() => {
     }
   };
 
-  let linesConfig = {
+  const linesConfig = {
     lines: {
       graticule: {
         show: true, stroke: "#1B2A32", width: 0.6, opacity: 1,
@@ -90,13 +91,13 @@ onMounted(() => {
     }
   }
 
-  let mwConfig = {
+  const mwConfig = {
     mw: {
       show: false
     }
   };
 
-  let starsConfig = {
+  const starsConfig = {
     stars: {
       show: false,
       data: 'no_stars.json',
@@ -110,7 +111,7 @@ onMounted(() => {
     }
   };
 
-  let constellationsConfig = {
+  const constellationsConfig = {
     constellations: {
       show: true,    // Show constellations
       names: true,   // Show constellation names
@@ -128,7 +129,7 @@ onMounted(() => {
     }
   };
 
-  let dsosConfig = {
+  const dsosConfig = {
     dsos: {
       show: true,
       data: 'no_dso.json',
@@ -139,7 +140,7 @@ onMounted(() => {
     }
   };
 
-  let config = {
+  const config = {
     width: 0,
     projection: "equirectangular", // Map projection used: airy, aitoff, armadillo, august, azimuthalEqualArea, azimuthalEquidistant, baker, berghaus, boggs, bonne, bromley, collignon, craig, craster, cylindricalEqualArea, cylindricalStereographic, eckert1, eckert2, eckert3, eckert4, eckert5, eckert6, eisenlohr, equirectangular, fahey, foucaut, ginzburg4, ginzburg5, ginzburg6, ginzburg8, ginzburg9, gringorten, hammer, hatano, healpix, hill, homolosine, kavrayskiy7, lagrange, larrivee, laskowski, loximuthal, mercator, miller, mollweide, mtFlatPolarParabolic, mtFlatPolarQuartic, mtFlatPolarSinusoidal, naturalEarth, nellHammer, orthographic, patterson, polyconic, rectangularPolyconic, robinson, sinusoidal, stereographic, times, twoPointEquidistant, vanDerGrinten, vanDerGrinten2, vanDerGrinten3, vanDerGrinten4, wagner4, wagner6, wagner7, wiechel, winkel3
     transform: "equatorial", // Coordinate transformation: equatorial (default), ecliptic, galactic, supergalactic
@@ -188,7 +189,7 @@ onMounted(() => {
     redraw: () => {
       Celestial.container.selectAll('.stars').each((d) => {
         Celestial.setStyle(pointStyle);
-        let pt = Celestial.mapProjection(d.geometry.coordinates),
+        const pt = Celestial.mapProjection(d.geometry.coordinates),
             r = Math.pow(8 - d.properties.mag, 0.7); // starSize(d, config);
         Celestial.context.fillStyle = Celestial.starColor(d);
         Celestial.context.beginPath();

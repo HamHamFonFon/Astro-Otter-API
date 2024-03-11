@@ -1,10 +1,15 @@
 <template>
-  <v-btn class="backToTop" :class="{ visible: isVisible }" @click="scrollToTop" :color="backgroundColor">
+  <v-btn
+    class="backToTop"
+    :class="{ visible: isVisible }"
+    :color="backgroundColor"
+    @click="scrollToTop"
+  >
     <v-icon
       small
       color="green"
       icon="mdi-arrow-up"
-    ></v-icon>
+    />
   </v-btn>
 </template>
 

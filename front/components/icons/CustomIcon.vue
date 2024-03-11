@@ -1,5 +1,8 @@
 <template>
-  <component :is="svgContent" class="fill-curent"></component>
+  <component
+    :is="svgContent"
+    class="fill-curent"
+  />
 </template>
 
 <script setup>

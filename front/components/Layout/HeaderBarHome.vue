@@ -5,10 +5,14 @@ const LanguageSwitcher = defineAsyncComponent(() => import('@/components/Layout/
 </script>
 
 <template>
-      <div class="headerHome d-flex">
-        <v-spacer></v-spacer>
-        <LanguageSwitcher btnColor="transparent" iconColor="#1ed760" bgColor="background"></LanguageSwitcher>
-      </div>
+  <div class="headerHome d-flex">
+    <v-spacer />
+    <LanguageSwitcher
+      btn-color="transparent"
+      icon-color="#1ed760"
+      bg-color="background"
+    />
+  </div>
 </template>
 
 <style scoped>

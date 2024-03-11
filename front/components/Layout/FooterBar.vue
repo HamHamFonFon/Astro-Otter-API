@@ -1,59 +1,70 @@
 <template>
-    <v-sheet
+  <v-sheet
+    elevation="0"
+    class="landing-warpper"
+    color="secondary"
+  >
+    <v-container class="text-left pa-10">
+      <v-sheet
+        class="mx-auto"
+        color="transparent"
         elevation="0"
-        class="landing-warpper"
-        color="secondary"
-    >
-      <v-container class="text-left pa-10">
-        <v-sheet
-            class="mx-auto"
-            color="transparent"
-            elevation="0"
-            max-width="1600"
-        >
-          <v-row>
-            <v-col cols="12" md="5">
-              <p class="my-4 text-grey">{{ $t('home.explore') }}</p>
-            </v-col>
-            <v-col cols="12" md="7">
-              <div class="d-flex flex-wrap justify-center justify-md-end pb-5">
-                <v-btn v-for="(socialNetwork, index) in socialNetworks"
-                   v-bind:key="index"
-                   color="blue-grey-darken-2"
-                   class="mx-3"
-                   @click="openSocialNetwork(socialNetwork.to)"
-                   icon
-                   :aria-label="socialNetwork.name"
-                >
-                  <v-icon>{{ socialNetwork.icon }}</v-icon>
-                </v-btn>
-              </div>
+        max-width="1600"
+      >
+        <v-row>
+          <v-col
+            cols="12"
+            md="5"
+          >
+            <p class="my-4 text-grey">
+              {{ $t('home.explore') }}
+            </p>
+          </v-col>
+          <v-col
+            cols="12"
+            md="7"
+          >
+            <div class="d-flex flex-wrap justify-center justify-md-end pb-5">
+              <v-btn
+                v-for="(socialNetwork, index) in socialNetworks"
+                :key="index"
+                color="blue-grey-darken-2"
+                class="mx-3"
+                :aria-label="socialNetwork.name"
+                @click="openSocialNetwork(socialNetwork.to)"
+                icon
+              >
+                <v-icon>{{ socialNetwork.icon }}</v-icon>
+              </v-btn>
+            </div>
 
-              <div class="d-flex flex-wrap justify-center justify-md-end">
-                <router-link
-                    class="text-primary mx-3 mb-3 font-weight-bold"
-                    v-for="nav in processedFooterMenu(footerPages, props.allRoutes)"
-                    :to="nav.path"
-                    v-bind:key="nav.key"
-                >
-                  <span class="text-grey">{{ nav.text }}</span>
-                </router-link>
+            <div class="d-flex flex-wrap justify-center justify-md-end">
+              <router-link
+                v-for="nav in processedFooterMenu(footerPages, props.allRoutes)"
+                :key="nav.key"
+                class="text-primary mx-3 mb-3 font-weight-bold"
+                :to="nav.path"
+              >
+                <span class="text-grey">{{ nav.text }}</span>
+              </router-link>
 
-                <router-link
-                  class="text-primary mx-3 mb-3 font-weight-bold"
-                  v-for="nav in prismicRoutes"
-                  :to="{name: 'primisc_content_page', params: {'uid': nav.path}}"
-                  v-bind:key="nav.key"
-                >
-                  <span class="text-grey">{{ nav.text }}</span>
-                </router-link>
-              </div>
-            </v-col>
-          </v-row>
-          <hr class="my-3" />
-          <p class="text-center my-5">{{ $t('footer.all_rights') }}</p>
-        </v-sheet>
-      </v-container>
+              <router-link
+                v-for="nav in prismicRoutes"
+                :key="nav.key"
+                class="text-primary mx-3 mb-3 font-weight-bold"
+                :to="{name: 'primisc_content_page', params: {'uid': nav.path}}"
+              >
+                <span class="text-grey">{{ nav.text }}</span>
+              </router-link>
+            </div>
+          </v-col>
+        </v-row>
+        <hr class="my-3">
+        <p class="text-center my-5">
+          {{ $t('footer.all_rights') }}
+        </p>
+      </v-sheet>
+    </v-container>
   </v-sheet>
 </template>
 
@@ -92,9 +103,9 @@ const openSocialNetwork= (link) => {
 
 const buildMenu = (footerPages, allRoutes) => {
   return footerPages.map(route => {
-    let routeName = route.routeName;
+    const routeName = route.routeName;
     const routeItem = allRoutes.filter(route => route.name === routeName)[0];
-    let path = routeItem.path;
+    const path = routeItem.path;
     return {
       key: routeItem.meta.key,
       text: t(`${routeName}.title`),

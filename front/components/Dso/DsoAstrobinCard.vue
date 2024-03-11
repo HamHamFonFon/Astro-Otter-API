@@ -1,23 +1,30 @@
 <template>
   <v-sheet
-      elevation="1"
-      class="mx-auto landing-warpper"
-      rounded
+    elevation="1"
+    class="mx-auto landing-warpper"
+    rounded
   >
-    <v-card class="card-shadow" color="secondary">
+    <v-card
+      class="card-shadow"
+      color="secondary"
+    >
       <v-card-title>
-        <v-icon icon="mdi-camera-account" class="mr-2" left></v-icon>
+        <v-icon
+          icon="mdi-camera-account"
+          class="mr-2"
+          left
+        />
         {{ $t('dso.astrobin.user') }}
       </v-card-title>
-      <v-divider></v-divider>
+      <v-divider />
       <v-list-item
-          v-for="(item, i) in listDataUser()"
-          :key="i"
-          :value="item"
-          color="primary"
+        v-for="(item, i) in listDataUser()"
+        :key="i"
+        :value="item"
+        color="primary"
       >
-        <template v-slot:prepend>
-          <v-icon :icon="item.icon"></v-icon>
+        <template #prepend>
+          <v-icon :icon="item.icon" />
         </template>
 
         <v-list-item-title justify>
@@ -26,42 +33,54 @@
       </v-list-item>
       <v-divider></v-divider>
       <v-card-title>
-        <v-icon icon="mdi-data-matrix" class="mr-2" left></v-icon>
+        <v-icon
+          icon="mdi-data-matrix"
+          class="mr-2"
+          left
+        />
         {{ $t('dso.astrobin.data') }}
       </v-card-title>
-      <v-divider></v-divider>
+      <v-divider />
       <v-list-item
-          v-for="(item, i) in listItems()"
-          :key="i"
-          :value="item"
-          color="primary"
+        v-for="(item, i) in listItems()"
+        :key="i"
+        :value="item"
+        color="primary"
       >
-        <template v-slot:prepend>
-          <v-icon :icon="item.icon"></v-icon>
+        <template #prepend>
+          <v-icon :icon="item.icon" />
         </template>
 
         <v-list-item-title justify>
           {{ item.text }}
         </v-list-item-title>
       </v-list-item>
-      <v-divider></v-divider>
+      <v-divider />
       <v-card-text>
         {{ astrobinImage.description }}
       </v-card-text>
       <v-card-item>
-        <div class="image__chips" v-if="0 < astrobinImage.subjects.length">
+        <div
+          v-if="0 < astrobinImage.subjects.length"
+          class="image__chips"
+        >
           <v-chip-group>
-            <v-chip v-for="chip in astrobinImage.subjects" :key="chip">{{ chip }}</v-chip>
+            <v-chip
+              v-for="chip in astrobinImage.subjects"
+              :key="chip"
+            >
+              {{ chip }}
+            </v-chip>
           </v-chip-group>
         </div>
       </v-card-item>
       <v-card-actions>
-        <v-btn @click="astrobinPageUrl">{{ $t('dso.astrobin.page')}}</v-btn>
+        <v-btn @click="astrobinPageUrl">
+          {{ $t('dso.astrobin.page') }}
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-sheet>
-
-
 </template>
 
 <script setup>
@@ -108,7 +127,7 @@ const listItems = () => {
 };
 
 const astrobinPageUrl = () => {
-  let astrobinUrl = apiConfig.ASTROBIN_HOST + '/' + astrobinId.value + '/';
+  const astrobinUrl = apiConfig.ASTROBIN_HOST + '/' + astrobinId.value + '/';
   window.open(astrobinUrl, '_blank');
 }
 

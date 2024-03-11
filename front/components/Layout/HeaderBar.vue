@@ -5,21 +5,36 @@
     :density="!isMobile ? 'default' : 'compact'"
   >
     <v-toolbar color="secondary">
-      <router-link :to="{ name: 'home'}" v-bind:title="t('layout.homeAccess')">
+      <router-link
+        :to="{ name: 'home'}"
+        :title="t('layout.homeAccess')"
+      >
         <v-avatar class="mx-2">
-          <v-img :src="logo" :alt="t('layout.logo')"></v-img>
+          <v-img
+            :src="logo"
+            :alt="t('layout.logo')"
+          />
         </v-avatar>
       </router-link>
-      <v-divider vertical thickness="2" inset :class="!isMobile ? 'ml-5 mr-1' : 'mr-1'"></v-divider>
+      <v-divider
+        vertical
+        thickness="2"
+        inset
+        :class="!isMobile ? 'ml-5 mr-1' : 'mr-1'"
+      />
       <div v-if="!isMobile">
-        <v-btn v-for="(menuItem, index) in processedMenu(menu, props.allRoutes)" stacked="" v-bind:key="index" class="text-none">
+        <v-btn
+          v-for="(menuItem, index) in processedMenu(menu, props.allRoutes)"
+          :key="index"
+          class="text-none"
+        >
           <router-link :to="menuItem.path">
             <span class="text-grey">{{ menuItem.text }}</span>
           </router-link>
         </v-btn>
       </div>
 
-      <v-spacer></v-spacer>
+      <v-spacer />
       <Transition>
         <v-text-field
           v-if="!isMobile"
@@ -37,22 +52,31 @@
           hide-no-data
           hide-details
           :placeholder="$t('search.placeholder')"
-        ></v-text-field>
+        />
       </Transition>
 
-      <v-btn icon @click="toggleInputSearch" :title="searchTitleValue">
+      <v-btn
+        icon
+        :title="searchTitleValue"
+        @click="toggleInputSearch"
+      >
         <v-icon>{{ iconSearch }}</v-icon>
       </v-btn>
 
       <div class="d-flex float-right">
-        <LanguageSwitcher bgColor="primary" />
-        <MenuMobile v-if="isMobile" :itemsMenu="processedMenu(menu, props.allRoutes)" bgColor="primary"></MenuMobile>
+        <LanguageSwitcher bg-color="primary" />
+        <MenuMobile
+          v-if="isMobile"
+          :items-menu="processedMenu(menu, props.allRoutes)"
+          bg-color="primary"
+        />
       </div>
-
     </v-toolbar>
   </v-app-bar>
-
-  <div class="resultsHeader" :style="{ top: `${top}`}">
+  <div
+    class="resultsHeader"
+    :style="{ top: `${top}`}"
+  >
     <v-text-field
       v-if="isMobile"
       v-show="showSearch"
@@ -69,8 +93,12 @@
       hide-no-data
       hide-details
       :placeholder="$t('search.placeholder')"
-    ></v-text-field>
-    <SearchListCard v-if="showSearch" :results="results" @click-clear="toggleInputSearch"></SearchListCard>
+    />
+    <SearchListCard
+      v-if="showSearch"
+      :results="results"
+      @click-clear="toggleInputSearch"
+    />
   </div>
 </template>
 
@@ -107,6 +135,7 @@ const isMobile = computed(() => {
 
 // Props
 const props = defineProps({
+  // eslint-disable-next-line vue/require-default-prop
   allRoutes: {
     type: Array
   }
@@ -120,7 +149,7 @@ const top = computed(() => true === isMobile.value ? '48px' : '64px')
 // Methods
 const buildMenu = (items, allRoutes) => {
   return items.map(route => {
-    let routeName = route.routeName;
+    const routeName = route.routeName;
     const routeItem = allRoutes.filter(route => route.name === routeName)[0];
     return {
       key: routeItem.meta.key,

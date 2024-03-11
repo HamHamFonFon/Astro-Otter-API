@@ -12,7 +12,10 @@
     }"
   >
     <v-row no-gutters>
-      <v-col cols="12" md="12">
+      <v-col
+        cols="12"
+        md="12"
+      >
         <v-card
           elevation="0"
           class="pa-10 d-flex flex-column align-center justify-center"
@@ -29,11 +32,20 @@
           </p>
 
           <div class="text-center">
-            <router-link :to="item.path" v-bind:title="$t('layout.btnExplore')">
-              <v-btn size="x-large" class="text-white font-weight-bold mt-10" color="primary" :aria-label="$t('layout.btnExplore')">{{ $t('layout.btnExplore') }}</v-btn>
+            <router-link
+              :to="item.path"
+              :title="$t('layout.btnExplore')"
+            >
+              <v-btn
+                size="x-large"
+                class="text-white font-weight-bold mt-10"
+                color="primary"
+                :aria-label="$t('layout.btnExplore')"
+              >
+                {{ $t('layout.btnExplore') }}
+              </v-btn>
             </router-link>
           </div>
-
         </v-card>
       </v-col>
     </v-row>

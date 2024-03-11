@@ -1,23 +1,29 @@
 <template>
   <v-sheet
-      color="transparent"
-      elevation="0"
-      max-width="1600"
-      class="mx-auto pa-5"
+    color="transparent"
+    elevation="0"
+    max-width="1600"
+    class="mx-auto pa-5"
   >
     <v-container>
-      <v-row align="center" justify="center">
-        <v-col cols="12" sm="12" md="9">
+      <v-row
+        align="center"
+        justify="center"
+      >
+        <v-col
+          cols="12"
+          sm="12"
+          md="9"
+        >
           <v-text-field
             :value="modelValue"
-            v-on:input="updateValue($event.target.value)"
-
-            :label="label"
-            :placeholder="placeholder"
-            variant="outlined"
-            rounded
             clearable
-          ></v-text-field>
+            :label="label"
+            variant="outlined"
+            :placeholder="placeholder"
+            rounded
+            @input="updateValue($event.target.value)"
+          />
         </v-col>
       </v-row>
     </v-container>

@@ -1,24 +1,35 @@
 <template>
   <v-sheet
-      elevation="0"
-      class="mx-auto landing-warpper"
-      rounded
-      color="primary"
-    >
+    elevation="0"
+    class="mx-auto landing-warpper"
+    rounded
+    color="primary"
+  >
     <v-sheet
-        color="transparent"
-        elevation="0"
-        max-width="1600"
-        class="mx-auto pa-5"
+      color="transparent"
+      elevation="0"
+      max-width="1600"
+      class="mx-auto pa-5"
     >
       <v-container>
-        <v-row align="center" justify="center">
-          <v-col cols="12" lg="3" style="align-self: baseline;">
+        <v-row
+          align="center"
+          justify="center"
+        >
+          <v-col
+            cols="12"
+            lg="3"
+            style="align-self: baseline;"
+          >
             <h1 class="text-h5 font-weight-bold text-center text-grey">
               {{ $t('search.seek') }}
             </h1>
           </v-col>
-          <v-col cols="12" sm="12" md="9">
+          <v-col
+            cols="12"
+            sm="12"
+            md="9"
+          >
             <v-text-field
               v-model="inputSearchItems"
               type="search"
@@ -28,30 +39,11 @@
               variant="outlined"
               append-inner-icon="mdi-magnify"
               clearable="clearable"
-            ></v-text-field>
+            />
 
-            <SearchListCard :results="results"></SearchListCard>
-<!--            <v-list v-if="results && 0 < results.length" class="listeResults" >-->
-<!--              <v-list-item-->
-<!--                v-for="item in results.dsos"-->
-<!--                color="appBarColor"-->
-<!--                v-bind:key="item"-->
-<!--                left-->
-<!--              >-->
-<!--                <router-link :to="{ name: 'dso', params: { id: item.id } }">-->
-<!--                  <v-list-item-title>-->
-<!--                    {{ item.text }}-->
-<!--                  </v-list-item-title>-->
-
-<!--                  <v-list-item-subtitle>-->
-<!--                    {{ item.type }}-->
-<!--                  </v-list-item-subtitle>-->
-<!--                </router-link>-->
-<!--              </v-list-item>-->
-<!--            </v-list>-->
+            <SearchListCard :results="results" />
           </v-col>
         </v-row>
-
       </v-container>
     </v-sheet>
   </v-sheet>

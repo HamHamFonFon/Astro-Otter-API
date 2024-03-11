@@ -1,11 +1,24 @@
 <template>
-  <v-sheet elevation="0" class="mx-auto landing-warpper" rounded color="transparent">
-    <v-sheet class="pa-3" elevation="0" color="transparent">
+  <v-sheet
+    elevation="0"
+    class="mx-auto landing-warpper"
+    rounded
+    color="transparent"
+  >
+    <v-sheet
+      class="pa-3"
+      elevation="0"
+      color="transparent"
+    >
       <v-container>
-
         <!--  Filters-->
         <v-row>
-          <v-col cols="12" :sm="getCountColumns(filtersBy)" v-for="(filtersByTypeData, type) in filtersBy" v-bind:key="type">
+          <v-col
+            v-for="(filtersByTypeData, type) in filtersBy"
+            :key="type"
+            cols="12"
+            :sm="getCountColumns(filtersBy)"
+          >
             <v-select
               v-model="selectedFilters[type]"
               :label="type"
@@ -13,42 +26,54 @@
               :items="filtersByTypeData"
               item-title="label"
               item-value="name"
-              @update:modelValue="fetchDsoList"
               clearable
-            >
-            </v-select>
+              @update:model-value="fetchDsoList"
+            />
           </v-col>
         </v-row>
 
         <!-- Sorts -->
         <v-row>
-          <v-col align-self="start" cols="6" sm="6">
+          <v-col
+            align-self="start"
+            cols="6"
+            sm="6"
+          >
             <span class="text-white">{{ $t('catalogs.count', {'nbItems': nbItems, 'total': totalRef}) }}</span>
           </v-col>
         </v-row>
 
         <!-- Items list + cards -->
         <v-row align="center">
-          <ItemsLists :items-list="items" :columns="3">
-            <template v-slot="{ item, index }">
-              <DsoCard v-bind:key="index" :dso="item" v-if="item" />
+          <ItemsLists
+            :items-list="items"
+            :columns="3"
+          >
+            <template #default="{ item, index }">
+              <DsoCard
+                v-if="item"
+                :key="index"
+                :dso="item"
+              />
             </template>
           </ItemsLists>
         </v-row>
 
         <!-- Btn More -->
-        <v-row align="center" justify="center">
+        <v-row
+          align="center"
+          justify="center"
+        >
           <BtnMoreItems
-              v-if="nbItems < totalRef"
-              @click-event="showMoreItems"
-              :label="btnLabel"
-              :icon="btnIcon"
-              :btnLoading="btnLoading"
-          ></BtnMoreItems>
+            v-if="nbItems < totalRef"
+            :label="btnLabel"
+            :icon="btnIcon"
+            :btn-loading="btnLoading"
+            @click-event="showMoreItems"
+          />
         </v-row>
 
-        <div :data-geojson="JSON.stringify(dsoGeoJson)"></div>
-
+        <div :data-geojson="JSON.stringify(dsoGeoJson)" />
       </v-container>
     </v-sheet>
   </v-sheet>
@@ -119,7 +144,7 @@ watch(() => Trans.currentLocale, () => {
 const fetchDsoList = async () => {
   try {
     const defaultFilters = {[defaultFilterName.value]: defaultFilterValue.value}
-    let params = {
+    const params = {
       ...defaultFilters,
       ...selectedFilters.value
     };
@@ -145,7 +170,7 @@ const showMoreItems = async  () => {
   btnLoading.value = true;
   try {
     const defaultFilters = {[defaultFilterName.value]: defaultFilterValue.value}
-    let params = {
+    const params = {
       ...defaultFilters,
       ...selectedFilters.value
     };

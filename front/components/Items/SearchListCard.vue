@@ -15,7 +15,7 @@ const clickClear = () => {
 }
 
 const getParams = (item) => {
-  let params = {
+  const params = {
     id: item.id
   };
 
@@ -28,35 +28,45 @@ const getParams = (item) => {
 </script>
 
 <template>
-
-  <v-list lines="two" bg-color="transparent" v-if="results && 0 < results.nbItems">
-    <v-list-subheader inset color="grey">Objects</v-list-subheader>
+  <v-list
+    v-if="results && 0 < results.nbItems"
+    lines="two"
+    bg-color="transparent"
+  >
+    <v-list-subheader
+      inset
+      color="grey"
+    >
+      Objects
+    </v-list-subheader>
     <v-list-item
-      color="transparent"
       v-for="item in results.dsos"
       :key="item"
+      color="transparent"
       @click="clickClear"
     >
       <router-link :to="{ name: 'dso', params: getParams(item) }">
-        <v-list-item-title v-text="item.text"></v-list-item-title>
-        <v-list-item-subtitle v-text="item.text"></v-list-item-subtitle>
+        <v-list-item-title>{{ item.text }}</v-list-item-title>
+        <v-list-item-subtitle>{{ item.text }}</v-list-item-subtitle>
       </router-link>
     </v-list-item>
 
-    <v-divider inset></v-divider>
+    <v-divider inset />
 
-    <v-list-subheader color="grey" inset>{{ $t('constellations.title')}}</v-list-subheader>
+    <v-list-subheader
+      color="grey"
+      inset
+    >
+      {{ $t('constellations.title') }}
+    </v-list-subheader>
     <v-list-item
-      color="transparent"
       v-for="item in results.constellations"
       :key="item"
+      color="transparent"
       @click="clickClear"
     >
-<!--      <template v-slot:prepend>-->
-<!--        <v-avatar :image="`@/assets/images/constellations/cover/${item.cover}`"></v-avatar>-->
-<!--      </template>-->
       <router-link :to="{ name: 'constellation', params: { constellationId: item.id, urlName: item.urlName } }">
-        <v-list-item-title v-text="item.text"></v-list-item-title>
+        <v-list-item-title /> {{ item.text }}
       </router-link>
     </v-list-item>
   </v-list>

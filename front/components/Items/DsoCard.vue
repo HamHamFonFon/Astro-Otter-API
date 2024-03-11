@@ -1,5 +1,5 @@
 <template>
-  <v-hover v-slot:default="{ isHovering, props }">
+  <v-hover v-slot="{ isHovering, props }">
     <v-card
       class="ma-5"
       color="primary"
@@ -9,7 +9,7 @@
     >
       <router-link
         :to="{ name: 'dso', params: { id: dso.id, urlName: dso.urlName } }"
-        v-bind:title="t('dso.link', {'dso': title})"
+        :title="t('dso.link', {'dso': title})"
       >
         <v-img
           :src="imageCover"
@@ -20,7 +20,7 @@
           :alt="t('dso.image', {'dso': title })"
           :aria-label="t('dso.image', {'dso': title })"
         >
-          <template v-slot:placeholder>
+          <template #placeholder>
             <v-row
               class="fill-height ma-0"
               align="center"
@@ -33,10 +33,21 @@
             </v-row>
           </template>
           <v-expand-transition>
-            <div :class="getCardsCssClass(isDefaultImage, isHovering)" style="height: 100%;">
-              <v-card-title class="text-center text-h5 text-white" v-show="true === isHovering || true === isDefaultImage || true === isMobile">
+            <div
+              :class="getCardsCssClass(isDefaultImage, isHovering)"
+              style="height: 100%;"
+            >
+              <v-card-title
+                v-show="true === isHovering || true === isDefaultImage || true === isMobile"
+                class="text-center text-h5 text-white"
+              >
                 <p>{{ title }}</p>
-                <p v-if="1 < dso.desigs.length" class="text-caption">{{ otherDesigs }}</p>
+                <p
+                  v-if="1 < dso.desigs.length"
+                  class="text-caption"
+                >
+                  {{ otherDesigs }}
+                </p>
               </v-card-title>
             </div>
           </v-expand-transition>
@@ -46,27 +57,41 @@
       <v-card-actions color="background">
         <v-container :style="{margin: 'auto'}">
           <v-row class="w-auto">
-            <v-col cols="12" sm="6">
-              <v-btn block elevation="1">
+            <v-col
+              cols="12"
+              sm="6"
+            >
+              <v-btn
+                block
+                elevation="1"
+              >
                 <span class="subheading me-2">{{ dso.typeLabel }}</span>
               </v-btn>
             </v-col>
-            <v-col cols="12" sm="6">
-              <v-btn block :aria-label="t('layout.btnConstellationTo', {'constellation': dso.constellation.alt })" elevation="1">
+            <v-col
+              cols="12"
+              sm="6"
+            >
+              <v-btn
+                block
+                :aria-label="t('layout.btnConstellationTo', {'constellation': dso.constellation.alt })"
+                elevation="1"
+              >
                 <!-- v-icon class="mr-2" color="grey"><slot name="custom-icon" iconName="constellation"></slot> </v-icon-->
                 <span class="subheading me-2">
-                <router-link :to="{
-                  name: 'constellation',
-                  params: {
-                    constellationId: dso.constellation.id.toLowerCase(),
-                    urlName: dso.constellation.alt.toLowerCase()
-                  }
-                }"
-                             v-bind:title="t('layout.btnConstellationTo', {'constellation': dso.constellation.alt })"
-                >
-                  {{ dso.constellation.alt }}
-                </router-link>
-              </span>
+                  <router-link
+                    :to="{
+                      name: 'constellation',
+                      params: {
+                        constellationId: dso.constellation.id.toLowerCase(),
+                        urlName: dso.constellation.alt.toLowerCase()
+                      }
+                    }"
+                    :title="t('layout.btnConstellationTo', {'constellation': dso.constellation.alt })"
+                  >
+                    {{ dso.constellation.alt }}
+                  </router-link>
+                </span>
               </v-btn>
             </v-col>
           </v-row>

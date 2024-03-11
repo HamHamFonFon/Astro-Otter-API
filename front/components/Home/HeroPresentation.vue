@@ -5,34 +5,52 @@
     rounded
     :style="backgroundStyle"
   >
-    <v-container class="text-center" :style="{margin: 'auto'}">
-      <v-sheet color="transparent" elevation="0">
-        <img class="mx-auto" width="200" height="200" src="@/assets/images/logos/astro_otter_200-200.png" :alt="$t('layout.logo')" style="border-radius: 50%" />
+    <v-container
+      class="text-center"
+      :style="{margin: 'auto'}"
+    >
+      <v-sheet
+        color="transparent"
+        elevation="0"
+      >
+        <img
+          class="mx-auto"
+          width="200"
+          height="200"
+          src="@/assets/images/logos/astro_otter_200-200.png"
+          :alt="$t('layout.logo')"
+          style="border-radius: 50%"
+        >
         <v-card
           color="transparent"
           elevation="0"
           max-width="800"
           class="mx-auto my-10 py-0py-md-12"
         >
-
           <h1 class="text-h2 mt-4 mx-auto text-shades-white">
             {{ $t('home.explore') }}
           </h1>
         </v-card>
         <v-row class="w-auto">
-          <v-col cols="12" sm="6">
+          <v-col
+            cols="12"
+            sm="6"
+          >
             <v-btn
               block
               size="x-large"
               class="text-white mr-5 font-weight-bold"
               color="primary"
-              @click="scrollToSearch"
               :aria-label="$t('home.searchArialabel')"
-            >{{ $t('home.search') }}</v-btn
+              @click="scrollToSearch"
             >
+              {{ $t('home.search') }}
+            </v-btn>
           </v-col>
-          <v-col cols="12" sm="6">
-
+          <v-col
+            cols="12"
+            sm="6"
+          >
             <v-btn
               block
               size="x-large"
@@ -40,7 +58,10 @@
               color="grey"
               variant="outlined"
               :aria-label="$t('home.browseArialabel')"
-            ><router-link :to="{name: 'catalogs'}">{{ $t('home.browse') }}</router-link>
+            >
+              <router-link :to="{name: 'catalogs'}">
+                {{ $t('home.browse') }}
+              </router-link>
             </v-btn>
           </v-col>
         </v-row>

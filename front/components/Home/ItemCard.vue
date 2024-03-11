@@ -7,7 +7,7 @@
     <slot
       v-for="item in items"
       :item="item"
-    ></slot>
+    />
   </v-sheet>
 </template>
 

@@ -1,7 +1,13 @@
 <template>
-  <v-container class="text-center" :key="index">
+  <v-container
+    :key="index"
+    class="text-center"
+  >
     <v-row>
-      <v-col cols="12" md="6">
+      <v-col
+        cols="12"
+        md="6"
+      >
         <v-sheet elevation="0">
           <v-card
             elevation="0"
@@ -19,21 +25,37 @@
             </h2>
           </v-card>
           <div class="text-center">
-            <router-link :to="item.path" v-bind:title="$t('layout.btnExplore')">
-              <v-btn size="x-large" class="text-white font-weight-bold" color="primary" :aria-label="$t('layout.btnExplore')">{{ $t('layout.btnExplore') }}</v-btn>
+            <router-link
+              :to="item.path"
+              :title="$t('layout.btnExplore')"
+            >
+              <v-btn
+                size="x-large"
+                class="text-white font-weight-bold"
+                color="primary"
+                :aria-label="$t('layout.btnExplore')"
+              >
+                {{ $t('layout.btnExplore') }}
+              </v-btn>
             </router-link>
           </div>
         </v-sheet>
       </v-col>
-      <v-col cols="0" md="6">
+      <v-col
+        cols="0"
+        md="6"
+      >
         <v-card>
-          <router-link :to="item.path" v-bind:title="$t('layout.btnExplore')">
+          <router-link
+            :to="item.path"
+            :title="$t('layout.btnExplore')"
+          >
             <v-img
               height="420"
               class="v-card--hover"
               cover
               :src="item.image"
-            ></v-img>
+            />
           </router-link>
         </v-card>
       </v-col>

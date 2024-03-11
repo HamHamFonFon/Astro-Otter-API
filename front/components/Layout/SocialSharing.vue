@@ -1,67 +1,82 @@
 <template>
   <v-btn
-    :color="backgroundColor"
-    @click="$event => showButtons = !showButtons"
     class="hover-button elevation-10"
     aria-label="{{ $t('share.open') }}"
+    :color="backgroundColor"
+    @click="$event => showButtons = !showButtons"
   >
-    <v-icon color="green" v-if="!showCloseButton">mdi-share-variant</v-icon>
-    <v-icon v-else>mdi-close</v-icon>
+    <v-icon
+      v-if="!showCloseButton"
+      color="green"
+    >
+      mdi-share-variant
+    </v-icon>
+    <v-icon v-else>
+      mdi-close
+    </v-icon>
   </v-btn>
   <v-divider />
   <transition name="slide-y">
     <v-card
-        v-if="showButtons"
-        elevation="10"
-        class="d-flex flex-column mb-1 hovered-buttons"
-        :color="backgroundColor"
+      v-if="showButtons"
+      elevation="10"
+      class="d-flex flex-column mb-1 hovered-buttons"
+      :color="backgroundColor"
     >
       <!-- Open / hide-->
       <v-btn
-          @click="showButtons = false"
-          variant="text"
-          size="50"
-          color="error"
+        variant="text"
+        size="50"
+        color="error"
+        @click="showButtons = false"
       >
-        <v-icon size="30">mdi-close</v-icon>
+        <v-icon size="30">
+          mdi-close
+        </v-icon>
         <v-tooltip
-            activator="parent"
-            location="left"
-            :text="$t('layout.btnClose')"
-        ></v-tooltip>
+          activator="parent"
+          location="left"
+          :text="$t('layout.btnClose')"
+        />
       </v-btn>
 
       <v-divider />
 
       <!-- Social networls -->
       <v-btn
-          color="transparent"
-          size="50"
-          v-for="socialNetwork in socialNetworks"
-          v-bind:key="socialNetwork"
-          @click="resolveFunction(socialNetwork.funcName, socialNetwork.param)"
-          :aria-label="socialNetwork.label"
+        v-for="socialNetwork in socialNetworks"
+        :key="socialNetwork"
+        color="transparent"
+        size="50"
+        :aria-label="socialNetwork.label"
+        @click="resolveFunction(socialNetwork.funcName, socialNetwork.param)"
       >
-        <v-icon size="30">{{ socialNetwork.icon }}</v-icon>
+        <v-icon size="30">
+          {{ socialNetwork.icon }}
+        </v-icon>
         <v-tooltip
-            activator="parent"
-            location="left"
-            :text="socialNetwork.label"
-        ></v-tooltip>
+          activator="parent"
+          location="left"
+          :text="socialNetwork.label"
+        />
       </v-btn>
 
       <v-btn
-          color="transparent"
-          size="50"
-          @click="pasteUrl"
-          :aria-label="copyLink.text"
+        color="transparent"
+        size="50"
+        :aria-label="copyLink.text"
+        @click="pasteUrl"
       >
-        <v-icon size="30" :icon="copyLink.icon" :color="copyLink.color"></v-icon>
+        <v-icon
+          size="30"
+          :icon="copyLink.icon"
+          :color="copyLink.color"
+        />
         <v-tooltip
-            activator="parent"
-            location="left"
-            :text="copyLink.text"
-        ></v-tooltip>
+          activator="parent"
+          location="left"
+          :text="copyLink.text"
+        />
       </v-btn>
     </v-card>
   </transition>
@@ -96,7 +111,7 @@ const copyLink = ref({
 const backgroundColor = computed(() => (screen.width <= 760) ? 'primary': 'transparent')
 
 const shareOn = (socialNetworkUrl) => {
-  let shareUrl = socialNetworkUrl + encodeURIComponent(location.href);
+  const shareUrl = socialNetworkUrl + encodeURIComponent(location.href);
   window.open(shareUrl, '_blank');
 }
 

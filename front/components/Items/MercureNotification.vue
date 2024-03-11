@@ -3,7 +3,10 @@
     <div class="Message-body">
       <p>{{ notification.message }}</p>
     </div>
-    <button class="Message-close js-messageClose" @click="clickRemove">
+    <button
+      class="Message-close js-messageClose"
+      @click="clickRemove"
+    >
       <v-icon icon="mdi-close"></v-icon>
     </button>
   </div>

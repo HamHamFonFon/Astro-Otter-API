@@ -1,14 +1,16 @@
 <template>
   <v-btn
-      :prepend-icon="icon"
-      size="x-large"
-      :loading="btnLoading"
-      variant="outlined"
-      class="text-white mr-5"
-      color="grey"
-      @click="clickEvent"
-      :aria-label="label"
-  > <span>{{ label }}</span> </v-btn>
+    :prepend-icon="icon"
+    size="x-large"
+    :loading="btnLoading"
+    variant="outlined"
+    class="text-white mr-5"
+    color="grey"
+    :aria-label="label"
+    @click="clickEvent"
+  >
+    <span>{{ label }}</span>
+  </v-btn>
 </template>
 
 <script setup>

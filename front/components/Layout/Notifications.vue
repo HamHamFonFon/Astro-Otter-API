@@ -32,6 +32,10 @@ onMounted(() => getNotifications())
 </script>
 
 <template>
-  <VSonner expand position="bottom-left" :duration="10000" />
+  <VSonner
+    expand
+    position="bottom-left"
+    :duration="10000"
+  />
 </template>
 
