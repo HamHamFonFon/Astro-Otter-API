@@ -1,0 +1,67 @@
+.richtext {
+  color: #e9e9e9;
+
+  pre {
+    white-space: pre-wrap;
+    overflow-x: auto;
+    display: flex;
+    font-family: monospace;
+    background: #253A46;
+    color: #a7b6bf;
+    padding: 1em 0.5em;
+    width: 100%;
+  }
+
+  p {
+    padding: 0.5em 1em;
+    line-height: 2.25em;
+    font-size: 0.8em;
+    @media (max-width: 767px) {
+      padding: 0.25em;
+    }
+
+  }
+
+  a {
+    color: #1ed760;
+    cursor: pointer;
+    text-decoration: none;
+    border-bottom: 1px dotted #1ed760;
+    &:hover {
+      color: #a7b6bf;
+      text-decoration: underline;
+      border: none;
+    }
+  }
+
+  ul, ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 1rem;
+    text-align: left;
+    li {
+      line-height: 1;
+      font-size: 0.8em;
+      position: relative;
+      overflow: hidden;
+      margin-left: 1.25em;
+      padding-left: 20px;
+      &::before {
+        content: "";
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        top: 0.4em;
+        left: 2px;
+        border: 2px solid;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  hr {
+    margin: 1em 0;
+  }
+}

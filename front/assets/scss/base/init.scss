@@ -1,0 +1,33 @@
+body,#app {
+  font-family: $font !important;
+  font-size: 20px;
+  font-display: swap;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: justify;
+}
+
+a {
+  all: unset;
+  cursor: pointer;
+}
+
+p {
+  font: $font;
+  line-height: 2em;
+  font-size: 0.75em;
+}
+
+ul {
+  padding: 0 1em;
+  margin-top: 0.2em;
+}
+li {
+  line-height: 2em;
+}
+
+span {
+  font: $font;
+  line-height: 2em;
+  font-size: 14px;
+}

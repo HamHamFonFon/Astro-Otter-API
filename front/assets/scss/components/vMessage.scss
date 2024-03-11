@@ -1,0 +1,11 @@
+.v-messages {
+  font-size: initial !important;
+}
+
+#blockMessage > * {
+  margin: 0 0.5em;
+
+  span {
+    color: #e9e9e9;
+  }
+}
