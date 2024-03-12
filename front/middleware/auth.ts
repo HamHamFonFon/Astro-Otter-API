@@ -1,6 +1,6 @@
 import { defineNuxtRouteMiddleware } from 'nuxt/app';
-import { login, refreshToken } from '@/composables/loginOrRefresh';
-import { useAuthStore } from '@/store/auth';
+import { login, refreshToken } from '~/composables/loginOrRefresh';
+import { useAuthStore } from '~/store/auth';
 
 export default defineNuxtRouteMiddleware(async () => {
   const authStore = useAuthStore();
