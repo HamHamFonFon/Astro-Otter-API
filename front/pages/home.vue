@@ -1,6 +1,7 @@
 <script setup lang="ts">
-
-import {definePageMeta} from "nuxt/dist/pages/runtime";
+definePageMeta({
+  layout: 'home'
+});
 
 const HeroPresentation = defineAsyncComponent(() => import('@/components/Home/HeroPresentation.vue'))
 // const SearchAutocomplete = defineAsyncComponent(() => import("@/components/Home/SearchAutocomplete.vue"))
@@ -14,9 +15,7 @@ const HeroPresentation = defineAsyncComponent(() => import('@/components/Home/He
 //   'background': ItemCardBackground
 // };
 
-definePageMeta({
-  layout: 'Home'
-});
+
 </script>
 
 <template>
