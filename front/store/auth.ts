@@ -1,27 +1,28 @@
 import { AuthWs } from '@/repositories/api/auth';
 import { jwtParser } from '~/composables/jwtParser';
+import { Store } from 'vuex';
 
-export interface AuthState {
+interface AuthState {
   accessToken: string | null,
   refreshToken: string | null
 }
 
-const state: AuthState = {
+export const state = (): AuthState => ({
   accessToken: null,
   refreshToken: null
-}
+})
 
-const mutations = {
-  setAccessToken(state: AuthState, accessToken: string): void {
+export const mutations = {
+  setAccessToken(state: AuthState, accessToken: string | null): void {
     state.accessToken = accessToken
   },
-  setRefreshToken(state: AuthState, refreshToken: string): void {
+  setRefreshToken(state: AuthState, refreshToken: string | null): void {
     state.refreshToken = refreshToken
   }
 }
 
-const actions = {
-  async fetchLogin({ commit }: any) {
+export const actions = {
+  async fetchLogin({ commit }: any): Promise<boolean> {
     try {
       const wsResponse = await AuthWs.GET_LOGIN();
       const { jwtToken, refreshToken } = wsResponse;
@@ -42,7 +43,7 @@ const actions = {
    * @param getters
    * @returns {Promise<boolean>}
    */
-  async fetchRefreshToken({ commit }: any) {
+  async fetchRefreshToken({ commit }: any): Promise<boolean> {
     try {
       const wsResponse = await AuthWs.GET_REFRESH(state.refreshToken)
       const { jwtToken } = wsResponse.data;
@@ -55,14 +56,15 @@ const actions = {
   }
 }
 
-const getters = {
+export const getters = {
   isLoggedIn: (state: AuthState) => !!state.accessToken,
   getJwtExp: (state: AuthState) => jwtParser(state.accessToken)
 };
 
-export const authStore = defineStore({
+export default {
+  namespaced: true,
   state,
   mutations,
   actions,
-  getters,
-}).with({ namespaced: true });
+  getters
+};

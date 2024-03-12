@@ -1,6 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { defineNuxtConfig } from 'nuxt/config';
 
+// Plugins
+import stores from './plugins/vuex';
+import vuetify from "~/plugins/vuetify";
+import axiosApi from "~/plugins/axiosApi";
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
   typescript: {
@@ -12,9 +17,9 @@ export default defineNuxtConfig({
     ],
   },
   plugins: [
-    './plugins/axiosApi',
-    './plugins/vuex',
-    './plugins/vuetify'
+    stores,
+    vuetify,
+    axiosApi
   ],
   modules: [
     '@nuxtjs/i18n'

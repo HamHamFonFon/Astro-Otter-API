@@ -1,27 +1,27 @@
-import { defineStore } from '@nuxt/bridge';
+import { Store } from 'vuex';
 
-export interface MessageState {
+interface MessageState {
   message: string | null;
   type: string;
   httpCode: number | 0;
   loading: boolean;
 }
 
-const state: MessageState = {
+export const state = (): MessageState => ({
   message: null,
   type: 'warning',
   httpCode: 0,
   loading: true
-}
+});
 
-const actions = {
-    postError({ commit }: any, errorMsg: string): void {
-        commit('setError', errorMsg);
-    }
+export const actions = {
+    // postError({ commit }: any, errorMsg: string): void {
+    //     commit('setMessage', {true, '', errorMsg, 500});
+    // }
 };
 
-const mutations = {
-    setMessage: (state: MessageState, { loading, type, message, httpCode }): void => {
+export const mutations = {
+    setMessage: (state: MessageState, { loading, type, message, httpCode }: {loading: boolean; type: string; message: string; httpCode: number}): void => {
         state.loading = loading;
         state.type = type;
         state.message = message;
@@ -32,8 +32,9 @@ const mutations = {
     },
 };
 
-export const messageStore = defineStore({
+export default {
+  namespaced: true,
   state,
   mutations,
-  actions,
-}).with({ namespaced: true });
+  actions
+};
