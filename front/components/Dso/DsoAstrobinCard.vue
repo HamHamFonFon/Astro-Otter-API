@@ -31,7 +31,7 @@
           {{ item.text }}
         </v-list-item-title>
       </v-list-item>
-      <v-divider></v-divider>
+      <v-divider />
       <v-card-title>
         <v-icon
           icon="mdi-data-matrix"

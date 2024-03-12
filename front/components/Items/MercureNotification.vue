@@ -7,7 +7,7 @@
       class="Message-close js-messageClose"
       @click="clickRemove"
     >
-      <v-icon icon="mdi-close"></v-icon>
+      <v-icon icon="mdi-close" />
     </button>
   </div>
 </template>

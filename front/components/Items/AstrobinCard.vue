@@ -72,7 +72,8 @@ import api from "@/configs/api";
 
 defineProps({
   item: {
-    type: Object
+    type: Object,
+    default: null
   }
 })
 

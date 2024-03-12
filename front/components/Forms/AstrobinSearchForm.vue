@@ -59,7 +59,8 @@ const astrobinFiltersRef = ref(astrobinFilters);
 
 const props = defineProps({
   formData: {
-    type: Object
+    type: Object,
+    default: null
   }
 });
 const formData = toRefs(props);

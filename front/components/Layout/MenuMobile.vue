@@ -29,7 +29,7 @@
     location="bottom right"
     transition="slide-y-transition"
   >
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props }">
       <v-btn
         icon
         v-bind="props"

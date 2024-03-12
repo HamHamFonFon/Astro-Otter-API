@@ -151,7 +151,7 @@
           class="text-white mr-5"
           aria-label="{{ $t('layout.submit')}}"
         >
-          {{ $t('layout.submit')}}
+          {{ $t('layout.submit') }}
         </v-btn>
       </v-col>
     </v-row>

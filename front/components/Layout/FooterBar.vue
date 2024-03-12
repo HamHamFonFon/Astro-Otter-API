@@ -31,8 +31,8 @@
                 color="blue-grey-darken-2"
                 class="mx-3"
                 :aria-label="socialNetwork.name"
-                @click="openSocialNetwork(socialNetwork.to)"
                 icon
+                @click="openSocialNetwork(socialNetwork.to)"
               >
                 <v-icon>{{ socialNetwork.icon }}</v-icon>
               </v-btn>
@@ -83,7 +83,8 @@ const footerPages = ref(configs.footerPages);
 
 const props = defineProps({
   allRoutes: {
-    type: Array
+    type: Array,
+    default: null
   },
 });
 const prismicRoutes = reactive([]);

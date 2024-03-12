@@ -156,7 +156,7 @@ const fetchDsoList = async () => {
     urlShare.value = saveShareLink(route.path, params);
     // store.commit('message/setLoading', false);
   } catch (error) {
-    store.commit('message/setMessage', {
+    store.commit.message.setMessage({
       'loading': true,
       'type': 'error',
       'message': error.message,

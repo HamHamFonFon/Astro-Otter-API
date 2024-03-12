@@ -2,8 +2,14 @@
 import {computed} from "vue";
 
 defineProps({
-  title: String,
-  urlImage: String
+  title: {
+    type: String,
+    default: ''
+  },
+  urlImage: {
+    type: String,
+    default: ''
+  }
 });
 
 const imageHeight = computed(() => (screen.width <= 760) ? '300': '450')

@@ -20,7 +20,8 @@ const isMobile = computed(() => {
 
 const props = defineProps({
   itemsList: {
-    type: Object
+    type: Object,
+    default: null
   },
   gap: {
     type: Number,

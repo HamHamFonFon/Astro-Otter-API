@@ -60,7 +60,10 @@ defineProps({
     type: Object,
     default: null
   },
-  description: String
+  description: {
+    type: String,
+    default: ''
+  }
 })
 
 const isMobile = computed(() => screen.width <= 760);

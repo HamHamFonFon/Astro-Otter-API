@@ -40,7 +40,8 @@ const ConstellationCard =defineAsyncComponent(() => import('@/components/Items/C
 
 defineProps({
   constellations: {
-    type: Object
+    type: Object,
+    default: null
   }
 });
 

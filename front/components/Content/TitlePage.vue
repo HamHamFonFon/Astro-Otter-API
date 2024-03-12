@@ -2,7 +2,10 @@
 import {computed} from "vue";
 
 defineProps({
-  title: String
+  title: {
+    type: String,
+    default: ''
+  }
 });
 
 const isMobile = computed(() => {

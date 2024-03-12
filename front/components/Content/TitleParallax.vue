@@ -2,9 +2,18 @@
 import {computed, toRefs} from "vue";
 
 const props = defineProps({
-  title: String,
-  urlImage: String,
-  user: String,
+  title: {
+    type: String,
+    default: ''
+  },
+  urlImage: {
+    type: String,
+    default: ''
+  },
+  user: {
+    type: String,
+    default: ''
+  },
   showButton: {
     type: Boolean,
     default: false
