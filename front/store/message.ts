@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import {defineStore} from 'pinia';
 
 interface MessageState {
   message: string | null;
@@ -7,7 +7,7 @@ interface MessageState {
   loading: boolean;
 }
 
-export const messageStore = defineStore('message', {
+export const useMessageSTore = defineStore('message', {
   state: (): MessageState => {
     return {
       message: null,
@@ -18,15 +18,15 @@ export const messageStore = defineStore('message', {
   },
   actions: { },
   getters: { },
-  mutations: {
-    setMessage: (state: MessageState, { loading, type, message, httpCode }: {loading: boolean; type: string; message: string; httpCode: number}): void => {
-      state.loading = loading;
-      state.type = type;
-      state.message = message;
-      state.httpCode = httpCode;
-    },
-    setLoading: (state: MessageState, payload: boolean): void => {
-      state.loading = payload;
-    },
-  }
+  // mutations: {
+  //   setMessage: (state: MessageState, { loading, type, message, httpCode }: {loading: boolean; type: string; message: string; httpCode: number}): void => {
+  //     state.loading = loading;
+  //     state.type = type;
+  //     state.message = message;
+  //     state.httpCode = httpCode;
+  //   },
+  //   setLoading: (state: MessageState, payload: boolean): void => {
+  //     state.loading = payload;
+  //   },
+  // }
 });

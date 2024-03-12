@@ -1,13 +1,13 @@
-import { defineStore } from 'pinia';
-import { AuthWs } from '@/repositories/api/auth';
-import { jwtParser } from '~/composables/jwtParser';
+import {defineStore} from 'pinia';
+import { AuthWs } from '@/composables/api/auth';
+import { jwtParser } from '@/composables/jwtParser';
 
 interface AuthState {
   accessToken: string | null,
   refreshToken: string | null
 }
 
-export const authStore = defineStore('auth', {
+export const useAuthStore = defineStore('auth', {
   state: (): AuthState => {
     return {
       accessToken: null,
@@ -16,13 +16,15 @@ export const authStore = defineStore('auth', {
   },
 
   actions: {
-    async fetchLogin({ commit }: any): Promise<boolean> {
+    async fetchLogin(): Promise<boolean> {
       try {
         const wsResponse = await AuthWs.GET_LOGIN();
         const {jwtToken, refreshToken} = wsResponse;
 
-        commit('setAccessToken', jwtToken);
-        commit('setRefreshToken', refreshToken)
+        this.$patch({
+          accessToken: jwtToken,
+          refreshToken: refreshToken,
+        });
 
         localStorage.setItem('jwtToken', jwtToken)
         return true;
@@ -30,11 +32,14 @@ export const authStore = defineStore('auth', {
         return false;
       }
     },
-    async fetchRefreshToken({ commit }: any): Promise<boolean> {
+    async fetchRefreshToken(): Promise<boolean> {
       try {
-        const wsResponse = await AuthWs.GET_REFRESH(state.refreshToken)
-        const { jwtToken } = wsResponse.data;
-        commit('setAccessToken', jwtToken);
+        const wsResponse = await AuthWs.GET_REFRESH(this.accessToken)
+        const {jwtToken} = wsResponse;
+        localStorage.setItem('jwtToken', jwtToken)
+        this.$patch({
+          accessToken: jwtToken,
+        });
 
         return true;
       } catch (error) {
@@ -44,16 +49,9 @@ export const authStore = defineStore('auth', {
   },
 
   getters: {
-    isLoggedIn: (state: AuthState) => !!state.accessToken,
-    getJwtExp: (state: AuthState) => jwtParser(state.accessToken)
+    isLoggedIn: (state) => !!state.accessToken,
+    getJwtExp: (state) => jwtParser(state.accessToken)
   },
-
-  mutations: {
-    setAccessToken(state: AuthState, accessToken: string | null): void {
-      state.accessToken = accessToken
-    },
-    setRefreshToken(state: AuthState, refreshToken: string | null): void {
-      state.refreshToken = refreshToken
-    }
-  }
 });
+
+
