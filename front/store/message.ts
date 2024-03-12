@@ -1,4 +1,4 @@
-import { Store } from 'vuex';
+import { defineStore } from 'pinia';
 
 interface MessageState {
   message: string | null;
@@ -7,34 +7,26 @@ interface MessageState {
   loading: boolean;
 }
 
-export const state = (): MessageState => ({
-  message: null,
-  type: 'warning',
-  httpCode: 0,
-  loading: true
-});
-
-export const actions = {
-    // postError({ commit }: any, errorMsg: string): void {
-    //     commit('setMessage', {true, '', errorMsg, 500});
-    // }
-};
-
-export const mutations = {
+export const messageStore = defineStore('message', {
+  state: (): MessageState => {
+    return {
+      message: null,
+      type: 'warning',
+      httpCode: 0,
+      loading: true
+    }
+  },
+  actions: { },
+  getters: { },
+  mutations: {
     setMessage: (state: MessageState, { loading, type, message, httpCode }: {loading: boolean; type: string; message: string; httpCode: number}): void => {
-        state.loading = loading;
-        state.type = type;
-        state.message = message;
-        state.httpCode = httpCode;
+      state.loading = loading;
+      state.type = type;
+      state.message = message;
+      state.httpCode = httpCode;
     },
     setLoading: (state: MessageState, payload: boolean): void => {
-        state.loading = payload;
+      state.loading = payload;
     },
-};
-
-export default {
-  namespaced: true,
-  state,
-  mutations,
-  actions
-};
+  }
+});

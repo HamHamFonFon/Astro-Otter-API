@@ -2,9 +2,8 @@
 import { defineNuxtConfig } from 'nuxt/config';
 
 // Plugins
-import stores from './plugins/vuex';
-import vuetify from "~/plugins/vuetify";
-import axiosApi from "~/plugins/axiosApi";
+// import axiosApi from './plugins/axiosApi';
+// import vuetify from './plugins/vuetify';
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -17,11 +16,11 @@ export default defineNuxtConfig({
     ],
   },
   plugins: [
-    stores,
-    vuetify,
-    axiosApi
+    // vuetify,
+    // axiosApi
   ],
   modules: [
+    '@pinia/nuxt',
     '@nuxtjs/i18n'
   ],
   i18n: {
