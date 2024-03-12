@@ -1,10 +1,10 @@
-import { inject } from 'vue';
-const store = inject('store');
+import { useAuthStore } from "~/store/auth";
+const authStore= useAuthStore();
 
-export async function login(): Promise<any> {
-  return store.dispatch.auth.fetchLogin;
+export async function login(): Promise<boolean> {
+  return authStore.fetchLogin();
 }
 
-export async function refreshToken(): Promise<any> {
-  return store.dispatch.auth.fetchRefreshToken;
+export async function refreshToken(): Promise<boolean> {
+  return authStore.fetchRefreshToken();
 }

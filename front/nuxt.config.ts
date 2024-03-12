@@ -10,10 +10,8 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true
   },
-  router :{
-    middleware: [
-      'auth'
-    ],
+  router: {
+    middleware: ['auth'],
   },
   plugins: [
     // vuetify,

@@ -1,4 +1,4 @@
-export const jwtParser = (token: string) => {
+export const jwtParser = (token: string | null): null | any => {
   if (null === token) {
     return token;
   }
