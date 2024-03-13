@@ -15,7 +15,7 @@
 
 <script setup>
 import {computed, onMounted, onUnmounted, ref} from "vue";
-
+const { isMobile } = useDevice();
 const isVisible = ref(false);
 
 onMounted(() => {
@@ -32,7 +32,7 @@ const handleScroll = () => {
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
-const backgroundColor = computed(() => (screen.width <= 760) ? 'primary': 'transparent')
+const backgroundColor = computed(() => (isMobile) ? 'primary': 'transparent')
 </script>
 
 <style  lang="scss">

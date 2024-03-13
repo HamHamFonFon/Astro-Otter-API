@@ -1,0 +1,27 @@
+// import { defineNuxtPlugin, useRuntimeConfig } from 'nuxt/app';
+// const { apiPublicHost, apiVersion } = useRuntimeConfig();
+// import axios from 'axios';
+// import { useAuthStore } from "@/store/auth";
+//
+// const authStore= useAuthStore();
+//
+// export default defineNuxtPlugin((nuxtApp): void => {
+//   console.log(`${apiPublicHost}/${apiVersion}`, authStore.accessToken);
+//   const instance = axios.create({
+//     baseURL: `${apiPublicHost}/${apiVersion}`
+//   });
+//
+//   instance.interceptors.request.use(
+//     config => {
+//       if (authStore.isLoggedIn) {
+//         config.headers.Authorization = `Bearer ${authStore.accessToken}`;
+//       }
+//       return config;
+//     },
+//     error => {
+//       return Promise.reject(error)
+//     }
+//   )
+//
+//   nuxtApp.provide('axiosApi', instance);
+// });

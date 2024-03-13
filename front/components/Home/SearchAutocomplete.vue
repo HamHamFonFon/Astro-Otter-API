@@ -50,7 +50,7 @@
 </template>
 
 <script setup>
-import {searchItems} from "@/services/autocompleteSearch";
+// import { searchItems } from "@/services/autocompleteSearch";
 import {defineAsyncComponent, ref, watch} from "vue";
 const SearchListCard = defineAsyncComponent(() => import("@/components/Items/SearchListCard.vue"));
 
@@ -59,7 +59,7 @@ const results = ref([]);
 
 watch(inputSearchItems, (newSearch) => {
   setTimeout(async () => {
-    results.value = await searchItems(newSearch);
+    // results.value = await searchItems(newSearch);
   }, 200);
 });
 </script>

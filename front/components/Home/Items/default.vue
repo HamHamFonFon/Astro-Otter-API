@@ -25,7 +25,7 @@
             </h2>
           </v-card>
           <div class="text-center">
-            <router-link
+            <NuxtLink
               :to="item.path"
               :title="$t('layout.btnExplore')"
             >
@@ -37,7 +37,7 @@
               >
                 {{ $t('layout.btnExplore') }}
               </v-btn>
-            </router-link>
+            </NuxtLink>
           </div>
         </v-sheet>
       </v-col>
@@ -46,7 +46,7 @@
         md="6"
       >
         <v-card>
-          <router-link
+          <NuxtLink
             :to="item.path"
             :title="$t('layout.btnExplore')"
           >
@@ -56,7 +56,7 @@
               cover
               :src="item.image"
             />
-          </router-link>
+          </NuxtLink>
         </v-card>
       </v-col>
     </v-row>

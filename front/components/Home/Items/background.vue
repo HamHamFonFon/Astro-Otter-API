@@ -32,7 +32,7 @@
           </p>
 
           <div class="text-center">
-            <router-link
+            <NuxtLink
               :to="item.path"
               :title="$t('layout.btnExplore')"
             >
@@ -44,7 +44,7 @@
               >
                 {{ $t('layout.btnExplore') }}
               </v-btn>
-            </router-link>
+            </NuxtLink>
           </div>
         </v-card>
       </v-col>

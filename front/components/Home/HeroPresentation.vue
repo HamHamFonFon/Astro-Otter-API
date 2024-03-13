@@ -59,9 +59,9 @@
               variant="outlined"
               :aria-label="$t('home.browseArialabel')"
             >
-              <router-link :to="{name: 'catalogs'}">
+              <NuxtLink to="catalogs">
                 {{ $t('home.browse') }}
-              </router-link>
+              </NuxtLink>
             </v-btn>
           </v-col>
         </v-row>
@@ -72,7 +72,7 @@
 
 <script setup>
 import backgroundImage from '@/assets/images/background/bg-1.webp'
-import {computed} from "vue";
+import { computed } from "vue";
 
 const backgroundStyle = computed(() => ({
   backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', height: '100vh', display: 'flex'

@@ -7,11 +7,10 @@ import * as directives from "vuetify/directives";
 import * as labs from "vuetify/labs/components";
 
 import 'vuetify/dist/vuetify.min.css';
-import '@mdi/font/css/materialdesignicons.css';
 
-import {createVueI18nAdapter} from "vuetify/locale/adapters/vue-i18n";
-import { useI18n } from 'vue-i18n'
-import i18n from '@/i18n/i18n.config';
+// import {createVueI18nAdapter} from "vuetify/locale/adapters/vue-i18n";
+// import { useI18n } from 'vue-i18n'
+// import i18n from '@/i18n/i18n.config';
 
 export default defineNuxtPlugin(nuxtApp => {
   const AstroOtterLightThemes = {
@@ -59,7 +58,7 @@ export default defineNuxtPlugin(nuxtApp => {
     //   customProperties: true
     // },
     locale: {
-      adapter: createVueI18nAdapter({ i18n, useI18n})
+      // adapter: createVueI18nAdapter({ i18n, useI18n})
     }
   });
 

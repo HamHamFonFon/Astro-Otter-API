@@ -15,17 +15,20 @@
     "@types/vue": "^2.0.0",
     "@vue/compiler-sfc": "^3.4.21",
     "axios": "^1.6.7",
+    "core-js": "^3.36.0",
     "i18n-iso-countries": "^7.10.1",
     "nuxt": "^3.10.2",
     "pinia": "^2.1.7",
     "vue": "^3.4.19",
     "vue-country-flag-next": "^2.3.2",
     "vue-router": "^4.2.5",
-    "vuetify": "^3.5.8"
+    "vuetify": "^3.5.8",
+    "vuetify-sonner": "^0.3.14"
   },
   "devDependencies": {
     "@mdi/font": "^7.4.47",
     "@nuxt/eslint-config": "^0.2.0",
+    "@nuxtjs/device": "^3.1.1",
     "@nuxtjs/i18n": "^8.1.1",
     "@types/axios": "^0.14.0",
     "eslint": "^8.57.0",

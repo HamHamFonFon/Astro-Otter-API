@@ -84,7 +84,8 @@
 
 <script setup>
 import {computed, reactive, ref} from "vue";
-import { useI18n } from "vue-i18n";
+const { isMobile } = useDevice();
+import { useI18n } from '#imports';
 const { t } = useI18n();
 
 const showButtons = ref(false);
@@ -107,8 +108,7 @@ const copyLink = ref({
   color: 'white'
 });
 
-
-const backgroundColor = computed(() => (screen.width <= 760) ? 'primary': 'transparent')
+const backgroundColor = computed(() => (isMobile) ? 'primary': 'transparent')
 
 const shareOn = (socialNetworkUrl) => {
   const shareUrl = socialNetworkUrl + encodeURIComponent(location.href);

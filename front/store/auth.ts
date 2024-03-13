@@ -1,12 +1,26 @@
+// import { useRuntimeConfig } from "nuxt/app";
+// const { apiPublicHost } = useRuntimeConfig();
 import {defineStore} from 'pinia';
-import { AuthWs } from '@/composables/api/auth';
-import { jwtParser } from '@/composables/jwtParser';
+import axios, {type AxiosResponse} from "axios";
+import type {UnwrapRef} from "vue";
+// import { jwtParser } from '@/composables/jwtParser';
 
 interface AuthState {
   accessToken: string | null,
   refreshToken: string | null
 }
 
+interface AuthGetters {
+}
+
+interface AuthActions {
+}
+// <
+//   'auth',
+//   AuthState,
+//   AuthGetters,
+// AuthActions
+// >
 export const useAuthStore = defineStore('auth', {
   state: (): AuthState => {
     return {
@@ -16,27 +30,52 @@ export const useAuthStore = defineStore('auth', {
   },
 
   actions: {
-    async fetchLogin(): Promise<boolean> {
+    async fetchLogin(login: string | undefined, password: string | undefined): Promise<boolean> {
       try {
-        const wsResponse = await AuthWs.GET_LOGIN();
-        const {jwtToken, refreshToken} = wsResponse;
+        const requestBody: string = JSON.stringify({
+          'email': login,
+          'password': password,
+        });
+
+        const headers: {Accept: string, 'Content-Type': string} = {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+
+        const apiPublicHost = 'https://api.astro-otter.space';
+        const wsResponse: AxiosResponse<any> = await axios.post(apiPublicHost + '/auth', requestBody, {headers});
+        if (200 !== wsResponse.status) {
+          throw new Error(wsResponse.statusText);
+        }
+        const jwtToken = wsResponse.data.token;
+        const refreshToken = wsResponse.data.refresh_token;
 
         this.$patch({
           accessToken: jwtToken,
           refreshToken: refreshToken,
         });
 
-        localStorage.setItem('jwtToken', jwtToken)
         return true;
       } catch (error) {
         return false;
       }
     },
-    async fetchRefreshToken(): Promise<boolean> {
+    async fetchRefreshToken(refreshToken: string | null): Promise<boolean> {
       try {
-        const wsResponse = await AuthWs.GET_REFRESH(this.accessToken)
-        const {jwtToken} = wsResponse;
-        localStorage.setItem('jwtToken', jwtToken)
+
+        const requestBody: {refresh_token: string | null} = {
+          'refresh_token': refreshToken
+        }
+        const headers: {Accept: string, 'Content-Type': string} = {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+        const apiPublicHost = 'https://api.astro-otter.space';
+        const response: AxiosResponse<any> = await axios.post(apiPublicHost + '/token/refresh', requestBody, {headers});
+        if (200 !== response.status) {
+          throw new Error(response.statusText);
+        }
+        const jwtToken:string = response.data.token;
         this.$patch({
           accessToken: jwtToken,
         });

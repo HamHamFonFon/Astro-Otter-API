@@ -1,28 +1,39 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { defineNuxtConfig } from 'nuxt/config';
 
-// Plugins
-// import axiosApi from './plugins/axiosApi';
-// import vuetify from './plugins/vuetify';
-
 export default defineNuxtConfig({
   devtools: { enabled: true },
   typescript: {
     typeCheck: true
   },
-  router: {
-    middleware: ['auth'],
-  },
-  plugins: [
-    // vuetify,
-    // axiosApi
-  ],
   modules: [
     '@pinia/nuxt',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    '@nuxtjs/device'
   ],
   i18n: {
     vueI18n: './i18n/i18n.config.ts'
+  },
+  css: [
+    'vuetify/lib/styles/main.sass',
+    'vuetify/dist/vuetify.min.css',
+    '@mdi/font/css/materialdesignicons.min.css',
+    '@/assets/scss/app.scss'
+  ],
+  build: {
+    transpile: ['vuetify', 'vue-sonner'],
+  },
+  imports: {
+    dirs: [
+      'composables',
+      'composables/**'
+    ]
+  },
+  app: {
+    head: {
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
+    }
   },
   runtimeConfig: {
     // astrobin
@@ -38,7 +49,8 @@ export default defineNuxtConfig({
       apiVersion: 'v2',
       astrobinHost: 'https://www.astrobin.com',
       astrobinApiUrl: 'https://www.astrobin.com/api/v1/',
-      mercurePublicUrl: 'https://mercure.astro-otter.space/.well-known/mercure'
+      mercurePublicUrl: process.env.NUXT_MERCURE_HOST,
+      mercureTopic: process.env.NUXT_MERCURE_TOPIC,
     }
   }
 })

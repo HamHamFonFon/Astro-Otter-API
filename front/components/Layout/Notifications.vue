@@ -1,25 +1,29 @@
 <script setup>
-import {onMounted} from "vue";
+import { onMounted } from "vue";
+import { VSonner, toast } from 'vuetify-sonner';
 
-import { VSonner, toast } from 'vuetify-sonner'
+import { useRuntimeConfig } from 'nuxt/app';
+
+const config = useRuntimeConfig();
 import 'vuetify-sonner/style.css'
-import { mercureConfig } from '@/configs/mercure';
 
 const getNotifications = () => {
-  const hubUrl = new URL(mercureConfig.url);
-  hubUrl.searchParams.append('topic', `${mercureConfig.topic}`);
+  const hubUrl = new URL(config.public.mercurePublicUrl);
+  hubUrl.searchParams.append('topic', `${config.public.mercureTopic}`);
 
   const eventSource = new EventSource(hubUrl.toString(), { withCredentials: true });
   eventSource.onmessage = (e) => {
     const response = JSON.parse(e.data);
 
-    toast(response.message, {
-      description: response.date,
+    const toastOptions = {
+      description: response.date ?? undefined,
+      duration: 10000 ?? Number.POSITIVE_INFINITY,
       cardProps: {
         color: response.type ?? 'success'
       },
       prependIcon: 'mdi-check-circle'
-    });
+    }
+    toast(response.message, toastOptions);
   };
 
   eventSource.onerror = () =>  {
@@ -35,7 +39,6 @@ onMounted(() => getNotifications())
   <VSonner
     expand
     position="bottom-left"
-    :duration="10000"
   />
 </template>
 
