@@ -9,11 +9,13 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
     '@nuxtjs/i18n',
+    '@nuxtjs/prismic',
     '@nuxtjs/device'
   ],
   i18n: {
     vueI18n: './i18n/i18n.config.ts'
   },
+  prismic: { endpoint: process.env.NUXT_PRISMIC_ENDPOINT},
   css: [
     'vuetify/lib/styles/main.sass',
     'vuetify/dist/vuetify.min.css',
