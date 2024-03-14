@@ -1,7 +1,6 @@
 import { defineNuxtRouteMiddleware } from 'nuxt/app';
 import { useAuthStore } from '@/store/auth';
 
-
 export default defineNuxtRouteMiddleware(async (): Promise<void> => {
   const authStore = useAuthStore();
   const timestamp: number = new Date().getTime();
