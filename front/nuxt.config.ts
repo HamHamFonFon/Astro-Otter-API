@@ -54,6 +54,7 @@ export default defineNuxtConfig({
       astrobinApiUrl: 'https://www.astrobin.com/api/v1/',
       mercurePublicUrl: process.env.NUXT_MERCURE_HOST,
       mercureTopic: process.env.NUXT_MERCURE_TOPIC,
+      facebookAppId: process.env.NUXT_FACEBOOK_APP_ID
     }
   }
 })

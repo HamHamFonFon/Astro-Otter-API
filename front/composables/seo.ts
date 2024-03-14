@@ -1,4 +1,6 @@
 export const applySeo = (itemsPage: any): void => {
+  const config = useRuntimeConfig();
+  const facebookAppId: string = config.public.facebookAppId as string;
   useHead({
     title: () => `Astro-Otter - ${itemsPage.title}`,
     meta: [
@@ -8,7 +10,7 @@ export const applySeo = (itemsPage: any): void => {
   });
 
   useSeoMeta({
-    fbAppId: '',
+    fbAppId: facebookAppId,
     ogUrl: itemsPage.fullUrl,
     ogType: 'website',
     ogTitle: `Astro-Otter - ${itemsPage.title}`,
