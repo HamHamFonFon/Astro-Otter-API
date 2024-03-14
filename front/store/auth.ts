@@ -1,9 +1,5 @@
-// import { useRuntimeConfig } from "nuxt/app";
-// const { apiPublicHost } = useRuntimeConfig();
 import {defineStore} from 'pinia';
 import axios, {type AxiosResponse} from "axios";
-import type {UnwrapRef} from "vue";
-// import { jwtParser } from '@/composables/jwtParser';
 
 interface AuthState {
   accessToken: string | null,
@@ -70,6 +66,8 @@ export const useAuthStore = defineStore('auth', {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         }
+
+        // @todo : use nuxt config variable
         const apiPublicHost = 'https://api.astro-otter.space';
         const response: AxiosResponse<any> = await axios.post(apiPublicHost + '/token/refresh', requestBody, {headers});
         if (200 !== response.status) {

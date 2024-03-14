@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     '@nuxtjs/device'
   ],
   i18n: {
+    detectBrowserLanguage: false,
     vueI18n: './i18n/i18n.config.ts'
   },
   prismic: { endpoint: process.env.NUXT_PRISMIC_ENDPOINT},

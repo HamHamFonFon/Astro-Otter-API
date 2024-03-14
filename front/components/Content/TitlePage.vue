@@ -1,6 +1,4 @@
 <script setup>
-import {computed} from "vue";
-
 defineProps({
   title: {
     type: String,
@@ -8,9 +6,7 @@ defineProps({
   }
 });
 
-const isMobile = computed(() => {
-  return screen.width <= 766;
-});
+const { isMobile } = useDevice();
 </script>
 <template>
   <v-toolbar

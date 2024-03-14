@@ -39,23 +39,23 @@
             </div>
 
             <div class="d-flex flex-wrap justify-center justify-md-end">
-              <router-link
-                v-for="nav in processedFooterMenu(footerPages, props.allRoutes)"
-                :key="nav.key"
+              <NuxtLink
+                v-for="(nav, index) in footerPageitems"
+                :key="index"
                 class="text-primary mx-3 mb-3 font-weight-bold"
                 :to="nav.path"
               >
                 <span class="text-grey">{{ nav.text }}</span>
-              </router-link>
+              </NuxtLink>
 
-              <router-link
-                v-for="nav in prismicRoutes"
-                :key="nav.key"
+              <NuxtLink
+                v-for="nav in posts"
+                :key="nav.id"
                 class="text-primary mx-3 mb-3 font-weight-bold"
-                :to="{name: 'primisc_content_page', params: {'uid': nav.path}}"
+                :to="`pages/${nav.uid}`"
               >
-                <span class="text-grey">{{ nav.text }}</span>
-              </router-link>
+                <span class="text-grey">{{ asText(nav.data.title) }}</span>
+              </NuxtLink>
             </div>
           </v-col>
         </v-row>
@@ -68,74 +68,32 @@
   </v-sheet>
 </template>
 
-<script setup>
-import configs from "@/configs";
-import {computed, onMounted, reactive, ref, watch} from "vue";
-import { useI18n } from "vue-i18n";
+<script setup lang="ts">
+import { type UnwrapRef, watch } from "vue";
 
-const { t } = useI18n();
-import {usePrismic} from "@prismicio/vue";
-const { client, predicate, asText } = usePrismic();
+const { locale } = useI18n();
+const { client, asText } = usePrismic();
 
-import Trans from "@/services/translation";
-const socialNetworks = ref(configs.socialNetworks);
-const footerPages = ref(configs.footerPages);
+const { socialNetworks } = useSocialNetworks();
+const { footerPageitems } = useFooterpagesitems();
+const prismicLocale: Ref<UnwrapRef<string>> = ref(useLanguagesCode().languagesCodes.filter((item) => locale.value === item.locale)[0].prismic);
 
-const props = defineProps({
-  allRoutes: {
-    type: Array,
-    default: null
-  },
+// TODO : reload prismic data when locale is changed
+const { data: posts, error } = await useAsyncData(
+  'posts',
+  () => client.getAllByType('editorial_page',{ lang: prismicLocale.value } ),
+  {
+    watch: [
+      locale,
+      prismicLocale
+    ]
+  }
+);
+watch(locale, async (newLocale) => {
+  prismicLocale.value = newLocale;
 });
-const prismicRoutes = reactive([]);
 
-onMounted(async () => {
-  await processedFooterPrismic();
-})
-
-watch(() => Trans.currentLocale, async () => {
-  prismicRoutes.length = 0;
-  await processedFooterPrismic();
-})
-
-const openSocialNetwork= (link) => {
+const openSocialNetwork = (link: string): void => {
   window.open(link, '_blank')
 };
-
-const buildMenu = (footerPages, allRoutes) => {
-  return footerPages.map(route => {
-    const routeName = route.routeName;
-    const routeItem = allRoutes.filter(route => route.name === routeName)[0];
-    const path = routeItem.path;
-    return {
-      key: routeItem.meta.key,
-      text: t(`${routeName}.title`),
-      path: path
-    }
-  });
-};
-
-const processedFooterMenu = computed(() => buildMenu );
-const processedFooterPrismic = async () => {
-  try {
-    const items = await client.query(predicate.at('document.type', 'editorial_page'), { lang: Trans.getPrismicLocale() });
-    if (0 === items.results_size) {
-      return null;
-    }
-    items.results.forEach(i => {
-      prismicRoutes.push({
-        key: i.id,
-        text: asText(i.data.title),
-        path: i.uid
-      })
-    })
-  } catch (e) {
-    console.error(e.message);
-  }
-
-};
 </script>
-
-<style scoped>
-
-</style>

@@ -1,6 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import CountryFlag from 'vue-country-flag-next'
 import {toRefs} from "vue";
+import {useLanguagesCode} from "~/composables/lang/useLanguagesCode";
 
 const props = defineProps({
   btnColor: {
@@ -19,16 +20,19 @@ const props = defineProps({
 
 const { btnColor, iconColor, bgColor } = toRefs(props);
 
-const listFlags = ref({
-  'en': 'gbr',
-  'fr': 'fra'
-})
+const { languagesCodes } = useLanguagesCode();
 const { locale, availableLocales } = useI18n();
 const { setLocale } = useI18n();
 const currentLang = ref(locale);
-const switchLanguage = async (newLocale) => {
+const switchLanguage = async (newLocale: string) => {
   setLocale(newLocale);
   currentLang.value = newLocale;
+}
+
+const getFlagBy = (lang: string): string => {
+  return languagesCodes
+    .filter((item) => lang === item.locale)[0]
+    .flag
 }
 </script>
 
@@ -58,7 +62,7 @@ const switchLanguage = async (newLocale) => {
         @click="switchLanguage(lang)"
       >
         <template #prepend>
-          <country-flag :country="listFlags[lang]" />
+          <country-flag :country="getFlagBy(lang)" />
         </template>
         <v-list-item-title
           class="mt-2"

@@ -1,6 +1,10 @@
 <script setup lang="ts">
-import { useI18n } from '#imports';
+import {definePageMeta, useI18n} from '#imports';
 const { t } = useI18n();
+
+definePageMeta({
+  layout: 'page'
+});
 
 const TitlePage = defineAsyncComponent(() => import('@/components/Content/TitlePage.vue'));
 </script>
