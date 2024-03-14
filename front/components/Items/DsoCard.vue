@@ -116,7 +116,7 @@ const props = defineProps({
 })
 const { dso } = toRefs(props);
 
-const isMobile = computed(() => {
+const { isMobile } = computed(() => {
   return screen.width <= 760;
 });
 

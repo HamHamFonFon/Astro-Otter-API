@@ -129,9 +129,7 @@ const inputSearchItems = ref('');
 const results = ref([]);
 const loading = ref(false);
 
-const isMobile = computed(() => {
-  return screen.width <= 760;
-});
+const { isMobile } = useDevice();
 
 // Props
 const props = defineProps({

@@ -23,9 +23,7 @@ const props = defineProps({
 const { title, urlImage, user, showButton } = toRefs(props);
 const backgroundColor = computed(() => (screen.width <= 760) ? 'primary': 'transparent')
 
-const isMobile = computed(() => {
-  return screen.width <= 766;
-});
+const { isMobile } = useDevice();
 
 const getHeight = () => {
   return (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight)+64;

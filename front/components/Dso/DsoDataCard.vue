@@ -66,7 +66,7 @@ defineProps({
   }
 })
 
-const isMobile = computed(() => screen.width <= 760);
+const { isMobile } = useDevice();
 </script>
 
 <style scoped>
