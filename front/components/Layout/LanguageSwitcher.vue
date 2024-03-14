@@ -1,13 +1,6 @@
 <script setup>
-import { useI18n } from 'vue-i18n'
-import { useLocale } from "vuetify";
-
 import CountryFlag from 'vue-country-flag-next'
-import Tr from "@/services/translation"
 import {toRefs} from "vue";
-
-const { t } = useI18n();
-const { current } = useLocale();
 
 const props = defineProps({
   btnColor: {
@@ -26,16 +19,22 @@ const props = defineProps({
 
 const { btnColor, iconColor, bgColor } = toRefs(props);
 
+const listFlags = ref({
+  'en': 'gbr',
+  'fr': 'fra'
+})
+const { locale, availableLocales } = useI18n();
+const { setLocale } = useI18n();
+const currentLang = ref(locale);
 const switchLanguage = async (newLocale) => {
-  current.value = newLocale;
-  await Tr.switchLanguage(newLocale)
+  setLocale(newLocale);
+  currentLang.value = newLocale;
 }
-
 </script>
 
 <template>
   <v-menu class="float-right">
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props }">
       <v-btn
         icon
         v-bind="props"
@@ -52,20 +51,20 @@ const switchLanguage = async (newLocale) => {
       :bg-color="bgColor"
     >
       <v-list-item
-        v-for="locale in Tr.supportedLocales"
-        :key="locale.code"
+        v-for="lang in availableLocales"
+        :key="lang"
         density="compact"
-        :active="locale.code === current"
-        @click="switchLanguage(locale.code)"
+        :active="lang === locale"
+        @click="switchLanguage(lang)"
       >
         <template #prepend>
-          <country-flag :country="locale.flag" />
+          <country-flag :country="listFlags[lang]" />
         </template>
         <v-list-item-title
           class="mt-2"
           style="padding: 0 0.5em;"
         >
-          {{ t(`languages.${locale.code}`) }}
+          {{ $t(`languages.${lang}`) }}
         </v-list-item-title>
       </v-list-item>
     </v-list>

@@ -1,6 +1,5 @@
-<script setup>
-import {defineAsyncComponent} from "vue";
-
+<script setup lang="ts">
+import { defineAsyncComponent } from "vue";
 const LanguageSwitcher = defineAsyncComponent(() => import('@/components/Layout/LanguageSwitcher.vue'))
 </script>
 
