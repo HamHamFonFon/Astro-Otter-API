@@ -38,9 +38,8 @@
               rounded
               variant="outlined"
               append-inner-icon="mdi-magnify"
-              clearable="clearable"
+              clearable
             />
-
             <SearchListCard :results="results" />
           </v-col>
         </v-row>
@@ -49,7 +48,7 @@
   </v-sheet>
 </template>
 
-<script setup>
+<script setup lang="ts">
 // import { searchItems } from "@/services/autocompleteSearch";
 import {defineAsyncComponent, ref, watch} from "vue";
 const SearchListCard = defineAsyncComponent(() => import("@/components/Items/SearchListCard.vue"));
@@ -57,7 +56,7 @@ const SearchListCard = defineAsyncComponent(() => import("@/components/Items/Sea
 const inputSearchItems = ref('');
 const results = ref([]);
 
-watch(inputSearchItems, (newSearch) => {
+watch(inputSearchItems, (newSearch: string) => {
   setTimeout(async () => {
     // results.value = await searchItems(newSearch);
   }, 200);

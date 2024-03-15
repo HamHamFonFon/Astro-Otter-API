@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from '#imports';
+import type {Component} from "vue";
 const { t } = useI18n();
 
 definePageMeta({
@@ -20,7 +21,7 @@ const { homepagesItems } = useHomepagesItems();
 const ItemCard = defineAsyncComponent(() => import('@/components/Home/ItemCard.vue'));
 const ItemCardDefault = defineAsyncComponent(() => import('@/components/Home/Items/default.vue'));
 const ItemCardBackground = defineAsyncComponent(() => import('@/components/Home/Items/background.vue'));
-const homeComponents = {
+const homeComponents: { default: Component, background: Component } = {
   'default': ItemCardDefault,
   'background': ItemCardBackground
 };
