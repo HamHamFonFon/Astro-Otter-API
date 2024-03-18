@@ -25,10 +25,10 @@
           <h1
             class="font-weight-black text-h3 text-lg-h2 text-xl-h1"
           >
-            {{ item.text }}
+            {{ title }}
           </h1>
           <p class="text-h6 text-green mt-10 mx-auto">
-            {{ item.description }}
+            {{ description }}
           </p>
 
           <div class="text-center">
@@ -54,7 +54,8 @@
 
 <script setup>
 import { toRefs} from "vue";
-
+import { useI18n } from '#imports';
+const { t } = useI18n();
 const props = defineProps({
   item: {
     type: Object,
@@ -66,7 +67,8 @@ const props = defineProps({
   }
 })
 const { item, index } = toRefs(props);
-
+const title = computed(() => t(item.value.text))
+const description = computed(() => t(item.value.description))
 </script>
 
 <style scoped>

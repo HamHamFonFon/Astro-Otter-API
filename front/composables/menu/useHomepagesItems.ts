@@ -2,26 +2,24 @@ import backgroundConstellation from '@/assets/images/background/constellations.j
 import backgroundCatalogs from '@/assets/images/background/background_vlt.jpg';
 
 export const useHomepagesItems = () => {
-  const { t } = useI18n();
-
   return {
     homepagesItems: [
       {
         routeName: 'catalogs',
         path: 'catalogs',
-        text: t('catalogs.title'),
+        text: 'catalogs.title',
         icon: '',
         image: backgroundCatalogs,
-        description: t('catalogs.description'),
+        description: 'catalogs.description',
         component: 'background'
       },
       {
         routeName: 'constellations',
         path: 'constellations',
-        text: t('constellations.title'),
+        text: 'constellations.title',
         icon: '',
         image: backgroundConstellation,
-        description: t('constellations.description'),
+        description: 'constellations.description',
         component: 'default'
       },
     ]

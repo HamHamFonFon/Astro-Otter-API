@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useI18n } from '#imports';
-import type {Component} from "vue";
 const { t } = useI18n();
 
 definePageMeta({
@@ -21,12 +20,10 @@ const { homepagesItems } = useHomepagesItems();
 const ItemCard = defineAsyncComponent(() => import('@/components/Home/ItemCard.vue'));
 const ItemCardDefault = defineAsyncComponent(() => import('@/components/Home/Items/default.vue'));
 const ItemCardBackground = defineAsyncComponent(() => import('@/components/Home/Items/background.vue'));
-const homeComponents: { default: Component, background: Component } = {
-  'default': ItemCardDefault,
-  'background': ItemCardBackground
+const homeComponents/*: { default: Component | undefined, background: Component | undefined }*/ = {
+  'background': ItemCardBackground,
+  'default': ItemCardDefault
 };
-
-const processedItems = computed(() => homepagesItems );
 </script>
 
 <template>
@@ -44,11 +41,14 @@ const processedItems = computed(() => homepagesItems );
     id="pages"
     ref="pages"
   />
-  <ItemCard :items="processedItems">
-    <template v-slot="{ item }">
+  <ItemCard
+    :components="homeComponents"
+  >
+    <template #default="{ component, index }">
       <component
-        :is="homeComponents[item.component]"
-        :item="item"
+        :is="component"
+        :item="homepagesItems.filter(item => index === item.component)[0]"
+        :index="index"
       />
     </template>
   </ItemCard>

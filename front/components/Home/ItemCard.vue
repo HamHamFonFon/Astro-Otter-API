@@ -5,19 +5,22 @@
     rounded
   >
     <slot
-      v-for="item in items"
-      :item="item"
+      v-for="(component, indexComponent) in components"
+      :component="component"
+      :index="indexComponent"
     />
   </v-sheet>
 </template>
 
 <script setup>
-defineProps({
-  items: {
+const props = defineProps({
+  components: {
     type: Object,
     default: null,
   }
 })
+
+const { components } = toRefs(props);
 </script>
 
 <style scoped>

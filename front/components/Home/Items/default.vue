@@ -18,10 +18,10 @@
               style="color: #4a4d6d"
               class="font-weight-black text-h3 text-lg-h2 text-xl-h1"
             >
-              {{ item.text }}
+              {{ title }}
             </h1>
             <h2 class="text-h6 text-green mt-10 mx-auto">
-              {{ item.description }}
+              {{ description }}
             </h2>
           </v-card>
           <div class="text-center">
@@ -63,9 +63,10 @@
   </v-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {toRefs} from "vue";
-
+import { useI18n } from '#imports';
+const { t } = useI18n();
 const props = defineProps({
   item: {
     type: Object,
@@ -77,6 +78,8 @@ const props = defineProps({
   }
 })
 const { item, index } = toRefs(props)
+const title = computed(() => t(item.value.text))
+const description = computed(() => t(item.value.description))
 </script>
 
 <style scoped>

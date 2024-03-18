@@ -1,19 +1,14 @@
 import type { UseFetchOptions } from 'nuxt/app';
 
 export function useCustomFetch<T>(
-  endpoint: string | (() => string),
+  url: string | (() => string),
   options: UseFetchOptions<T> = {}
 ) {
+  const { locale  } = useI18n();
+  console.log(`Locale in customFetch : ${locale}` )
 
-  const { locale } = useI18n();
-  const headerLanguage = {
-    'Accept-Language': locale
-  }
-
-  options.headers = {...headerLanguage};
-
-  return useFetch(endpoint, {
+  return useFetch(url, {
     ...options,
-    $fetch: useNuxtApp().$customFetch,
+    $fetch: useNuxtApp().$customFetch('en'),
   })
 }

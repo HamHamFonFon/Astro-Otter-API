@@ -1,11 +1,13 @@
 import { useAuthStore } from '@/store/auth';
+
 export default defineNuxtPlugin((nuxtApp) => {
+
   const config = useRuntimeConfig()
   const authStore = useAuthStore();
 
   const $customFetch = (locale = 'en') => $fetch.create({
     baseURL: `${config.public.apiPublicHost}/${config.public.apiVersion}`,
-    onRequest({ request, options, error }) {
+    onRequest({ request, options, error}) {
       const reqHeaders = new Headers(options.headers);
 
       reqHeaders.set('Content-Type', 'application/json');
@@ -17,13 +19,16 @@ export default defineNuxtPlugin((nuxtApp) => {
         // options.headers.authorization = `Bearer ${authStore.accessToken}`
       }
     },
-    onResponseError({ response }) {
-    }
+    onResponseError({ response }) { }
   });
 
   nuxtApp.hook('i18n:beforeLocaleSwitch', ({ newLocale }) => {
     $customFetch(newLocale);
   })
+
+  // nuxtApp.hook('i18n:localeSwitched', ({oldLocale, newLocale}) => {
+  //   $customFetch(newLocale);
+  // })
 
   return {
     provide: {
