@@ -1,3 +1,23 @@
+<script setup lang="ts">
+import {defineAsyncComponent, ref, watch} from "vue";
+
+const inputSearchItems = ref('');
+const results = ref([]);
+const REGEX = new RegExp('/^[a-zA-Z0-9&\\-_;: ]+$/gm');
+
+watch(inputSearchItems, (newSearch: string) => {
+  setTimeout(async () => {
+    if (2 <= newSearch.length && !REGEX.test(newSearch)) {
+      const { data, pending, error, refresh } = await useSearchRequest(newSearch);
+      console.log(data, pending, error);
+    }
+  }, 200);
+});
+
+
+const SearchListCard = defineAsyncComponent(() => import("@/components/Items/SearchListCard.vue"));
+</script>
+
 <template>
   <v-sheet
     elevation="0"
@@ -40,29 +60,11 @@
               append-inner-icon="mdi-magnify"
               clearable
             />
-            <SearchListCard :results="results" />
+            <div v-if="pending">Loading...</div>
+            <SearchListCard v-else :results="results" />
           </v-col>
         </v-row>
       </v-container>
     </v-sheet>
   </v-sheet>
 </template>
-
-<script setup lang="ts">
-// import { searchItems } from "@/services/autocompleteSearch";
-import {defineAsyncComponent, ref, watch} from "vue";
-const SearchListCard = defineAsyncComponent(() => import("@/components/Items/SearchListCard.vue"));
-
-const inputSearchItems = ref('');
-const results = ref([]);
-
-watch(inputSearchItems, (newSearch: string) => {
-  setTimeout(async () => {
-    // results.value = await searchItems(newSearch);
-  }, 200);
-});
-</script>
-
-<style scoped>
-
-</style>

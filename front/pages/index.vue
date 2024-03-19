@@ -20,7 +20,7 @@ const { homepagesItems } = useHomepagesItems();
 const ItemCard = defineAsyncComponent(() => import('@/components/Home/ItemCard.vue'));
 const ItemCardDefault = defineAsyncComponent(() => import('@/components/Home/Items/default.vue'));
 const ItemCardBackground = defineAsyncComponent(() => import('@/components/Home/Items/background.vue'));
-const homeComponents/*: { default: Component | undefined, background: Component | undefined }*/ = {
+const homeComponents: { default: Component | undefined, background: Component | undefined } = {
   'background': ItemCardBackground,
   'default': ItemCardDefault
 };

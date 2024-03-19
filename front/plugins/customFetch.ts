@@ -1,23 +1,23 @@
 import { useAuthStore } from '@/store/auth';
+import type {RuntimeConfig} from "nuxt/schema";
 
 export default defineNuxtPlugin((nuxtApp) => {
 
-  const config = useRuntimeConfig()
+  const config: RuntimeConfig = useRuntimeConfig()
   const authStore = useAuthStore();
 
   const $customFetch = (locale = 'en') => $fetch.create({
     baseURL: `${config.public.apiPublicHost}/${config.public.apiVersion}`,
     onRequest({ request, options, error}) {
-      const reqHeaders = new Headers(options.headers);
+      const customHeaders = options?.headers ? new Headers(options.headers) : new Headers();
+      customHeaders.set('Content-Type', 'application/json');
+      customHeaders.set('Accept', 'application/json');
+      customHeaders.set('Accept-Language', locale);
 
-      reqHeaders.set('Content-Type', 'application/json');
-      reqHeaders.set('Accept', 'application/json');
-      reqHeaders.set('Accept-Language', locale);
       if (authStore.isLoggedIn) {
-        reqHeaders.set('Authorization', `Bearer ${authStore.accessToken}`);
-        // options.headers = options.headers || {}
-        // options.headers.authorization = `Bearer ${authStore.accessToken}`
+        customHeaders.set('Authorization', `Bearer ${authStore.accessToken}`);
       }
+      options.headers = customHeaders;
     },
     onResponseError({ response }) { }
   });

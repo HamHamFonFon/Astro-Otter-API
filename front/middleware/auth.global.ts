@@ -1,8 +1,9 @@
 import { defineNuxtRouteMiddleware } from 'nuxt/app';
 import { useAuthStore } from '@/store/auth';
+import type {RuntimeConfig} from "nuxt/schema";
 
 export default defineNuxtRouteMiddleware(async (): Promise<void> => {
-  const config = useRuntimeConfig()
+  const config: RuntimeConfig = useRuntimeConfig()
   const authStore = useAuthStore();
   const timestamp: number = new Date().getTime();
 
