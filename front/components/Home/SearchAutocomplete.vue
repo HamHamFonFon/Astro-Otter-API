@@ -2,18 +2,18 @@
 import {defineAsyncComponent, ref, watch} from "vue";
 
 const inputSearchItems = ref('');
+const pending = ref(false);
 const results = ref([]);
 const REGEX = new RegExp('/^[a-zA-Z0-9&\\-_;: ]+$/gm');
 
 watch(inputSearchItems, (newSearch: string) => {
   setTimeout(async () => {
     if (2 <= newSearch.length && !REGEX.test(newSearch)) {
-      const { data, pending, error, refresh } = await useSearchRequest(newSearch);
-      console.log(data, pending, error);
+      const { data } = await useSearchRequest(newSearch);
+      console.log(data);
     }
   }, 200);
 });
-
 
 const SearchListCard = defineAsyncComponent(() => import("@/components/Items/SearchListCard.vue"));
 </script>

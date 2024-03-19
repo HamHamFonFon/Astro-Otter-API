@@ -1,4 +1,4 @@
-import {defineStore} from 'pinia';
+import { defineStore } from 'pinia';
 
 interface MessageState {
   message: string | null;
@@ -7,7 +7,7 @@ interface MessageState {
   loading: boolean;
 }
 
-export const useMessageSTore = defineStore('message', {
+export const useMessageStore = defineStore('message', {
   state: (): MessageState => {
     return {
       message: null,

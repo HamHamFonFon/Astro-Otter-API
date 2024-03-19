@@ -14,7 +14,7 @@ applySeo({
 
 const HeroPresentation = defineAsyncComponent(() => import('@/components/Home/HeroPresentation.vue'))
 const SearchAutocomplete = defineAsyncComponent(() => import("@/components/Home/SearchAutocomplete.vue"))
-// const RandomDsoHomepage = defineAsyncComponent(() => import("@/components/Home/RandomDsoHomepage.vue"))
+const RandomDsoHomepage = defineAsyncComponent(() => import("@/components/Home/RandomDsoHomepage.vue"))
 
 const { homepagesItems } = useHomepagesItems();
 const ItemCard = defineAsyncComponent(() => import('@/components/Home/ItemCard.vue'));
@@ -55,7 +55,7 @@ const homeComponents: { default: Component | undefined, background: Component | 
 
 
   <!-- Random DSO ? -->
-<!--  <RandomDsoHomepage />-->
+  <RandomDsoHomepage />
 </template>
 
 <style scoped>

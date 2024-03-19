@@ -12,6 +12,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       const customHeaders = options?.headers ? new Headers(options.headers) : new Headers();
       customHeaders.set('Content-Type', 'application/json');
       customHeaders.set('Accept', 'application/json');
+      console.log(`Se Accept-Language value into ${locale}`)
       customHeaders.set('Accept-Language', locale);
 
       if (authStore.isLoggedIn) {
@@ -22,13 +23,13 @@ export default defineNuxtPlugin((nuxtApp) => {
     onResponseError({ response }) { }
   });
 
-  nuxtApp.hook('i18n:beforeLocaleSwitch', ({ newLocale }) => {
-    $customFetch(newLocale);
-  })
-
-  // nuxtApp.hook('i18n:localeSwitched', ({oldLocale, newLocale}) => {
+  // nuxtApp.hook('i18n:beforeLocaleSwitch', ({ newLocale }) => {
   //   $customFetch(newLocale);
   // })
+
+  nuxtApp.hook('i18n:localeSwitched', ({oldLocale, newLocale}) => {
+    $customFetch(newLocale);
+  })
 
   return {
     provide: {

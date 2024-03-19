@@ -7,8 +7,8 @@
       :elevation="isHovering ? 18 : 1"
       v-bind="props"
     >
-      <router-link
-        :to="{ name: 'dso', params: { id: dso.id, urlName: dso.urlName } }"
+      <NuxtLink
+        :to="{ name: 'dso-id', params: { id: dso.id, urlName: dso.urlName } }"
         :title="t('dso.link', {'dso': title})"
       >
         <v-img
@@ -34,7 +34,7 @@
           </template>
           <v-expand-transition>
             <div
-              :class="getCardsCssClass(isDefaultImage, isHovering)"
+              :class="getCardsCssClass(isDefaultImage, isHovering as boolean)"
               style="height: 100%;"
             >
               <v-card-title
@@ -52,7 +52,7 @@
             </div>
           </v-expand-transition>
         </v-img>
-      </router-link>
+      </NuxtLink>
 
       <v-card-actions color="background">
         <v-container :style="{margin: 'auto'}">
@@ -79,9 +79,9 @@
               >
                 <!-- v-icon class="mr-2" color="grey"><slot name="custom-icon" iconName="constellation"></slot> </v-icon-->
                 <span class="subheading me-2">
-                  <router-link
+                  <NuxtLink
                     :to="{
-                      name: 'constellation',
+                      name: 'constellation-constellationId',
                       params: {
                         constellationId: dso.constellation.id.toLowerCase(),
                         urlName: dso.constellation.alt.toLowerCase()
@@ -90,7 +90,7 @@
                     :title="t('layout.btnConstellationTo', {'constellation': dso.constellation.alt })"
                   >
                     {{ dso.constellation.alt }}
-                  </router-link>
+                  </NuxtLink>
                 </span>
               </v-btn>
             </v-col>
@@ -101,40 +101,36 @@
   </v-hover>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {computed, toRefs} from "vue";
-import { useI18n } from 'vue-i18n'
 
-
-const defaultImage = require('@/assets/images/default.png');
+import defaultImage from '@/assets/images/default.png';
 const { t } = useI18n();
 
 const props = defineProps({
   dso: {
-    type: Object
+    type: Object,
+    default: null
   }
 })
 const { dso } = toRefs(props);
-
-const { isMobile } = computed(() => {
-  return screen.width <= 760;
-});
+const { isMobile } = useDevice();
 
 const imageCover = computed(() => (dso.value.astrobinUser) ? dso.value.astrobin.url_regular: defaultImage );
 const isDefaultImage = computed(() => (!dso.value.astrobinUser) );
 const imageLazyCover = computed(() => (dso.value.astrobinUser) ? dso.value.astrobin.url_gallery: defaultImage );
 const title = computed(() => dso.value.fullNameAlt );
-const otherDesigs = computed(() => dso.value.desigs.filter(v => v !== dso.value.name).join(' - '));
+const otherDesigs = computed(() => dso.value.desigs.filter((v: string) => v !== dso.value.name).join(' - '));
 
-const getCardsCssClass = (isDefaultImage, isHovering) => {
-  if (true === isMobile.value) {
+const getCardsCssClass = (isDefaultImage: boolean, isHovering: boolean) => {
+  if (isMobile) {
     return 'd-flex text-white v-card--reveal display-3 white--text';
   }
 
-  if (true === isDefaultImage) {
+  if (isDefaultImage) {
       return 'd-flex text-white v-card--reveal display-3 white--text'
   } else {
-    if (isHovering && false === isDefaultImage) {
+    if (isHovering && !isDefaultImage) {
       return 'd-flex transition-fast-in-fast-out text-white v-card--reveal display-3 white--text'
     }
   }

@@ -23,6 +23,9 @@ export default defineNuxtConfig({
     '@mdi/font/css/materialdesignicons.min.css',
     '@/assets/scss/app.scss'
   ],
+  pinia: {
+    storesDirs: ['./store/**'],
+  },
   build: {
     transpile: ['vuetify', 'vue-sonner'],
   },

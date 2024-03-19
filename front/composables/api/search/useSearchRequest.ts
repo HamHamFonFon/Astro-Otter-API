@@ -1,22 +1,13 @@
 export const useSearchRequest = async (searchTerms: string): Promise<any> => {
-  const {
-    data: items,
-    error,
-    pending,
-    refresh
-  } = await useAsyncData(
-    'items',
-    () => useCustomFetch<[]>('/search', {
+  const endpoint: string = '/search';
+
+  return useAsyncData(
+    () => useCustomFetch<[]>(endpoint, {
         method: 'POST',
         body: {
           terms: searchTerms
         }
       }
-    ),
-    {
-      watch: [searchTerms]
-    }
+    )
   );
-
-  return items;
 }

@@ -5,8 +5,8 @@
     :density="!isMobile ? 'default' : 'compact'"
   >
     <v-toolbar color="secondary">
-      <router-link
-        :to="{ name: 'home'}"
+      <NuxtLink
+        :to="{ name: 'index'}"
         :title="t('layout.homeAccess')"
       >
         <v-avatar class="mx-2">
@@ -15,7 +15,7 @@
             :alt="t('layout.logo')"
           />
         </v-avatar>
-      </router-link>
+      </NuxtLink>
       <v-divider
         vertical
         thickness="2"
@@ -24,12 +24,12 @@
       />
       <div v-if="!isMobile">
         <v-btn
-          v-for="(menuItem, index) in processedMenu(menu, props.allRoutes)"
+          v-for="(menuItem, index) in headerMenu"
           :key="index"
           class="text-none"
         >
           <router-link :to="menuItem.path">
-            <span class="text-grey">{{ menuItem.text }}</span>
+            <span class="text-grey">{{ $t(menuItem.text) }}</span>
           </router-link>
         </v-btn>
       </div>
@@ -67,7 +67,7 @@
         <LanguageSwitcher bg-color="primary" />
         <MenuMobile
           v-if="isMobile"
-          :items-menu="processedMenu(menu, props.allRoutes)"
+          :items-menu="headerMenu"
           bg-color="primary"
         />
       </div>
@@ -102,7 +102,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {computed, defineAsyncComponent, ref, watch} from "vue";
 import { useI18n } from "vue-i18n";
 
@@ -113,12 +113,10 @@ const LanguageSwitcher = defineAsyncComponent(() => import('@/components/Layout/
 const MenuMobile = defineAsyncComponent(() => import('@/components/Layout/MenuMobile.vue'));
 
 import astroOtterLogo from '@/assets/images/logos/astro_otter_200-200.png'
-import configs from "@/configs";
-import {searchItems} from "@/services/autocompleteSearch";
+import {useHeaderMenu} from "~/composables/menu/useHeaderMenu";
 
 // Data
 const logo = ref(astroOtterLogo)
-const menu = ref(configs.headerMenu);
 const showSearch = ref(false);
 const iconSearch = ref('mdi-magnify');
 
@@ -129,35 +127,13 @@ const inputSearchItems = ref('');
 const results = ref([]);
 const loading = ref(false);
 
+const { headerMenu } = useHeaderMenu();
 const { isMobile } = useDevice();
 
-// Props
-const props = defineProps({
-  // eslint-disable-next-line vue/require-default-prop
-  allRoutes: {
-    type: Array
-  }
-});
-
 // Computed
-const processedMenu = computed(() => buildMenu);
+// const processedMenu = computed(() => buildMenu);
+const top = computed(() => isMobile ? '48px' : '64px')
 
-const top = computed(() => true === isMobile.value ? '48px' : '64px')
-
-// Methods
-const buildMenu = (items, allRoutes) => {
-  return items.map(route => {
-    const routeName = route.routeName;
-    const routeItem = allRoutes.filter(route => route.name === routeName)[0];
-    return {
-      key: routeItem.meta.key,
-      icon: routeItem.meta.icon ?? 'mdi-tooltip-text-outline',
-      path: routeItem.path,
-      text: t(`${routeName}.title`),
-      description: t(`${routeName}.title`)
-    };
-  })
-};
 const toggleInputSearch = () => {
   showSearch.value = !showSearch.value;
   iconSearch.value = (false === showSearch.value) ? 'mdi-magnify': 'mdi-close';
@@ -176,7 +152,7 @@ const toggleInputSearch = () => {
  */
 watch(inputSearchItems, (newSearch) => {
   setTimeout(async () => {
-    results.value = await searchItems(newSearch);
+    // results.value = await searchItems(newSearch);
   }, 200);
 });
 

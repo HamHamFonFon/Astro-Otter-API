@@ -48,14 +48,14 @@
         nav
         :bg-color="bgColor"
       >
-        <v-list-item
+        <NuxtLink
           link
           :to="item.path"
         >
           <v-list-item-title class="mt-2">
-            {{ item.text }}
+            {{ $t(item.text) }}
           </v-list-item-title>
-        </v-list-item>
+        </NuxtLink>
       </v-list>
     </v-card>
   </v-menu>
