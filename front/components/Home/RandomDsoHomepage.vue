@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { defineAsyncComponent } from "vue";
 
-const { locale } = useI18n();
-
+const { t, locale } = useI18n();
 const Message = defineAsyncComponent(() => import('~/components/Layout/Message.vue'))
 const DsoCard = defineAsyncComponent(() => import('~/components/Items/DsoCard.vue'))
 
 const store = useMessageStore();
 const { type, message } = storeToRefs(store);
 type.value = 'warning';
-message.value = 'Load data in progress';
+message.value = t('dso.load_list');
 
 const {
   data,

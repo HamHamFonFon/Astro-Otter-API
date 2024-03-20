@@ -45,7 +45,7 @@ declare global {
     geometryLine: Geometry,
     kind: string,
     generic: string | null,
-    cover: string | srcObject | undefined,
+    cover: string | Object | undefined,
     context: string
   }
 

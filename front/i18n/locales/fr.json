@@ -86,7 +86,7 @@
   },
   "dso": {
     "load": "Veuillez patienter pendant le chargement des données de {uid}…",
-    "load_list": "Chargement des données data…",
+    "load_list": "Veuillez patienter pendant le chargement des données…",
     "link": "Accès à la page de {dso}",
     "image": "Image Astrobin de l'objet {dso}",
     "data": {

@@ -7,17 +7,16 @@
       :elevation="isHovering ? 18 : 1"
       v-bind="props"
     >
-      <router-link
-        :to="{name: 'constellation', params: { constellationId: item.id.toLowerCase(), urlName: item.urlName } }"
+      <NuxtLink
+        :to="{name: 'constellation-constellationId', params: { constellationId: constellation.id.toLowerCase(), urlName: constellation.urlName } }"
       >
         <v-img
-          :src="cover"
-          :lazy-src="lazyCover"
+          :src="`../assets/images/constellations/cover/${constellation.cover}`"
           class="bg-grey-lighten-2"
           height="300"
           cover
-          :alt="item.alt.toLowerCase()"
-          :aria-label="item.alt.toLowerCase()"
+          :alt="constellation.alt.toLowerCase()"
+          :aria-label="constellation.alt.toLowerCase()"
         >
           <template #placeholder>
             <v-row
@@ -37,41 +36,51 @@
               style="height: 100%;"
             >
               <v-card-title class="text-center text-h5 text-white">
-                <p>{{ item.alt }}</p>
+                <p>{{ constellation.alt }}</p>
                 <p class="text-caption">
-                  {{ item.generic }}
+                  {{ constellation.generic }}
                 </p>
               </v-card-title>
             </div>
           </v-expand-transition>
         </v-img>
-      </router-link>
+      </NuxtLink>
     </v-card>
   </v-hover>
 </template>
 
 <script setup lang="ts">
-import {onMounted, ref } from "vue";
-const cover: Ref<string | Object | undefined> = ref('');
-const lazyCover: Ref<string | undefined> = ref('');
+import { toRefs } from "vue";
+import type { VImg } from 'vuetify/components'
+type srcObject = VImg["$props"]["src"];
 
 const props = defineProps<{
-  item: Constellation
+  constellation: Constellation
 }>()
+const { constellation } = toRefs(props);
 
-onMounted(() => {
+// TEST WITH computed()
+const cover = computed<string | srcObject | undefined>(() => {
   try {
-    getCoverUrl();
+    return require(`~/assets/images/constellations/cover/${constellation.value.cover}`);
   } catch (error) {
-    console.error(`Error loading cover file ${props.item.cover}`, error);
+    console.error(`Error loading cover file "${constellation.value.cover}"`, error);
   }
-});
+})
 
-const getCoverUrl = async () => {
-  cover.value = (await import(`@/assets/images/constellations/cover/${props.item.cover}`)).default;
-  lazyCover.value = cover.value as string;
-}
+// TEST with function
+// async function resolveImage() {
+//   const img = await import(`~/assets/images/constellations/cover/${constellation.value.cover}`);
+//   return img.default;
+// }
+// const cover = await resolveImage();
 
+// TEST with new URL()
+// function getCoverUrl() {
+//   return new URL(`./assets/images/constellations/cover/${constellation.value.cover}`, import.meta.url).href
+// }
+
+// const lazyCover = computed<string | undefined>(() => cover.value as string)
 </script>
 
 <style scoped>

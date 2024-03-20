@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 
 interface MessageState {
-  message: string | null;
+  message: string | undefined | null;
   type: string;
   httpCode: number | 0;
 }

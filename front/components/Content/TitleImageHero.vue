@@ -20,6 +20,7 @@ const imageHeight = computed(() => (isMobile) ? '300': '450')
     <v-img
       :src="urlImage"
       :height="imageHeight"
+      alt=""
     >
       <v-row
         v-if="title"

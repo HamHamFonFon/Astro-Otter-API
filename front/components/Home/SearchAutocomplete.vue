@@ -2,6 +2,7 @@
 import {defineAsyncComponent, ref, watch} from "vue";
 
 const inputSearchItems = ref<string>('');
+
 const dsoList = ref<SearchDsoItem[]>([]);
 const constellationsList = ref<SearchConstellationItem[]>([]);
 

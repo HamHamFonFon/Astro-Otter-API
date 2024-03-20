@@ -4,42 +4,46 @@
     :style="{ gridTemplateColumns: getColumnStyle(), gridGap: getGapStyle() }"
   >
     <slot
-      v-for="item in itemsList"
+      v-for="item in constellationList"
       :item="item"
     />
   </v-row>
 </template>
 
-<script setup>
-import {computed} from "vue";
+<script setup lang="ts">
+const { isMobile } = useDevice();
 
-const isMobile = computed(() => {
-  return screen.width <= 766;
+const props = withDefaults(defineProps<Props>(), {
+  dsoList: () => [],
+  constellationList: () => [],
+  gap: 0,
+  columns: 0
 });
 
+interface Props {
+  dsoList?: Dso[] | null,
+  constellationList?: Constellation[] | null,
+  gap?: number,
+  columns?: number
+}
 
-const props = defineProps({
-  itemsList: {
-    type: Object,
-    default: null
-  },
-  gap: {
-    type: Number,
-    default: 0
-  },
-  columns: {
-    type: Number,
-    default: 0
+const { dsoList, constellationList, gap, columns } = toRefs(props);
+const itemsList = () => {
+  // Directly return listA if not null and has elements
+  if (dsoList && dsoList.value !== null && dsoList.value.length > 0) {
+    return dsoList;
   }
-});
+
+  // Return listB if not null and has elements
+  return constellationList && constellationList.value !== null && constellationList.value.length > 0 ? constellationList : dsoList;
+};
+const validList = computed(() => itemsList());
 
 const getColumnStyle = () => {
-  return (isMobile.value) ? `repeat(auto-fill, minmax(350px, 1fr))` :  `repeat(${props.columns}, 1fr)`;
+  return (isMobile) ? `repeat(auto-fill, minmax(350px, 1fr))` :  `repeat(${columns.value}, 1fr)`;
 }
 
-const getGapStyle = () => {
-  return `${props.gap}em`;
-}
+const getGapStyle = () => `${gap.value}em`;
 </script>
 
 <style scoped>
