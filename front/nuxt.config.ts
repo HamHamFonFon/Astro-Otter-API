@@ -10,7 +10,8 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/i18n',
     '@nuxtjs/prismic',
-    '@nuxtjs/device'
+    '@nuxtjs/device',
+    'nuxt-delay-hydration'
   ],
   i18n: {
     detectBrowserLanguage: false,
@@ -32,7 +33,8 @@ export default defineNuxtConfig({
   imports: {
     dirs: [
       'composables',
-      'composables/**'
+      'composables/**',
+      'types/*.d.ts'
     ]
   },
   app: {
@@ -40,6 +42,10 @@ export default defineNuxtConfig({
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
     }
+  },
+  delayHydration: {
+    debug: process.env.NODE_ENV === 'development',
+    mode: 'mount'
   },
   runtimeConfig: {
     // astrobin

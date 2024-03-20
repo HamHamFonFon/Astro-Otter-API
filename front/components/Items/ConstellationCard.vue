@@ -12,7 +12,7 @@
       >
         <v-img
           :src="cover"
-          :lazy-src="cover"
+          :lazy-src="lazyCover"
           class="bg-grey-lighten-2"
           height="300"
           cover
@@ -50,16 +50,14 @@
   </v-hover>
 </template>
 
-<script setup>
-import { onMounted, ref} from "vue";
-const cover = ref(null);
+<script setup lang="ts">
+import {onMounted, ref } from "vue";
+const cover: Ref<string | Object | undefined> = ref('');
+const lazyCover: Ref<string | undefined> = ref('');
 
-const props = defineProps({
-  item: {
-    type: Object,
-    default: null
-  }
-});
+const props = defineProps<{
+  item: Constellation
+}>()
 
 onMounted(() => {
   try {
@@ -71,6 +69,7 @@ onMounted(() => {
 
 const getCoverUrl = async () => {
   cover.value = (await import(`@/assets/images/constellations/cover/${props.item.cover}`)).default;
+  lazyCover.value = cover.value as string;
 }
 
 </script>

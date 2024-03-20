@@ -79,7 +79,7 @@ const { footerPageitems } = useFooterpagesitems();
 const prismicLocale: Ref<UnwrapRef<string>> = ref(useLanguagesCode().languagesCodes.filter((item) => locale.value === item.locale)[0].prismic);
 
 // TODO : reload prismic data when locale is changed
-const { data: posts, error } = await useAsyncData(
+const { data: posts, refresh } = await useAsyncData(
   'posts',
   () => client.getAllByType('editorial_page',{ lang: prismicLocale.value } ),
   {
@@ -91,6 +91,7 @@ const { data: posts, error } = await useAsyncData(
 );
 watch(locale, async (newLocale) => {
   prismicLocale.value = newLocale;
+  await refresh();
 });
 
 const openSocialNetwork = (link: string): void => {

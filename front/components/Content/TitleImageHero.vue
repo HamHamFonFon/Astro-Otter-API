@@ -1,6 +1,6 @@
 <script setup>
 import {computed} from "vue";
-
+const { isMobile } = useDevice();
 defineProps({
   title: {
     type: String,
@@ -12,7 +12,7 @@ defineProps({
   }
 });
 
-const imageHeight = computed(() => (screen.width <= 760) ? '300': '450')
+const imageHeight = computed(() => (isMobile) ? '300': '450')
 </script>
 
 <template>

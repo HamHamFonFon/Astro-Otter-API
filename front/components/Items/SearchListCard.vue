@@ -1,21 +1,19 @@
-<script setup>
+<script setup lang="ts">
 import { toRefs } from "vue";
+const props = defineProps<{
+  dsos: SearchDsoItem[],
+  constellations: SearchConstellationItem[]
+}>()
 
-const props = defineProps({
-  results: {
-    type: Object,
-    default: null
-  }
-});
-const { results } = toRefs(props);
+const { dsos, constellations } = toRefs(props);
 
 const emit = defineEmits(['click-clear']);
 const clickClear = () => {
   emit('click-clear');
 }
 
-const getParams = (item) => {
-  const params = {
+const getParams = (item: SearchDsoItem | SearchConstellationItem) => {
+  const params: {id: string, urlName?: string} = {
     id: item.id
   };
 
@@ -29,7 +27,7 @@ const getParams = (item) => {
 
 <template>
   <v-list
-    v-if="results && 0 < results.nbItems"
+    v-if="dsos && 0 < dsos.length"
     lines="two"
     bg-color="transparent"
   >
@@ -40,15 +38,15 @@ const getParams = (item) => {
       Objects
     </v-list-subheader>
     <v-list-item
-      v-for="item in results.dsos"
-      :key="item"
+      v-for="(item, index) in dsos"
+      :key="index"
       color="transparent"
       @click="clickClear"
     >
-<!--      <router-link :to="{ name: 'dso', params: getParams(item) }">-->
-        <v-list-item-title>{{ item.text }}</v-list-item-title>
-        <v-list-item-subtitle>{{ item.text }}</v-list-item-subtitle>
-<!--      </router-link>-->
+      <NuxtLink :to="{ name: 'dso', params: getParams(item) }">
+        <v-list-item-title>{{ item.fullNameAlt }}</v-list-item-title>
+        <v-list-item-subtitle>{{ item.typeLabel }}</v-list-item-subtitle>
+      </NuxtLink>
     </v-list-item>
 
     <v-divider inset />
@@ -60,14 +58,14 @@ const getParams = (item) => {
       {{ $t('constellations.title') }}
     </v-list-subheader>
     <v-list-item
-      v-for="item in results.constellations"
-      :key="item"
+      v-for="(item, index) in constellations"
+      :key="index"
       color="transparent"
       @click="clickClear"
     >
-<!--      <router-link :to="{ name: 'constellation', params: { constellationId: item.id, urlName: item.urlName } }">-->
-        <v-list-item-title /> {{ item.text }}
-<!--      </router-link>-->
+      <NuxtLink :to="{ name: 'constellation', params: { constellationId: item.id, urlName: item.urlName } }">
+        <v-list-item-title /> {{ item.alt }}
+      </NuxtLink>
     </v-list-item>
   </v-list>
 </template>

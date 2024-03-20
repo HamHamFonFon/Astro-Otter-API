@@ -96,7 +96,8 @@
     />
     <SearchListCard
       v-if="showSearch"
-      :results="results"
+      :dsos="dsoList"
+      :constellations="constellationsList"
       @click-clear="toggleInputSearch"
     />
   </div>
@@ -116,15 +117,16 @@ import astroOtterLogo from '@/assets/images/logos/astro_otter_200-200.png'
 import {useHeaderMenu} from "~/composables/menu/useHeaderMenu";
 
 // Data
-const logo = ref(astroOtterLogo)
-const showSearch = ref(false);
-const iconSearch = ref('mdi-magnify');
+const logo = ref<string>(astroOtterLogo)
+const showSearch = ref<boolean>(false);
+const iconSearch = ref<string>('mdi-magnify');
 
 const inputSearch = ref(null);
 const searchTitleValue = ref(t('search.open'));
 const inputSearchItems = ref('');
 
-const results = ref([]);
+const dsoList = ref<SearchDsoItem[]>([]);
+const constellationsList = ref<SearchConstellationItem[]>([]);
 const loading = ref(false);
 
 const { headerMenu } = useHeaderMenu();
@@ -139,7 +141,8 @@ const toggleInputSearch = () => {
   iconSearch.value = (false === showSearch.value) ? 'mdi-magnify': 'mdi-close';
   searchTitleValue.value = (false === showSearch.value) ? t('search.open') : t('search.close')
   if (false === showSearch.value) {
-    results.value = [];
+    dsoList.value = [];
+    constellationsList.value = [];
     inputSearchItems.value = '';
   } else {
     // console.log('Autofocus');
@@ -150,9 +153,9 @@ const toggleInputSearch = () => {
 /**
  * Run WS and set data
  */
-watch(inputSearchItems, (newSearch) => {
+watch(inputSearchItems, (newSearch: string) => {
   setTimeout(async () => {
-    // results.value = await searchItems(newSearch);
+    /*results.value =*/ await useSearchRequest(newSearch);
   }, 200);
 });
 

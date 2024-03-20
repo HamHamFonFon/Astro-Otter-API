@@ -107,18 +107,16 @@ import {computed, toRefs} from "vue";
 import defaultImage from '@/assets/images/default.png';
 const { t } = useI18n();
 
-const props = defineProps({
-  dso: {
-    type: Object,
-    default: null
-  }
-})
+const props = defineProps<{
+  dso: Dso
+}>()
+
 const { dso } = toRefs(props);
 const { isMobile } = useDevice();
 
-const imageCover = computed(() => (dso.value.astrobinUser) ? dso.value.astrobin.url_regular: defaultImage );
+const imageCover = computed(() => (dso.value.astrobinUser) ? dso.value.astrobin?.url_regular: defaultImage );
 const isDefaultImage = computed(() => (!dso.value.astrobinUser) );
-const imageLazyCover = computed(() => (dso.value.astrobinUser) ? dso.value.astrobin.url_gallery: defaultImage );
+const imageLazyCover = computed(() => (dso.value.astrobinUser) ? dso.value.astrobin?.url_gallery: defaultImage );
 const title = computed(() => dso.value.fullNameAlt );
 const otherDesigs = computed(() => dso.value.desigs.filter((v: string) => v !== dso.value.name).join(' - '));
 

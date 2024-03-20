@@ -10,6 +10,7 @@ applySeo({
   title: t('home.explore'),
   description: t('home.description'),
   image: "@/assets/images/logos/astro_otter_200-200.png",
+  fullUrl: 'https://change-it.com'
 });
 
 const HeroPresentation = defineAsyncComponent(() => import('@/components/Home/HeroPresentation.vue'))
@@ -27,35 +28,37 @@ const homeComponents: { default: Component | undefined, background: Component | 
 </script>
 
 <template>
-  <!-- Hero component -->
-  <HeroPresentation />
+  <DelayHydration>
+    <!-- Hero component -->
+    <HeroPresentation />
 
-  <!-- Search autocomplete component -->
-  <a
-    id="search"
-    ref="search"
-  />
-  <SearchAutocomplete />
+    <!-- Search autocomplete component -->
+    <a
+      id="search"
+      ref="search"
+    />
+    <SearchAutocomplete />
 
-  <a
-    id="pages"
-    ref="pages"
-  />
-  <ItemCard
-    :components="homeComponents"
-  >
-    <template #default="{ component, index }">
-      <component
-        :is="component"
-        :item="homepagesItems.filter(item => index === item.component)[0]"
-        :index="index"
-      />
-    </template>
-  </ItemCard>
+    <a
+      id="pages"
+      ref="pages"
+    />
+    <ItemCard
+      :components="homeComponents"
+    >
+      <template #default="{ component, index }">
+        <component
+          :is="component"
+          :item="homepagesItems.filter(item => index === item.component)[0]"
+          :index="index"
+        />
+      </template>
+    </ItemCard>
 
+    <!-- Random DSO ? -->
+    <RandomDsoHomepage />
+  </DelayHydration>
 
-  <!-- Random DSO ? -->
-  <RandomDsoHomepage />
 </template>
 
 <style scoped>

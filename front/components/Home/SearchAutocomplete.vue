@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import {defineAsyncComponent, ref, watch} from "vue";
 
-const inputSearchItems = ref('');
-const pending = ref(false);
-const results = ref([]);
-const REGEX = new RegExp('/^[a-zA-Z0-9&\\-_;: ]+$/gm');
+const inputSearchItems = ref<string>('');
+const dsoList = ref<SearchDsoItem[]>([]);
+const constellationsList = ref<SearchConstellationItem[]>([]);
+
+const REGEX: RegExp = new RegExp('/^[a-zA-Z0-9&\\-_;: ]+$/gm');
 
 watch(inputSearchItems, (newSearch: string) => {
   setTimeout(async () => {
     if (2 <= newSearch.length && !REGEX.test(newSearch)) {
-      const { data } = await useSearchRequest(newSearch);
-      console.log(data);
+      await useSearchRequest(newSearch);
     }
   }, 200);
 });
@@ -60,8 +60,10 @@ const SearchListCard = defineAsyncComponent(() => import("@/components/Items/Sea
               append-inner-icon="mdi-magnify"
               clearable
             />
-            <div v-if="pending">Loading...</div>
-            <SearchListCard v-else :results="results" />
+            <SearchListCard
+              :dsos="dsoList"
+              :constellations="constellationsList"
+            />
           </v-col>
         </v-row>
       </v-container>

@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="loading"
     class="d-flex justify-center text-left ma-4"
   >
     <v-col sm="8">
@@ -25,7 +24,7 @@
 
 <script setup>
 import { storeToRefs } from 'pinia'
-const { message, type, loading } = storeToRefs(useMessageStore())
+const { message, type } = storeToRefs(useMessageStore())
 
 // const computedMsg = computed(() => store.$state.message);
 // const computedType = computed(() => store.$state.type);

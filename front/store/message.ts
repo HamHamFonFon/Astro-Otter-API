@@ -4,7 +4,6 @@ interface MessageState {
   message: string | null;
   type: string;
   httpCode: number | 0;
-  loading: boolean;
 }
 
 export const useMessageStore = defineStore('message', {
@@ -13,7 +12,6 @@ export const useMessageStore = defineStore('message', {
       message: null,
       type: 'warning',
       httpCode: 0,
-      loading: true
     }
   },
   actions: { },

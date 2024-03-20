@@ -1,11 +1,21 @@
 <script setup lang="ts">
-import { useI18n } from '#imports';
+import {definePageMeta, useI18n} from '#imports';
 const { t } = useI18n();
-
 import backgroundConstellationImage from '@/assets/images/background/constellations.jpg';
 
-const TitleImageHero = defineAsyncComponent(() => import('@/components/Content/TitleImageHero.vue'));
+definePageMeta({
+  layout: 'page'
+});
 
+applySeo({
+  title: t('constellations.title'),
+  description: t('constellations.description'),
+  image: backgroundConstellationImage,
+  fullUrl: ''
+});
+
+
+const TitleImageHero = defineAsyncComponent(() => import('@/components/Content/TitleImageHero.vue'));
 const backgroundImage = ref(backgroundConstellationImage);
 </script>
 
