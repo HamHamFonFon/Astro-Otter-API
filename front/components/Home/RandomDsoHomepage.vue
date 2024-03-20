@@ -17,7 +17,7 @@ const {
   error,
   status,
   refresh
-} = await useCustomFetch<Dso>('/dso/random', {
+} = await useCustomFetch<Dso[]>('/dso/random', {
   method: 'GET',
   query: {
     limit: 3
