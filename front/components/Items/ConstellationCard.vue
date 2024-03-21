@@ -8,7 +8,7 @@
       v-bind="props"
     >
       <NuxtLink
-        :to="{name: 'constellation-constellationId', params: { constellationId: constellation.id.toLowerCase(), urlName: constellation.urlName } }"
+        :to="{name: 'constellation-id-urlName', params: { id: constellation.id.toLowerCase(), urlName: constellation.urlName } }"
       >
         <v-img
           :src="`../assets/images/constellations/cover/${constellation.cover}`"

@@ -43,7 +43,7 @@ const getParams = (item: SearchDsoItem | SearchConstellationItem) => {
       color="transparent"
       @click="clickClear"
     >
-      <NuxtLink :to="{ name: 'dso', params: getParams(item) }">
+      <NuxtLink :to="{ name: 'dso-id-urlName', params: getParams(item) }">
         <v-list-item-title>{{ item.fullNameAlt }}</v-list-item-title>
         <v-list-item-subtitle>{{ item.typeLabel }}</v-list-item-subtitle>
       </NuxtLink>
@@ -63,7 +63,7 @@ const getParams = (item: SearchDsoItem | SearchConstellationItem) => {
       color="transparent"
       @click="clickClear"
     >
-      <NuxtLink :to="{ name: 'constellation', params: { constellationId: item.id, urlName: item.urlName } }">
+      <NuxtLink :to="{ name: 'constellation-id-urlName', params: { id: item.id, urlName: item.urlName } }">
         <v-list-item-title /> {{ item.alt }}
       </NuxtLink>
     </v-list-item>

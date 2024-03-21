@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import {definePageMeta} from "#imports";
 
-const route = useRoute()
-const { id, urlName } = route.params;
-
 definePageMeta({
   layout: 'page'
 })
 
+const route = useRoute()
+const { id, urlName } = route.params;
 </script>
 
 <template>

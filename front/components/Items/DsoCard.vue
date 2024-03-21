@@ -8,7 +8,7 @@
       v-bind="props"
     >
       <NuxtLink
-        :to="{ name: 'dso-id', params: { id: dso.id, urlName: dso.urlName } }"
+        :to="{ name: 'dso-id-urlName', params: { id: dso.id, urlName: dso.urlName } }"
         :title="t('dso.link', {'dso': title})"
       >
         <v-img
@@ -81,9 +81,9 @@
                 <span class="subheading me-2">
                   <NuxtLink
                     :to="{
-                      name: 'constellation-constellationId',
+                      name: 'constellation-id-urlName',
                       params: {
-                        constellationId: dso.constellation.id.toLowerCase(),
+                        id: dso.constellation.id.toLowerCase(),
                         urlName: dso.constellation.alt.toLowerCase()
                       }
                     }"
