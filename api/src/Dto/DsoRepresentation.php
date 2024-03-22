@@ -31,7 +31,7 @@ class DsoRepresentation implements DTOInterface
     #[Groups(['search'])]
     private string $fullNameAlt;
     private ?array $catalogs = null;
-    private ?array $catalogsLabel = [];
+    private ?array $catalogsLabel = null;
     #[Groups(['search'])]
     private array|string $desigs;
     #[Groups(['search'])]
