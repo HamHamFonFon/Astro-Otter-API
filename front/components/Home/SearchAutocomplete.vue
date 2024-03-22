@@ -1,19 +1,27 @@
 <script setup lang="ts">
-import {defineAsyncComponent, ref, watch} from "vue";
+import {defineAsyncComponent, ref} from "vue";
+import type { Ref } from 'vue'
 
-const inputSearchItems = ref<string>('');
+const inputSearchItems: Ref<string> = ref('');
+const dsoList: SearchDsoItem[] = reactive([]);
+const constellationsList: SearchConstellationItem[] = reactive([]);
 
-const dsoList = ref<SearchDsoItem[]>([]);
-const constellationsList = ref<SearchConstellationItem[]>([]);
+const { data, pending } = await useSearchRequest(inputSearchItems);
+const isDso = (item: SearchDsoItem | SearchConstellationItem ): boolean => {
+  switch(item.context) {
+    case 'App\\Model\\Dso': return true;
+    case 'App\\Model\\Constellation': return false;
+    default: return false;
+  }
+}
 
-const REGEX: RegExp = new RegExp('/^[a-zA-Z0-9&\\-_;: ]+$/gm');
-
-watch(inputSearchItems, (newSearch: string) => {
-  setTimeout(async () => {
-    if (2 <= newSearch.length && !REGEX.test(newSearch)) {
-      await useSearchRequest(newSearch);
-    }
-  }, 200);
+watchEffect(async () => {
+  dsoList.length = 0;
+  constellationsList.length = 0;
+  data.value?.forEach((item: SearchDsoItem | SearchConstellationItem) => {
+    if (isDso(item)) dsoList.push(item as SearchDsoItem);
+    else constellationsList.push(item as SearchConstellationItem);
+  });
 });
 
 const SearchListCard = defineAsyncComponent(() => import("@/components/Items/SearchListCard.vue"));
@@ -61,7 +69,9 @@ const SearchListCard = defineAsyncComponent(() => import("@/components/Items/Sea
               append-inner-icon="mdi-magnify"
               clearable
             />
+            <div v-if="true === pending">Load results...</div>
             <SearchListCard
+              v-else
               :dsos="dsoList"
               :constellations="constellationsList"
             />

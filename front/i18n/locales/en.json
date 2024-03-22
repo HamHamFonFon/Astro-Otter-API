@@ -16,7 +16,8 @@
     "languageSwitcher": "Change lang",
     "btnConstellationTo": "Access to to constellation {constellation} page",
     "notifications": "Notifications",
-    "delete_notifications": "Delete all"
+    "delete_notifications": "Delete all",
+    "load": "Please wait while loading data…"
   },
   "languages": {
     "en": "English",

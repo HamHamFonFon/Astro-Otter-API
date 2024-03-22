@@ -9,7 +9,7 @@ definePageMeta({
 const Message = defineAsyncComponent(() => import('@/components/Layout/Message.vue'));
 const TitlePage = defineAsyncComponent(() => import('@/components/Content/TitlePage.vue'));
 
-const { locale } = useI18n();
+const { t, locale } = useI18n();
 const route = useRoute()
 const uid: ComputedRef<string | RouteParamValue[]> = computed(() => route.params.uid);
 
@@ -19,13 +19,15 @@ const prismicLocale: Ref<UnwrapRef<string>> = ref(useLanguagesCode().languagesCo
 const store = useMessageStore();
 const { type, message } = storeToRefs(store);
 type.value = 'warning';
-message.value = `Please wait while loading data...`;
+message.value = t('layout.load');
 
 const {
   data: document,
   pending,
-  error
+  error,
+  refresh
 } = await useLazyAsyncData( 'page', async () => {
+  console.log(`Prismic lang: ${prismicLocale.value}`)
     const document = client.getByUID('editorial_page', (uid.value as string), {lang: prismicLocale.value});
     if (document) {
       return document;
@@ -35,7 +37,6 @@ const {
 }, {
   watch: [
     uid,
-    locale,
     prismicLocale
   ]
 });
@@ -52,7 +53,10 @@ applySeo({
   fullUrl: 'https://change-it.com'
 })
 
-watch(locale, () => refreshNuxtData());
+watch(locale, (newLocale) => {
+  prismicLocale.value = useLanguagesCode().languagesCodes.filter((item) => newLocale === item.locale)[0].prismic
+})
+
 
 </script>
 
@@ -88,7 +92,7 @@ watch(locale, () => refreshNuxtData());
                 :field="document.data.content"
               />
               <v-divider />
-              <p>{{ asDate(document.data?.last_update) }}</p>
+              <p>{{ document.data?.last_update }}</p>
             </v-container>
           </v-sheet>
         </v-sheet>

@@ -81,7 +81,6 @@ const prismicLocale: Ref<UnwrapRef<string>> = ref(useLanguagesCode().languagesCo
 const { data: document } = await useLazyAsyncData(
   'document',
   async () => {
-    console.log(`Lang query prismic: ${prismicLocale.value}`)
     const document = client.getAllByType('editorial_page', {lang: prismicLocale.value})
     if (document) {
       return document;
@@ -89,12 +88,14 @@ const { data: document } = await useLazyAsyncData(
   },
   {
     watch: [
-      locale,
       prismicLocale
     ]
   }
 );
 
+watch(locale, (newLocale) => {
+  prismicLocale.value = useLanguagesCode().languagesCodes.filter((item) => newLocale === item.locale)[0].prismic
+})
 
 const openSocialNetwork = (link: string): void => {
   window.open(link, '_blank')

@@ -1,11 +1,12 @@
-<script setup>
-defineProps({
-  title: {
-    type: String,
-    default: ''
-  }
-});
+<script setup lang="ts">
+export interface Props {
+  title?: string
+}
 
+const props = withDefaults(defineProps<Props>(), {
+  title: ''
+})
+const { title } = toRefs(props)
 const { isMobile } = useDevice();
 </script>
 <template>

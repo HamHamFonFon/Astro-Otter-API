@@ -15,8 +15,7 @@ export default defineNuxtRouteMiddleware(async (): Promise<void> => {
     if (expireTokenDate && expireTokenDate > timestamp) {
       await authStore.fetchRefreshToken(authStore.accessToken);
     }
-
   } else {
-    await authStore.fetchLogin(process.env.NUXT_API_LOGIN, process.env.NUXT_API_PWD);
+    await authStore.fetchLogin(config.apiLogin, config.apiPwd);
   }
 });
