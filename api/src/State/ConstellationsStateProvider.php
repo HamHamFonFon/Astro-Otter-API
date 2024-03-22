@@ -42,7 +42,9 @@ readonly class ConstellationsStateProvider implements ProviderInterface
              */
             ['id' => $idConst] = $uriVariables;
             $constellationDoc = $this->constellationRepository->findById(md5(ucfirst($idConst)));
-            yield $this->constellationFactory->buildDto($constellationDoc)->current();
+            $constellationRepresentation = fn() => yield from $this->constellationFactory->buildDto($constellationDoc);
+            return $constellationRepresentation()->current();
+
         }
     }
 }
