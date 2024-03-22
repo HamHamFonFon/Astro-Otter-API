@@ -138,23 +138,28 @@ onMounted(() => {
 // Methods
 const fetchDsoList = async () => {
   const defaultFilters = {[defaultFilterName.value]: defaultFilterValue.value}
-  const params = {
+  const requestParams = {
     ...defaultFilters,
     ...selectedFilters.value,
-    offset: offset.value,
-    limit: limit.value
+    ...{
+      offset: offset.value,
+      limit: limit.value
+    }
   };
 
   const {
     data,
+    pending,
     error
   } = useCustomFetch('/dso/list', {
     method: 'GET',
-    query: params
-  })
+    params: requestParams
+  });
 
-  // const { items, filters, total} = data;
-  console.log(data);
+  const { items, filters, total} = data.value;
+  console.log(items);
+  console.log(filters);
+  console.log(total);
 
     // const {da
     //
