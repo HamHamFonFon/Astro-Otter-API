@@ -11,7 +11,7 @@
         :to="{name: 'constellation-id-urlName', params: { id: constellation.id.toLowerCase(), urlName: constellation.urlName } }"
       >
         <v-img
-          :src="`../assets/images/constellations/cover/${constellation.cover}`"
+          :src="getCoverUrl()"
           class="bg-grey-lighten-2"
           height="300"
           cover
@@ -51,8 +51,8 @@
 
 <script setup lang="ts">
 import { toRefs } from "vue";
-import type { VImg } from 'vuetify/components'
-type srcObject = VImg["$props"]["src"];
+// import type { VImg } from 'vuetify/components'
+// type srcObject = VImg["$props"]["src"];
 
 const props = defineProps<{
   constellation: Constellation
@@ -60,27 +60,18 @@ const props = defineProps<{
 const { constellation } = toRefs(props);
 
 // TEST WITH computed()
-const cover = computed<string | srcObject | undefined>(() => {
-  try {
-    return require(`~/assets/images/constellations/cover/${constellation.value.cover}`);
-  } catch (error) {
-    console.error(`Error loading cover file "${constellation.value.cover}"`, error);
-  }
-})
-
-// TEST with function
-// async function resolveImage() {
-//   const img = await import(`~/assets/images/constellations/cover/${constellation.value.cover}`);
-//   return img.default;
-// }
-// const cover = await resolveImage();
+// const cover = computed<string | srcObject | undefined>(() => {
+//   try {
+//     return require(`~/assets/images/constellations/cover/${constellation.value.cover}`);
+//   } catch (error) {
+//     console.error(`Error loading cover file "${constellation.value.cover}"`, error);
+//   }
+// })
 
 // TEST with new URL()
-// function getCoverUrl() {
-//   return new URL(`./assets/images/constellations/cover/${constellation.value.cover}`, import.meta.url).href
-// }
-
-// const lazyCover = computed<string | undefined>(() => cover.value as string)
+function getCoverUrl(): string {
+  return new URL(`/assets/images/constellations/cover/${constellation.value.cover}`, import.meta.url).href
+}
 </script>
 
 <style scoped>
