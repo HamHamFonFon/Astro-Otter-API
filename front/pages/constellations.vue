@@ -4,6 +4,7 @@ import { ref } from "vue";
 
 const { t, locale } = useI18n();
 import backgroundConstellationImage from '@/assets/images/background/constellations.jpg';
+import {useCheckTypeItem} from "~/composables/useCheckTypeItem";
 
 const Message = defineAsyncComponent(() => import('@/components/Layout/Message.vue'));
 const TitleImageHero = defineAsyncComponent(() => import('@/components/Content/TitleImageHero.vue'));
@@ -31,6 +32,8 @@ const store = useMessageStore();
 const { type, message } = storeToRefs(store);
 type.value = 'warning';
 message.value = t('constellation.load.list');
+
+const { isDso, isConstellation } = useCheckTypeItem();
 
 const {
   data,
@@ -118,12 +121,13 @@ watch(locale, () => refresh());
               <v-container>
                 <v-row align="center">
                   <ItemsLists
-                    :constellation-list="constellations"
+                    :list="constellations"
                     :columns="nbColumns"
                   >
-                    <template #default="{ item }">
+                    <template
+                      #default="{ item }: { item: Constellation}"
+                    >
                       <ConstellationCard
-                        :key="item.id"
                         :constellation="item"
                       />
                     </template>

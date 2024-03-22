@@ -1,26 +1,21 @@
 <script setup lang="ts">
 import {defineAsyncComponent, ref} from "vue";
 import type { Ref } from 'vue'
+import {useCheckTypeItem} from "~/composables/useCheckTypeItem";
 
 const inputSearchItems: Ref<string> = ref('');
 const dsoList: SearchDsoItem[] = reactive([]);
 const constellationsList: SearchConstellationItem[] = reactive([]);
 
 const { data, pending } = await useSearchRequest(inputSearchItems);
-const isDso = (item: SearchDsoItem | SearchConstellationItem ): boolean => {
-  switch(item.context) {
-    case 'App\\Model\\Dso': return true;
-    case 'App\\Model\\Constellation': return false;
-    default: return false;
-  }
-}
+const { isDso, isConstellation } = useCheckTypeItem();
 
 watchEffect(async () => {
   dsoList.length = 0;
   constellationsList.length = 0;
   data.value?.forEach((item: SearchDsoItem | SearchConstellationItem) => {
     if (isDso(item)) dsoList.push(item as SearchDsoItem);
-    else constellationsList.push(item as SearchConstellationItem);
+    else if (isConstellation(item)) constellationsList.push(item as SearchConstellationItem);
   });
 });
 

@@ -6,13 +6,13 @@ export default defineNuxtPlugin((nuxtApp) => {
   const config: RuntimeConfig = useRuntimeConfig()
   const authStore = useAuthStore();
 
-  const $customFetch = (locale = 'en') => $fetch.create({
+  const $customFetch = (locale: string) => $fetch.create({
     baseURL: `${config.public.apiPublicHost}/${config.public.apiVersion}`,
     onRequest({ request, options, error}) {
       const customHeaders = options?.headers ? new Headers(options.headers) : new Headers();
       customHeaders.set('Content-Type', 'application/json');
       customHeaders.set('Accept', 'application/json');
-      console.log(`Se Accept-Language value into ${locale}`)
+      // console.log(`Se Accept-Language value into ${locale}`)
       customHeaders.set('Accept-Language', locale);
 
       if (authStore.isLoggedIn) {
