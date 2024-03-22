@@ -1,4 +1,5 @@
 <template>
+
   <v-sheet
     color="transparent"
     elevation="0"
@@ -16,13 +17,12 @@
           md="9"
         >
           <v-text-field
-            :value="modelValue"
             clearable
             :label="label"
             variant="outlined"
             :placeholder="placeholder"
             rounded
-            @input="updateValue($event.target.value)"
+            @input=" $emit('update:modelValue', ($event.target as HTMLInputElement).value)"
           />
         </v-col>
       </v-row>
@@ -30,29 +30,19 @@
   </v-sheet>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {toRefs} from "vue";
 
-const props = defineProps({
-  modelValue: {
-    type: String,
-    default: null
-  },
-  label: {
-    type: String,
-    default: null
-  },
-  placeholder: {
-    type: String,
-    default: null
-  }
-});
+// source: https://dev.to/denisseab/how-to-emit-a-value-from-an-input-component-vue-3-1lla
+
+const props = defineProps<{
+  modelValue?: string,
+  label?: string,
+  placeholder?: string
+}>();
 const { modelValue, label, placeholder } = toRefs(props);
 
-const emit = defineEmits(['update:modelValue']);
-const updateValue = (value) => {
-  emit('update:modelValue', value)
-}
+defineEmits(["update:modelValue"]);
 </script>
 
 <style scoped>

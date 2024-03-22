@@ -25,6 +25,7 @@ applySeo({
 const backgroundImage = ref(backgroundConstellationImage);
 const filterConstellation: Ref<string> = ref('');
 const nbColumns: Ref<number> = ref(4)
+const constellationsRef: Constellation[] = reactive([]);
 
 const store = useMessageStore();
 const { type, message } = storeToRefs(store);
@@ -43,14 +44,27 @@ const {
 
 if ("success" === status.value) {
   type.value = 'success';
-  message.value = t('constellation.load.loaded')
+  message.value = t('constellation.load.loaded');
+  data.value?.forEach((item: Constellation) => constellationsRef.push(item));
 } else {
   type.value = 'error';
   message.value = error.value?.message
 }
 
-watch(locale, () => refresh());
+const filterOnInput = (e: {target: { value: string }}) => {
+  filterConstellation.value = e.target.value;
+}
 
+const constellations = computed(() => {
+  const filterText = filterConstellation.value;
+  const constellationsSorted = [...constellationsRef].sort((a, b) => (a.id.toLowerCase() < b.id.toLowerCase()) ? -1 : ((b.id.toLowerCase() < a.id.toLowerCase()) ? 1 : 0))
+  if (2 < filterText.length) {
+    return constellationsSorted.filter(c => c.alt.toLowerCase().startsWith(filterText.toLowerCase()));
+  }
+  return constellationsSorted;
+})
+
+watch(locale, () => refresh());
 </script>
 
 <template>
@@ -87,6 +101,7 @@ watch(locale, () => refresh());
             v-model="filterConstellation"
             :label="$t('constellation.filter.label')"
             :placeholder="$t('constellation.filter.placeholder')"
+            @input="filterOnInput"
           />
 
           <v-sheet
@@ -103,7 +118,7 @@ watch(locale, () => refresh());
               <v-container>
                 <v-row align="center">
                   <ItemsLists
-                    :constellation-list="data"
+                    :constellation-list="constellations"
                     :columns="nbColumns"
                   >
                     <template #default="{ item }">
