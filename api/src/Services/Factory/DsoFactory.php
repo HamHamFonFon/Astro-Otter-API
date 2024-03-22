@@ -38,7 +38,7 @@ class DsoFactory extends AbstractFactory implements FactoryInterface
             $dso->setTypeLabel($this->translator->trans(sprintf('type.%s', $dso->getType())));
 
             if (!is_null($dso->getCatalogs())) {
-                $catalogsLabel = array_map(fn (string $catalog) => $this->translator->trans(sprintf('catalog.%s', $catalog)), $dso->getCatalogs());
+                $catalogsLabel = array_map(fn (string $catalog) => $this->translator->trans(sprintf('catalog.%s', $catalog)), array_filter($dso->getCatalogs()));
                 $dso->setCatalogsLabel($catalogsLabel);
             }
 
