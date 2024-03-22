@@ -18,9 +18,13 @@ readonly class ConstellationsStateProvider implements ProviderInterface
     ) { }
 
     /**
+     * @param Operation $operation
+     * @param array $uriVariables
+     * @param array $context
+     * @return object|array|null
      * @throws InvalidArgumentException
      */
-    public function provide(Operation $operation, array $uriVariables = [], array $context = []): \Generator//: object|array|null
+    public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
         if ($operation instanceof CollectionOperationInterface) {
             $allDocsConstellations = $this->constellationRepository->getAllConstellations();
@@ -33,9 +37,11 @@ readonly class ConstellationsStateProvider implements ProviderInterface
 //                yield from $this->constellationFactory->buildListDto($allDocsConstellations);
             };
 
-            foreach ($allConstellations() as $constellation) {
-                yield $constellation;
-            }
+
+            return iterator_to_array($allConstellations());
+//            foreach ($allConstellations() as $constellation) {
+//                yield $constellation;
+//            }
         } else {
             /**
              * Constellation Id must have first letter uppercase => fix that one day...
