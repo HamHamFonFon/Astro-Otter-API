@@ -6,7 +6,7 @@
   >
     <v-toolbar color="secondary">
       <NuxtLink
-        :to="{ name: 'index'}"
+        to="/"
         :title="t('layout.homeAccess')"
       >
         <v-avatar class="mx-2">
@@ -28,9 +28,9 @@
           :key="index"
           class="text-none"
         >
-          <router-link :to="menuItem.path">
+          <NuxtLink :to="{name: menuItem.path}">
             <span class="text-grey">{{ $t(menuItem.text) }}</span>
-          </router-link>
+          </NuxtLink>
         </v-btn>
       </div>
 
@@ -153,12 +153,6 @@ const toggleInputSearch = () => {
 /**
  * Run WS and set data
  */
-watch(inputSearchItems, (newSearch: string) => {
-  setTimeout(async () => {
-    /*results.value =*/ await useSearchRequest(newSearch);
-  }, 200);
-});
-
 </script>
 
 

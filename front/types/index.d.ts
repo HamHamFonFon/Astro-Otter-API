@@ -81,24 +81,23 @@ declare global {
     context: string
   }
 
-  interface SearchConstellationItem {
+  interface SearchItem {
     id: string,
     urlName?: string,
+    context: string
+  }
+  interface SearchConstellationItem extends SearchItem {
     alt: string,
     generic?: string,
     cover?: string,
-    context: string
   }
 
-  interface SearchDsoItem {
-    id: string,
-    urlName: string,
+  interface SearchDsoItem extends SearchItem {
     fullNameAlt: string,
     desigs: string[],
     otherDesigs: string[],
     typeLabel: string,
     constellation?: SearchConstellationItem,
-    context: string
   }
 }
 

@@ -43,18 +43,18 @@
                 v-for="(nav, index) in footerPageitems"
                 :key="index"
                 class="text-primary mx-3 mb-3 font-weight-bold"
-                :to="nav.path"
+                :to="{name: nav.path }"
               >
-                <span class="text-grey">{{ nav.text }}</span>
+                <span class="text-grey">{{ $t(nav.text) }}</span>
               </NuxtLink>
 
               <NuxtLink
-                v-for="nav in posts"
+                v-for="nav in document"
                 :key="nav.id"
                 class="text-primary mx-3 mb-3 font-weight-bold"
-                :to="`pages/${nav.uid}`"
+                :to="`/pages/${nav.uid}`"
               >
-                <span class="text-grey">{{ asText(nav.data.title) }}</span>
+                <span class="text-grey">{{ asText(nav?.data?.title) }}</span>
               </NuxtLink>
             </div>
           </v-col>
@@ -69,7 +69,7 @@
 </template>
 
 <script setup lang="ts">
-import { type UnwrapRef, watch } from "vue";
+import { type UnwrapRef } from "vue";
 
 const { locale } = useI18n();
 const { client, asText } = usePrismic();
@@ -78,10 +78,15 @@ const { socialNetworks } = useSocialNetworks();
 const { footerPageitems } = useFooterpagesitems();
 const prismicLocale: Ref<UnwrapRef<string>> = ref(useLanguagesCode().languagesCodes.filter((item) => locale.value === item.locale)[0].prismic);
 
-// TODO : reload prismic data when locale is changed
-const { data: posts, refresh } = await useAsyncData(
-  'posts',
-  () => client.getAllByType('editorial_page',{ lang: prismicLocale.value } ),
+const { data: document } = await useLazyAsyncData(
+  'document',
+  async () => {
+    console.log(`Lang query prismic: ${prismicLocale.value}`)
+    const document = client.getAllByType('editorial_page', {lang: prismicLocale.value})
+    if (document) {
+      return document;
+    }
+  },
   {
     watch: [
       locale,
@@ -89,10 +94,7 @@ const { data: posts, refresh } = await useAsyncData(
     ]
   }
 );
-watch(locale, async (newLocale) => {
-  prismicLocale.value = newLocale;
-  await refresh();
-});
+
 
 const openSocialNetwork = (link: string): void => {
   window.open(link, '_blank')
