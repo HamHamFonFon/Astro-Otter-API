@@ -2,6 +2,8 @@
 
 namespace App\Command;
 
+use App\State\CatalogsMapping;
+
 trait ImportData
 {
     private function openFile(string $file): ?array
@@ -17,10 +19,11 @@ trait ImportData
 
     public static function getCatalog(?string $id): string
     {
+        $catalogMapping = new CatalogsMapping;
         if (!is_null($id)) {
-            return Utils::getCatalogMapping()[substr($id, 0, 2)] ?? Utils::UNASSIGNED;
+            return $catalogMapping()[substr($id, 0, 2)] ?? CatalogsMapping::UNASSIGNED;
         }
-        return Utils::UNASSIGNED;
+        return CatalogsMapping::UNASSIGNED;
     }
 
     public static function getItemOrder(string $id): ?int

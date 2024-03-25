@@ -4,8 +4,11 @@ namespace App\Services;
 
 class DeepUtf8Encoding
 {
-    public function __invoke(string|int|float|array|object &$input): array|object|false|string|null
+    public function __invoke(string|int|float|array|object|null &$input): array|object|false|string|null
     {
+        if (is_null($input)) {
+            return $input;
+        }
         if (is_int($input) || is_float($input)) {
             return $input;
         }
