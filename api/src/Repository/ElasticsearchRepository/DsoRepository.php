@@ -100,18 +100,38 @@ final class DsoRepository extends AbstractRepository
     // GetDsoCatalogs
     public function getDsosFiltersBy(array $filters, int $offset, int $limit): array
     {
+
         $fieldsFilters = [
             'query' => [
                 'bool' => [
                     'must' =>
                         array_map(function(string $field, string $value): array {
-                            return [
-                                'term' => [$field => $value]
-                            ];
+                            if ('magnitude' !== $field) {
+                                $field = self::$listAggregates[$field]['field'];
+                                $value = strtolower($value);
+                                return [
+                                    'term' => [$field => $value]
+                                ];
+                            } else {
+                                $keyRange = array_search($value, array_column(self::$listAggregatesRange[$field]['ranges'], 'key'), true);
+                                $range = self::$listAggregatesRange[$field]['ranges'][$keyRange];
+                                if (array_key_exists('to', $range)) {
+                                    $paramRange['lte'] = $range['to'];
+                                }
+                                if (array_key_exists('from', $range)) {
+                                    $paramRange['gte'] = $range['from'];
+                                }
+                                $field = self::$listAggregatesRange[$field]['field'];
+                                return [
+                                    'range' => [$field => $paramRange]
+                                ];
+                            }
+
                         }, array_keys($filters), $filters)
                 ]
             ]
         ];
+
         $sort = [
             'sort' => [
                 ['order' => 'asc']
@@ -119,6 +139,7 @@ final class DsoRepository extends AbstractRepository
             'from' => $offset,
             'size' => $limit
         ];
+
         $aggregates = [
             'aggs' =>
                 array_merge(
@@ -145,12 +166,10 @@ final class DsoRepository extends AbstractRepository
                 )
         ];
 
-
         $param = [
             'index' => $this->getIndex(),
             'body' => array_merge($fieldsFilters, $sort, $aggregates),
         ];
-
 
         $results = $this->client->search($param);
         ['total' => $total, 'hits' => $hits] = $results['hits'];
