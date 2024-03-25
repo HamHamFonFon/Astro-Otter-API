@@ -103,9 +103,9 @@ class ImportDeltaDataCommand extends Command
          * STEP 2: import data
          */
         if (is_array($bulk)) {
-            dump($bulk);
+            dump($bulk); die();
             foreach ($bulk as $document) {
-                $this->dsoRepository->insertDocument($document);
+               // $this->dsoRepository->insertDocument($document);
             }
 
         }
@@ -170,7 +170,4 @@ class ImportDeltaDataCommand extends Command
 
         return $bulkData;
     }
-
-
-
 }
