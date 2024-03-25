@@ -4,8 +4,11 @@ namespace App\Services;
 
 class DeepUtf8Encoding
 {
-    public function __invoke(string|array|object &$input): array|object|false|string|null
+    public function __invoke(string|int|float|array|object &$input): array|object|false|string|null
     {
+        if (is_int($input) || is_float($input)) {
+            return $input;
+        }
         if (is_string($input)) {
             $input = mb_convert_encoding($input, 'UTF-8', 'ISO-8859-1');
         } else if (is_array($input)) {
