@@ -2,8 +2,6 @@
 
 namespace App\Dto;
 
-use AllowDynamicProperties;
-use App\Model\Constellation;
 use App\Model\Dso;
 use App\Services\DateSanitization;
 use App\Services\StringSanitization;
@@ -11,8 +9,6 @@ use App\Services\Translator;
 use AstrobinWs\Response\DTO\Item\Image;
 use AstrobinWs\Response\DTO\Item\User;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Contracts\Service\Attribute\Required;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DsoRepresentation implements DTOInterface
 {
