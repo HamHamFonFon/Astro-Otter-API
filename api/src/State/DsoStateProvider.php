@@ -41,6 +41,11 @@ readonly class DsoStateProvider implements ProviderInterface
                 return in_array($paramKey, $authorizedQueryParams);
             }, ARRAY_FILTER_USE_KEY);
 
+            if (array_key_exists('constellation', $filters)) {
+                $filters['constId'] = $filters['constellation'];
+                unset($filters['constellation']);
+            }
+
             [
                 'total' => $total,
                 'documents' => $documents,
