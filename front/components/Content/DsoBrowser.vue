@@ -13,15 +13,16 @@
       <v-container>
         <!--  Filters-->
         <v-row>
-<!--          <v-col-->
-<!--            v-for="(filtersByTypeData, type ) in filtersBy"-->
-<!--            :key="type"-->
-<!--            cols="12"-->
-<!--            :sm="getCountColumns(filtersBy)"-->
-<!--          >-->
+          <v-col
+            v-for="(filtersByTypeData, type ) in listFilters"
+            :key="type"
+            cols="12"
+            :sm="getCountColumns"
+          >
+            {{ type }} {{ JSON.stringify(filtersByTypeData) }}
 <!--            <v-select-->
 <!--              v-model="selectedFilters[type]"-->
-<!--              :label="type"-->
+<!--              :label="type as string"-->
 <!--              variant="outlined"-->
 <!--              :items="filtersByTypeData"-->
 <!--              item-title="label"-->
@@ -29,7 +30,7 @@
 <!--              clearable-->
 <!--              @update:model-value="fetchDsoList"-->
 <!--            />-->
-<!--          </v-col>-->
+          </v-col>
         </v-row>
 
         <!-- Sorts -->
@@ -39,15 +40,18 @@
             cols="6"
             sm="6"
           >
-<!--            <span class="text-white">{{ $t('catalogs.count', {'nbItems': 0, 'total': 9000}) }}</span>-->
+            <span class="text-white">
+              {{ nbItems }} / {{ totalRef }}
+<!--              {{ $t('catalogs.count', {'nbItems': nbItems, 'total': totalRef}) }}-->
+            </span>
           </v-col>
         </v-row>
 
         <!-- Items list + cards -->
         <v-row align="center">
           <ItemsLists
-            :list="items"
-            :columns="3"
+            :list="listDso"
+            :columns="getCountColumns"
           >
             <template #default="{ item }: { item: Dso }">
               <DsoCard
@@ -79,7 +83,6 @@
 
 <script setup lang="ts">
 import {computed, defineAsyncComponent, onBeforeMount, onMounted, type Ref, ref, toRefs} from "vue";
-import {useCheckTypeItem} from "~/composables/useCheckTypeItem";
 
 const { t } = useI18n();
 const route = useRoute();
@@ -89,11 +92,8 @@ const { type, message } = storeToRefs(store);
 type.value = 'warning';
 message.value = t('constellation.load.data');
 
-// const { isDso, isConstellation } = useCheckTypeItem();
-
 // Services
 // import { saveShareLink } from '@/services/saveShareLink';
-// import {DsoWs} from "@/repositories/api/dso";
 // import { geoJsonServices } from '@/services/geojson';
 
 // Components
@@ -102,13 +102,13 @@ const DsoCard = defineAsyncComponent(() => import('@/components/Items/DsoCard.vu
 const BtnMoreItems = defineAsyncComponent(() => import('@/components/Content/btnMoreItems.vue'));
 
 // Data
-const items: Dso[] = reactive([]);
+const listDso: Dso[] = reactive([]);
 const offset: Ref<number> = ref(0);
 const limit: Ref<number> = ref(21);
 const totalRef: Ref<number> = ref(0);
 
 const selectedFilters = ref({});
-const filtersRef = ref([]);
+const listFilters: Filters[] = reactive([]);
 // const urlShare = ref(null);
 const btnLabel: Ref<string> = ref(t('layout.btnMore'))
 const btnIcon: Ref<string> = ref('mdi-plus');
@@ -147,34 +147,34 @@ const fetchDsoList = async () => {
     }
   };
 
+  const filteredRequestParams = Object.entries(requestParams).reduce((x, [k, v]) => {
+    if (v || 0 === v) { // not ( null, undefined, empty string)
+      x[k] = v;
+    }
+    return x;
+  }, {} as any);
+
   const {
     data,
-    pending,
     error
   } = useCustomFetch('/dso/list', {
     method: 'GET',
-    params: requestParams
+    params: filteredRequestParams
   });
 
-  const { items, filters, total} = data.value;
-  console.log(items);
-  console.log(filters);
-  console.log(total);
-
-    // const {da
-    //
-    // ta, filters, total} = await DsoWs.GET_DSO_LIST(params, 0, limit.value);
-    // items.value = data;
-    // filtersRef.value = filters;
-    // totalRef.value = total;
-    // offset.value = limit.value;
-    // urlShare.value = saveShareLink(route.path, params);
+  // if (error)
+  const { filters, items, total }: { filters: Filters, items: Dso[], total: number} = data.value;
+  listFilters.push(filters)
+  listDso.push(...items);
+  totalRef.value = total;
+  offset.value = limit.value;
+  // urlShare.value = saveShareLink(route.path, params);
 };
 
 const showMoreItems = async  () => {
   btnLabel.value = t('dso.load_list');
   btnLoading.value = true;
-  try {
+
     const defaultFilters = {[defaultFilterName.value]: defaultFilterValue.value}
     const params = {
       ...defaultFilters,
@@ -187,29 +187,23 @@ const showMoreItems = async  () => {
     // totalRef.value = total;
     // offset.value += limit.value;
     btnLabel.value = t('layout.btnMore');
-  } catch (err) {
-    // store.commit('message/setMessage', {
-    //   'loading': true,
-    //   'type': 'error',
-    //   'message': err.message,
-    //   'httpCode': err.code
-    // }, { root: true })
-  }
+
   btnLoading.value = false;
 };
 
-// const getCountColumns = (filters) => 12/Object.keys(filters).length;
-//const getCountColumns = (filters: Record<string, any>): number => 12 / Object.keys(filters).length;
+const getCountColumns = (): number => 12 / Object.keys(listFilters).length;
 
 // Computed
-const nbItems = computed((): number => items.length);
-/*const filtersBy = computed(() => {
-  return Object.keys(filtersRef.value)
-    .filter((type: string) => type !== defaultFilterName.value)
-    .reduce((obj: { [key: string]: any }, key: string) => {
-      return { ...obj, [key]: filtersRef.value[key] };
-    }, {});
-});*/
+const nbItems = computed((): number => listDso.length);
+const filtersBy = computed(() => {
+  return Object.keys(listFilters)
+    .filter((type) => type !== defaultFilterName.value)
+    .reduce((obj, key) => {
+      return Object.assign(obj, {
+        [key]: listFilters[key]
+      });
+    }, {})
+});
 
 // const dsoGeoJson = computed(() => geoJsonServices.geoJsonDso(items.value))
 </script>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type {UnwrapRef} from "vue";
 import type {RouteParamValue} from "vue-router";
+import type {UnwrapRef} from "vue";
 
 definePageMeta({
   layout: 'page'
@@ -24,10 +24,8 @@ message.value = t('layout.load');
 const {
   data: document,
   pending,
-  error,
-  refresh
+  error
 } = await useLazyAsyncData( 'page', async () => {
-  console.log(`Prismic lang: ${prismicLocale.value}`)
     const document = client.getByUID('editorial_page', (uid.value as string), {lang: prismicLocale.value});
     if (document) {
       return document;
@@ -57,7 +55,6 @@ watch(locale, (newLocale) => {
   prismicLocale.value = useLanguagesCode().languagesCodes.filter((item) => newLocale === item.locale)[0].prismic
 })
 
-
 </script>
 
 <template>
@@ -73,7 +70,7 @@ watch(locale, (newLocale) => {
       class="landing-warpper"
       color="transparent"
     >
-      <TitlePage :title="asText(document.data.title)" />
+      <TitlePage :title="asText(document?.data?.title) as string" />
       <v-container class="text-justify">
         <v-sheet
           elevation="0"
@@ -89,10 +86,10 @@ watch(locale, (newLocale) => {
             <v-container>
               <prismic-rich-text
                 class="richtext"
-                :field="document.data.content"
+                :field="document?.data?.content"
               />
               <v-divider />
-              <p>{{ document.data?.last_update }}</p>
+              <p>{{ document?.data?.last_update }}</p>
             </v-container>
           </v-sheet>
         </v-sheet>

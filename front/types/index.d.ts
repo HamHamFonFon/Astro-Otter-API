@@ -99,6 +99,18 @@ declare global {
     typeLabel: string,
     constellation?: SearchConstellationItem,
   }
+
+  interface ValueFilter {
+    name: string,
+    count: number,
+    label: string
+  }
+  interface Filters {
+    constellation?: ValueFilter[],
+    catalog?: ValueFilter[],
+    magnitude?: ValueFilter[],
+    type?: ValueFilter[]
+  }
 }
 
-export { Constellation, Dso, SearchConstellationItem, SearchDsoItem }
+export { Constellation, Dso, SearchConstellationItem, SearchDsoItem, Filters }

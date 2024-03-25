@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {definePageMeta, useI18n} from '#imports';
+const DsoBrowser = defineAsyncComponent(() => import('@/components/Content/DsoBrowser.vue'));
 const { t } = useI18n();
 
 definePageMeta({
@@ -11,6 +12,8 @@ const TitlePage = defineAsyncComponent(() => import('@/components/Content/TitleP
 
 <template>
   <TitlePage :title="t('catalogs.title')" />
+
+  <dso-browser />
 </template>
 
 <style scoped>
