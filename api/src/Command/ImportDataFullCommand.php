@@ -63,7 +63,7 @@ class ImportDataFullCommand extends Command
         $outputDirName = dirname($outputFilename);
 
         if (!file_exists($outputDirName)) {
-            if (!mkdir($concurrentDirectory = dirname($outputFilename), '0755') && !is_dir($concurrentDirectory)) {
+            if (!mkdir($concurrentDirectory = dirname($outputFilename), 0775) && !is_dir($concurrentDirectory)) {
                 throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
             }
         }
