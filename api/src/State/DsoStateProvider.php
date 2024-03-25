@@ -5,7 +5,7 @@ namespace App\State;
 use ApiPlatform\Metadata\CollectionOperationInterface;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
-use App\Command\ImportDataCommand;
+use App\Command\ImportDeltaDataCommand;
 use App\Repository\ElasticsearchRepository\ConstellationRepository;
 use App\Repository\ElasticsearchRepository\DsoRepository;
 use App\Services\Factory\DsoFactory;
@@ -50,7 +50,7 @@ readonly class DsoStateProvider implements ProviderInterface
 
             array_walk($documents, function(&$doc) {
                 if ($doc['const_id']) {
-                    $doc['constellation'] = $this->constellationRepository->findById(ImportDataCommand::md5ForId($doc['const_id']));
+                    $doc['constellation'] = $this->constellationRepository->findById(ImportDeltaDataCommand::md5ForId($doc['const_id']));
                 }
             });
 

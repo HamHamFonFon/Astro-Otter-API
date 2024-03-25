@@ -5,7 +5,7 @@ namespace App\State;
 use ApiPlatform\Metadata\CollectionOperationInterface;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
-use App\Command\ImportDataCommand;
+use App\Command\ImportDeltaDataCommand;
 use App\Repository\ElasticsearchRepository\ConstellationRepository;
 use App\Services\Factory\ConstellationFactory;
 use Psr\Cache\InvalidArgumentException;
@@ -44,7 +44,7 @@ readonly class ConstellationsStateProvider implements ProviderInterface
 //            }
         } else {
             ['id' => $idConst] = $uriVariables;
-            $constellationDoc = $this->constellationRepository->findById(ImportDataCommand::md5ForId($idConst));
+            $constellationDoc = $this->constellationRepository->findById(ImportDeltaDataCommand::md5ForId($idConst));
             $constellationRepresentation = fn() => yield from $this->constellationFactory->buildDto($constellationDoc);
             return $constellationRepresentation()->current();
 
