@@ -61,7 +61,6 @@ readonly class DsoStateProvider implements ProviderInterface
             };
 
             return [
-                'data' => $listDso(), // only for retro-compatibility with vue3 version
                 'items' => $listDso(),
                 'filters' => $aggregations,
                 'total' => $total
