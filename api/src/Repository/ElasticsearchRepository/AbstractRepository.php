@@ -2,6 +2,7 @@
 
 namespace App\Repository\ElasticsearchRepository;
 
+use App\Command\ImportDataCommand;
 use App\Services\Elasticsearch;
 use App\Services\Notification;
 use Elasticsearch\Client;
@@ -74,11 +75,47 @@ abstract class AbstractRepository
         return array_map(fn ($hit) => $hit['_source'],$results['hits']['hits']);
     }
 
-    protected function addNewDocument()
+    public function insertDocument(array $document): void
     {
-        $this->notification->sendNotification([]);
+        $param = [
+            'index' => $this->getIndex(),
+            'id' => $document['idDoc'],
+            'body' => [
+                'doc' => $document['data']
+            ]
+        ];
+
+        switch($document['mode']) {
+            case ImportDataCommand::MODE_CREATE_DOCUMENT: $this->client->create($param);
+                break;
+            case ImportDataCommand::MODE_UPDATE_DOCUMENT: $this->client->update($param);
+                break;
+        };
+
+        $message = match($document['mode']) {
+            ImportDataCommand::MODE_CREATE_DOCUMENT => sprintf('New object have been added: "%s"', $document['data']['id']),
+            ImportDataCommand::MODE_UPDATE_DOCUMENT => sprintf('"%s" have been updated',$document['data']['id'])
+        };
+
+        $notification = [
+            'message' => $message,
+            'date' => (new \DateTime())->format('Y-m-d H:i:s'),
+            'type' => 'success'
+        ];
+        $this->notification->sendNotification($notification);
     }
 
-    protected function bulkImport(array $listDocuments) { }
+
+    /**
+     * Bulk is not possible with elastica/elastica 7.x, wait to upgrade to 8.x
+     * @param array $listDocuments
+     * @return void
+     */
+    protected function bulkData(array $listDocuments): void
+    {
+        $param = [
+          'index' => $this->getIndex(),
+        ];
+    }
 
 }

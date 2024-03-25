@@ -5,6 +5,7 @@ namespace App\State;
 use ApiPlatform\Metadata\CollectionOperationInterface;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
+use App\Command\ImportDataCommand;
 use App\Repository\ElasticsearchRepository\ConstellationRepository;
 use App\Repository\ElasticsearchRepository\DsoRepository;
 use App\Services\Factory\DsoFactory;
@@ -49,7 +50,7 @@ readonly class DsoStateProvider implements ProviderInterface
 
             array_walk($documents, function(&$doc) {
                 if ($doc['const_id']) {
-                    $doc['constellation'] = $this->constellationRepository->findById(md5($doc['const_id']));
+                    $doc['constellation'] = $this->constellationRepository->findById(ImportDataCommand::md5ForId($doc['const_id']));
                 }
             });
 
@@ -69,9 +70,9 @@ readonly class DsoStateProvider implements ProviderInterface
         } else {
             ['id' => $dsoId] = $uriVariables;
             // Retrieve the state from somewhere
-            $document = $this->dsoRepository->findById(md5($dsoId));
+            $document = $this->dsoRepository->findById(ImportDataCommand::md5ForId($dsoId));
             if ($document['const_id']) {
-                $document['constellation'] = $this->constellationRepository->findById(md5($document['const_id']));
+                $document['constellation'] = $this->constellationRepository->findById(ImportDataCommand::md5ForId($document['const_id']));
             }
 
             $dsoRepresentation = fn() => yield from $this->dsoFactory->buildDto($document);

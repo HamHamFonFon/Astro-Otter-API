@@ -5,6 +5,7 @@ namespace App\State;
 use ApiPlatform\Metadata\CollectionOperationInterface;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
+use App\Command\ImportDataCommand;
 use App\Repository\ElasticsearchRepository\ConstellationRepository;
 use App\Services\Factory\ConstellationFactory;
 use Psr\Cache\InvalidArgumentException;
@@ -33,7 +34,6 @@ readonly class ConstellationsStateProvider implements ProviderInterface
                     $constellationRepresentation = fn() => yield from $this->constellationFactory->buildDto($document);
                     yield $constellationRepresentation()->current();
                 }
-
 //                yield from $this->constellationFactory->buildListDto($allDocsConstellations);
             };
 
@@ -43,11 +43,8 @@ readonly class ConstellationsStateProvider implements ProviderInterface
 //                yield $constellation;
 //            }
         } else {
-            /**
-             * Constellation Id must have first letter uppercase => fix that one day...
-             */
             ['id' => $idConst] = $uriVariables;
-            $constellationDoc = $this->constellationRepository->findById(md5(ucfirst($idConst)));
+            $constellationDoc = $this->constellationRepository->findById(ImportDataCommand::md5ForId($idConst));
             $constellationRepresentation = fn() => yield from $this->constellationFactory->buildDto($constellationDoc);
             return $constellationRepresentation()->current();
 
