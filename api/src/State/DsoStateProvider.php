@@ -10,7 +10,6 @@ use App\Repository\ElasticsearchRepository\ConstellationRepository;
 use App\Repository\ElasticsearchRepository\DsoRepository;
 use App\Services\Factory\DsoFactory;
 use Psr\Cache\InvalidArgumentException;
-use Symfony\Component\HttpFoundation\InputBag;
 
 readonly class DsoStateProvider implements ProviderInterface
 {
@@ -70,9 +69,9 @@ readonly class DsoStateProvider implements ProviderInterface
         } else {
             ['id' => $dsoId] = $uriVariables;
             // Retrieve the state from somewhere
-            $document = $this->dsoRepository->findById(ImportDataCommand::md5ForId($dsoId));
+            $document = $this->dsoRepository->findById(ImportDeltaDataCommand::md5ForId($dsoId));
             if ($document['const_id']) {
-                $document['constellation'] = $this->constellationRepository->findById(ImportDataCommand::md5ForId($document['const_id']));
+                $document['constellation'] = $this->constellationRepository->findById(ImportDeltaDataCommand::md5ForId($document['const_id']));
             }
 
             $dsoRepresentation = fn() => yield from $this->dsoFactory->buildDto($document);

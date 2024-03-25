@@ -2,10 +2,10 @@
 
 namespace App\Repository\ElasticsearchRepository;
 
-use App\Command\ImportDataCommand;
 use App\Services\Elasticsearch;
 use App\Services\Notification;
 use Elasticsearch\Client;
+use App\Command\ImportDeltaDataCommand;
 
 abstract class AbstractRepository
 {
@@ -86,15 +86,15 @@ abstract class AbstractRepository
         ];
 
         switch($document['mode']) {
-            case ImportDataCommand::MODE_CREATE_DOCUMENT: $this->client->create($param);
+            case ImportDeltaDataCommand::MODE_CREATE_DOCUMENT: $this->client->create($param);
                 break;
-            case ImportDataCommand::MODE_UPDATE_DOCUMENT: $this->client->update($param);
+            case ImportDeltaDataCommand::MODE_UPDATE_DOCUMENT: $this->client->update($param);
                 break;
         };
 
         $message = match($document['mode']) {
-            ImportDataCommand::MODE_CREATE_DOCUMENT => sprintf('New object have been added: "%s"', $document['data']['id']),
-            ImportDataCommand::MODE_UPDATE_DOCUMENT => sprintf('"%s" have been updated',$document['data']['id'])
+            ImportDeltaDataCommand::MODE_CREATE_DOCUMENT => sprintf('New object have been added: "%s"', $document['data']['id']),
+            ImportDeltaDataCommand::MODE_UPDATE_DOCUMENT => sprintf('"%s" have been updated',$document['data']['id'])
         };
 
         $notification = [
