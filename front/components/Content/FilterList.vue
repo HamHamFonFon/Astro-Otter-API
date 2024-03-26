@@ -22,7 +22,7 @@
             variant="outlined"
             :placeholder="placeholder"
             rounded
-            @input=" $emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+            @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
           />
         </v-col>
       </v-row>

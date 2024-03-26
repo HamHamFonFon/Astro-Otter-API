@@ -81,6 +81,7 @@
     }
   },
   "catalogs": {
+    "load": "Please wait while loading data…",
     "title": "Catalogs",
     "description": "Browse all catalogs, seek amazing deep space objects and explore wonders of the universe",
     "count": "Results: {nbItems} / {total}"

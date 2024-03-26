@@ -106,11 +106,17 @@ declare global {
     label: string
   }
   interface Filters {
-    constellation?: ValueFilter[],
-    catalog?: ValueFilter[],
-    magnitude?: ValueFilter[],
-    type?: ValueFilter[]
+    constellation: ValueFilter[],
+    catalog: ValueFilter[],
+    magnitude: ValueFilter[],
+    type: ValueFilter[]
+  }
+
+  interface BrowserResponse {
+    items?: Dso[],
+    filters: {[type: string ]: Filters[] },
+    total?: number
   }
 }
 
-export { Constellation, Dso, SearchConstellationItem, SearchDsoItem, Filters }
+export { Constellation, Dso, SearchConstellationItem, SearchDsoItem, BrowserResponse, Filters }

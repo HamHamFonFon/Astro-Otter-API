@@ -12,8 +12,15 @@ const TitlePage = defineAsyncComponent(() => import('@/components/Content/TitleP
 
 <template>
   <TitlePage :title="t('catalogs.title')" />
-
-  <dso-browser />
+  <v-sheet
+    elevation="0"
+    class="landing-warpper"
+    color="transparent"
+  >
+    <v-container class="text-left">
+      <DsoBrowser />
+    </v-container>
+  </v-sheet>
 </template>
 
 <style scoped>

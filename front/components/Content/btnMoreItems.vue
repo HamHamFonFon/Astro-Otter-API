@@ -7,34 +7,29 @@
     class="text-white mr-5"
     color="grey"
     :aria-label="label"
-    @click="clickEvent"
+    @click="$emit('click-event', ($event.target as HTMLInputElement).value)"
   >
     <span>{{ label }}</span>
   </v-btn>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { toRefs } from "vue";
 
-const props = defineProps({
-  label: {
-    type: String,
-    default: ''
-  },
-  icon: {
-    type: String,
-    default: 'mdi-plus'
-  },
-  btnLoading: {
-    type: Boolean,
-    default: false
-  }
-});
-const { label, icon} = toRefs(props);
-const emit = defineEmits(['click-event']);
-const clickEvent = () => {
-  emit('click-event');
+interface Props {
+  label?: string,
+  icon?: string,
+  btnLoading?: boolean
 }
+const props = withDefaults(defineProps<Props>(), {
+  label: '',
+  icon: 'mdi-plus',
+  btnLoading: false
+})
+
+const { label, icon} = toRefs(props);
+
+defineEmits(['click-event'])
 </script>
 
 <style scoped>

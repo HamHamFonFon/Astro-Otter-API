@@ -55,7 +55,7 @@ function getCoverUrl(): string {
           :url-image="getCoverUrl()"
         />
         <v-container class="text-left">
-          <v-row>
+          <v-row v-if="data?.description">
             <v-col
               cols="12"
               md="12"
