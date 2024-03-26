@@ -106,10 +106,10 @@ declare global {
     label: string
   }
   interface Filters {
-    constellation: ValueFilter[],
-    catalog: ValueFilter[],
-    magnitude: ValueFilter[],
-    type: ValueFilter[]
+    constellation: {[type: string ]: ValueFilter[]},
+    catalog: {[type: string ]: ValueFilter[]},
+    magnitude: {[type: string ]: ValueFilter[]},
+    type: {[type: string ]: ValueFilter[]}
   }
 
   interface BrowserResponse {

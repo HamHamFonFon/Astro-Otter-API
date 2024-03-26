@@ -212,13 +212,13 @@ const dsoGeoJson = computed(() => geoJsonDso(listDso))
  */
 const filtersBy = computed(() => {
   return Object.keys(response?.value?.filters || {})
-    .reduce<{[type: string ]: Filters[] }>((acc, key: string) => {
+    .reduce<{[type: string ]: Filters[] }>((acc, key) => {
       if (key !== defaultFilterName.value) {
         acc[key] = response?.value?.filters![key]
       }
 
       return acc;
-    }, { } as any)
+    }, { })
 });
 
 /**
