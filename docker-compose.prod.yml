@@ -10,10 +10,10 @@ services:
       APP_SECRET: ${APP_SECRET}
       MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET}
 
-  pwa:
-     build:
-      context: ./pwa
-      target: prod
+#  pwa:
+#     build:
+#      context: ./pwa
+#      target: prod
 
   caddy:
     build:
