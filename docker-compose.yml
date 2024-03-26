@@ -21,16 +21,16 @@ services:
       MERCURE_PUBLIC_URL: https://${SERVER_NAME:-localhost}/.well-known/mercure
       MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
 
-  pwa:
-    image: ${IMAGES_PREFIX:-}app-pwa
-    environment:
-      NEXT_PUBLIC_ENTRYPOINT: http://caddy
+#  pwa:
+#    image: ${IMAGES_PREFIX:-}app-pwa
+#    environment:
+#      NEXT_PUBLIC_ENTRYPOINT: http://caddy
 
   caddy:
     image: ${IMAGES_PREFIX:-}app-caddy
     depends_on:
       - php
-      - pwa
+#      - pwa
     environment:
       PWA_UPSTREAM: pwa:3000
       SERVER_NAME: ${SERVER_NAME:-localhost}, caddy:80
