@@ -19,6 +19,7 @@ api_platform:
         extra_properties:
             standard_put: true
             rfc_7807_compliant_errors: true
+<<<<<<< ours
     swagger:
         api_keys:
             JWT:
@@ -39,3 +40,7 @@ when@prod:
         enable_entrypoint: false
         enable_swagger: false
         enable_swagger_ui: false
+=======
+    keep_legacy_inflector: false
+    use_symfony_listeners: true
+>>>>>>> theirs
