@@ -33,7 +33,6 @@ api_platform:
     elasticsearch:
         hosts: [ '%env(ELASTICSEARCH_HOST)%' ]
     event_listeners_backward_compatibility_layer: false
-    keep_legacy_inflector: false
 
 when@prod:
     api_platform:
